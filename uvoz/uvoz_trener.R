@@ -16,10 +16,11 @@ trenerji[trenerji$Name == 'Mantilla, Felix', 2] <- 'Alexandr Dolgopolov'
 # Tabel igralcev
 naslov_igralci <- 'http://www.tennis.com/rankings/ATP/'
 
-igralci <- readHTMLTable(naslov_igralci, which=1, stringsAsFactor = FALSE,
+igralci <- readHTMLTable(naslov_igralci, which=1, stringsAsFactors = FALSE,
                          colClasses = c('integer', 'integer', 'character', 'character', 'FormattedInteger'))
 igralci <- igralci[-2]
 igralci <- igralci[1:50, ]
+igralci$Name[grepl('  ', igralci$Name)] <- gsub('  ', ' ', igralci$Name[grepl('  ', igralci$Name)])
 
 # Odstranimo trenerje, ki ne trenirajo koga iz top50
 trenerji <- trenerji[trenerji$Coaches %in% igralci$Name, ]
