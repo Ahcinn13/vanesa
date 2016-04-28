@@ -1,3 +1,8 @@
+# ### NASLEDNJA KODA JE NUJNA, ČE POGANJAŠ SAMO TO SKRIPTO
+# ### ČE ZAGANJAMO 'projekt.R' LAHKO TO KODO ZAKOMENTIRAMO
+# source('uvoz/uvoz_igralci.R', encoding='UTF-8') # VSEBUJE TABELO igralci TER 'library(XML)'
+# ########################################################
+
 ustvari_trenerji <- function(){
   # Tabela trenerjev
   naslov <- 'http://www.atpworldtour.com/en/players/coaches'
@@ -55,21 +60,7 @@ ustvari_trenerji <- function(){
   return(trenerji)
 }
 
-ustvari_igralci <- function(){
-  # Tabela igralcev
-  naslov <- 'http://www.tennis.com/rankings/ATP/'
-  
-  igralci <- readHTMLTable(naslov, which=1, stringsAsFactors = FALSE,
-                           colClasses = c('integer', 'integer', 'character', 'character', 'FormattedInteger'))
-  igralci <- igralci[, -2]
-  igralci <- igralci[1:50, ]
-  igralci$Name[grepl('  ', igralci$Name)] <- gsub('  ', ' ', igralci$Name[grepl('  ', igralci$Name)])
-  
-  return(igralci)
-}
-
 trenerji <- ustvari_trenerji()
-igralci <- ustvari_igralci()
 
 # Odstranimo vse trenerje, ki ne trenirajo top50 igralcev
 trenerji <- trenerji[trenerji$Coaches %in% igralci$Name, ]

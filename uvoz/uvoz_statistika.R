@@ -1,3 +1,9 @@
+# ### NASLEDNJA KODA JE NUJNA, ČE POGANJAŠ SAMO TO SKRIPTO
+# ### ČE ZAGANJAMO 'projekt.R' LAHKO TO KODO ZAKOMENTIRAMO
+# library(XML) # VSEBUJE JO ŽE 'uvoz_igralci.R', ki ga v projekt.R zaženemo najprej
+# ########################################################
+
+
 uvozi_serve <- function(leto){
   naslov <- paste('podatki/stat_serve_', leto, '.html', sep='')
   stat_serve <- readHTMLTable(naslov, which=1, stringsAsFactors = FALSE,
