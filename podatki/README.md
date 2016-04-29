@@ -11,3 +11,5 @@
 
 * [Trenerji](http://www.atpworldtour.com/en/players/coaches)
 
+
+CANADIAN OPEN SE ODVIJA NA 2 LOKACIJAH
