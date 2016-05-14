@@ -41,7 +41,7 @@ trenerji <- ustvari_trenerji() # Ustvarimo tabelo s trenerji
 
 ## Uvozimo serve glede na leto
 uvozi_serve <- function(leto){
-  naslov <- paste('podatki/stat_serve_', leto, '.html', sep='')
+  naslov <- paste('podatki/statistika/stat_serve_', leto, '.html', sep='')
   stat_serve <- readHTMLTable(naslov, which=1, stringsAsFactors = FALSE,
                               colClasses = c('integer', 'character', 'integer', 'character', 'Percent',
                                              'Percent', 'Percent', 'integer', 'Percent', 'integer',
@@ -51,7 +51,7 @@ uvozi_serve <- function(leto){
 
 ## Uvozimo return glede na leto
 uvozi_return <- function(leto){
-  naslov <- paste('podatki/stat_return_', leto, '.html', sep='')
+  naslov <- paste('podatki/statistika/stat_return_', leto, '.html', sep='')
   stat_return <- readHTMLTable(naslov, which=1, stringsAsFactors = FALSE,
                                colClasses = c('integer', 'character', 'integer', 'Percent', 'Percent',
                                               'Percent', 'Percent', 'Percent', 'Percent',
@@ -61,7 +61,7 @@ uvozi_return <- function(leto){
 
 ## Uvozimo break glede na leto
 uvozi_break <- function(leto){
-  naslov <- paste('podatki/stat_break_', leto, '.html', sep='')
+  naslov <- paste('podatki/statistika/stat_break_', leto, '.html', sep='')
   stat_break <- readHTMLTable(naslov, which=1, stringsAsFactors = FALSE,
                               colClasses = c('integer', 'character', 'integer', 'Percent', 'integer',
                                              'integer', 'numeric', 'numeric', 'numeric', 'numeric',
@@ -71,7 +71,7 @@ uvozi_break <- function(leto){
 
 ## Uvozimo more glede na leto
 uvozi_more <- function(leto){
-  naslov <- paste('podatki/stat_more_', leto, '.html', sep='')
+  naslov <- paste('podatki/statistika/stat_more_', leto, '.html', sep='')
   stat_more <- readHTMLTable(naslov, which=1, stringsAsFactors = FALSE,
                              colClasses = c('integer', 'character', 'integer', 'numeric', 'integer',
                                             'Percent', 'integer', 'character', 'Percent', 'Percent',
