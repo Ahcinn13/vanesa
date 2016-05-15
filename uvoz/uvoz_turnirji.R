@@ -2,10 +2,10 @@ library(XML)
 
 # Ustvari tabelo za določen turnir
 ustvari_tabelo_turnir <- function(ime){
-  naslov <- paste('podatki/turnirji/', ime, '.html', sep='')
+  naslov <- paste('podatki/turnirji/', ime, sep='')
   tabela <- readHTMLTable(naslov, which=1, stringsAsFactors=FALSE)
   tabela <- as.data.frame(t(tabela), stringsAsFactors=FALSE)
-  if(ime %in% c('wimbledon', 'roland_garros', 'australian_open', 'us_open')){
+  if(ime %in% c('wimbledon.html', 'roland_garros.html', 'australian_open.html', 'us_open.html')){
     kat <- 'Grand Slam'
   }
   else{
@@ -30,13 +30,23 @@ ustvari_tabelo_turnir <- function(ime){
 #                    Games_Per_Match=c(t1$Games, t2$Games, t3$Games, t4$Games), stringsAsFactors=FALSE)
 
 
-imena <- c('wimbledon', 'roland_garros', 'australian_open', 'us_open', 'indian_wells')
+# imena <- c('wimbledon', 'roland_garros', 'australian_open', 'us_open', 'indian_wells')
+imena <- list.files('podatki/turnirji')
 
 ### PREMISLI, KAKO SE ZNEBIT 'for' ZANKE
-matrika <- rbind(as.matrix(ustvari_tabelo_turnir(imena[1])), as.matrix(ustvari_tabelo_turnir(imena[2])))
-for(i in imena[3:length(imena)]){
+matrika <- matrix(nrow=0, ncol=7)
+for(i in imena){
   matrika <- rbind(matrika, as.matrix(ustvari_tabelo_turnir(i)))
 }
 
-turnirji <- as.data.frame(matrika)
+turnirji <- as.data.frame(matrika, stringsAsFactors = FALSE)
+turnirji[, 5:7] <- sapply(turnirji[, 5:7], function(x) as.numeric(x))
+turnirji[, 2] <- sapply(turnirji[, 2], function(x) as.integer(x))
 
+uredi_ID <- function(ime){
+  ime <- gsub('.html', '', ime)
+  besede <- strsplit(ime, '_')[[1]]
+  paste(toupper(substring(besede, 1, 1)), substring(besede, 2), sep='', collapse=' ')
+}
+
+turnirji$ID <- sapply(turnirji$ID, function(x) uredi_ID(x))
