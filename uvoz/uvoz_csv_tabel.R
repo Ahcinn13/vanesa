@@ -8,7 +8,7 @@ ustvari_tabelo <- function(ime) {
 
 igralci <- ustvari_tabelo('igralci')
 lokacije <- ustvari_tabelo('lokacije')
-stat_2014 <- ustvari_tabelo('stat_2014')
+stat_2014 <- ustvari_tabelo('stat_2014') # POPRAVI ŠE WON_LOSS (TRENUTNO JE STRING)??
 stat_2015 <- ustvari_tabelo('stat_2015')
 stat_2016 <- ustvari_tabelo('stat_2016')
 trenerji <- ustvari_tabelo('trenerji')

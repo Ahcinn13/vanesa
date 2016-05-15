@@ -12,4 +12,4 @@ source('urejanje/urejanje_trenerji.R', encoding='UTF-8')
 #source('urejanje/ustvari_csv', encoding='UTF-8')
 
 # Če imamo .csv (da prihranimo čas, zgubimo prostor)
-source('uvoz/uvoz_csv_tabel.R', encoding='UTF-8')
+source('uvoz/uvoz_csv_tabel.R', encoding='UTF-8') # Verjetno je še treba združit vse 'stat_leto' v eno??
