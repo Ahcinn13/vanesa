@@ -14,9 +14,13 @@ head2head <- function(player1, player2) {
                tourcatall = "all")
   stran <- POST(link, body = data, encode = "form") %>%
     content("text", encoding = "UTF-8") %>% read_html()
-  tabela <- stran %>% html_node(xpath="//table[@class='mecevi']")
-  h2h <- tabela %>% html_nodes(xpath="tr[@class!='special']") %>%
-    sapply(. %>% html_nodes(xpath=".//input[@type='text']") %>%
-             sapply(. %>% html_attr("value"))) %>% t() %>% data.frame()
+  tabela <- stran %>% html_nodes(xpath="//table[@class='mecevi']")
+  if (length(tabela) > 0) {
+    h2h <- tabela[[1]] %>% html_nodes(xpath="tr[@class!='special']") %>%
+      sapply(. %>% html_nodes(xpath=".//input[@type='text']") %>%
+               sapply(. %>% html_attr("value"))) %>% t() %>% data.frame()
+  } else {
+    h2h <- data.frame(matrix(ncol=9, nrow=0))
+  }
   return(h2h)
 }
