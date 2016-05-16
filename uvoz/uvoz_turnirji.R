@@ -1,4 +1,8 @@
 library(XML)
+library(httr)
+library(rvest)
+library(dplyr)
+library(gsubfn)
 
 # Ustvari tabelo za določen turnir
 ustvari_tabelo_turnir <- function(ime){
@@ -50,3 +54,21 @@ uredi_ID <- function(ime){
 }
 
 turnirji$ID <- sapply(turnirji$ID, function(x) uredi_ID(x))
+
+
+###################### DRUGI NAČIN
+
+tournament.stats <- function(tournament) {
+  link <- "http://www.tennisscores-stats.com/tournament-description.php"
+  data <- list(search = "GO!",
+               Tournament1 = tournament)
+  stran <- POST(link, body = data, encode = "form") %>%
+    content("text", encoding = "UTF-8") %>% read_html()
+  tabela <- stran %>% html_nodes(xpath="//table[@id='tourcompall1']") %>%
+    html_table() %>% .[[1]]
+  return(tabela)
+}
+
+# Primer za 'Australian Open'
+# Tabela še ni urejena (primerjaj z zgoraj uvoženo)
+aus_test <- tournament.stats('Australian Open')
