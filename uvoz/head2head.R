@@ -24,3 +24,14 @@ head2head <- function(player1, player2) {
   }
   return(h2h)
 }
+
+tournament.stats <- function(tournament) {
+  link <- "http://www.tennisscores-stats.com/tournament-description.php"
+  data <- list(search = "GO!",
+               Tournament1 = tournament)
+  stran <- POST(link, body = data, encode = "form") %>%
+    content("text", encoding = "UTF-8") %>% read_html()
+  tabela <- stran %>% html_nodes(xpath="//table[@id='tourcompall1']") %>%
+    html_table() %>% .[[1]]
+  return(tabela)
+}
