@@ -11,3 +11,6 @@
 
 * [Trenerji](http://www.atpworldtour.com/en/players/coaches)
 
+###Uporaba
+* Na skupno bazo se še ne moreš povezati!
+
