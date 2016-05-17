@@ -12,5 +12,6 @@
 * [Trenerji](http://www.atpworldtour.com/en/players/coaches)
 
 ###Uporaba
+* Zaženi samo 'uvoz/uvoz_csv_tabel.R', torej source-aj to skripto direkt ali iz zadnje vrstice v 'projekt.R' in zloadale se bodo vse tabele.
 * Na skupno bazo se še ne moreš povezati!
 
