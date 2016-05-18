@@ -45,6 +45,37 @@ h2h <- as.data.frame(matrika)
 colnames(h2h) <- c('Year', 'Tournament', 'Round', 'Player_1', 'Player_2', 'W/L_P1', 'Result', 'Sets_P1', 'Sets_P2')
 
 
+### TUKAJ NAREDIMO RAVNO OBRATNO TABELO ZGORNJE
+matrika1 <- matrix(nrow = 0, ncol = 9)
+for(i in 15:50){
+  for(j in 1:(i-1)){ # Ne rabimo if stavka za i+1 = 50, ker imamo pol par (50, 50) in (50, 51) za (i,j) in dobimo prazno tabelo
+    matrika1 <- rbind(matrika1, as.matrix(head2head(imena[i], imena[j])))
+  }
+}
+
+h2h2 <- as.data.frame(matrika1, row.names = FALSE)
+colnames(h2h2) <- c('Year', 'Tournament', 'Round', 'Player_1', 'Player_2', 'W/L_P1', 'Result', 'Sets_P1', 'Sets_P2')
+
+### TEST, KER 1 VRSTICA V 2. TABELI MANJKA
+### IZKAŽE SE, DA PRI 'Gilles' - 'Tsonga' manjka 1 tekma, ki je prisotna pri 'Tsonga' - 'Gilles'
+prva <- sapply(imena, function(x) sum(h2h$Player_1 == x) + sum(h2h$Player_2 == x))
+druga <- sapply(imena, function(x) sum(h2h2$Player_1 == x) + sum(h2h2$Player_2 == x))
+
+### Dodajmo manjkajočo tekmo na roke
+m1 <- as.matrix(h2h2)
+m <- rbind(m1[1:1195,],
+           matrix(c(as.integer(2008), 'Casablanca Masters 250', 'S', 'Gilles Simon', 'Jo-Wilfried Tsonga',
+                    'W', 'WO', as.integer(0), as.integer(0)), 1, 9),
+           m1[1196:3903,])
+
+h2h3 <- as.data.frame(m, row.names = FALSE)
+
+# # Dodaj kasneje
+#write.csv(h2h, 'podatki/csv/h2h.csv', row.names = FALSE)
+#write.csv(h2h2, 'podatki/csv/h2h2.csv', row.names = FALSE)
+
+
+head2head <- as.matrix(h2h3) %>% rbind(as.matrix(h2h)) %>% as.data.frame()
 # matrika <- matrix(nrow = 0, ncol = 9)
 # for(i in 1:5){
 #   if(i == 5){next}
