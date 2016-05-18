@@ -115,7 +115,15 @@ stat_2016 <- ustvari_statistiko(2016) # Poskrbi, da se naložijo pravi 2016 poda
 stat_2015 <- ustvari_statistiko(2015)
 stat_2014 <- ustvari_statistiko(2014)
 
+stat_2016 <- stat_2016[stat_2016$Name %in% igralci$Name,]
+stat_2015 <- stat_2015[stat_2015$Name %in% igralci$Name,]
+stat_2014 <- stat_2014[stat_2014$Name %in% igralci$Name,]
 
+### STATISTIKE ŠE NE VKLJUČUJEJO VSEH IGRALCEV IZ NAŠEGA SEZNAMA!!!!!
+
+# Združimo v skupno tabelo
+
+stat <- as.data.frame(rbind(as.matrix(stat_2014), as.matrix(stat_2015), as.matrix(stat_2016)), row.names=FALSE)
 
 
 ### #########################
