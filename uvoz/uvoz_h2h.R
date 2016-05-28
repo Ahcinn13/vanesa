@@ -2,6 +2,7 @@ library(httr)
 library(rvest)
 library(dplyr)
 library(gsubfn)
+library(stringr)
 
 head2head <- function(player1, player2) {
   link <- "http://www.tennisscores-stats.com/headtohead.php"
@@ -90,3 +91,12 @@ head2head <- as.matrix(h2h3) %>% rbind(as.matrix(h2h)) %>% as.data.frame()
 #   if(i %in% c(20, 25, 33, 34, 44)){next}
 #   test <- rbind(test, as.matrix(head2head(ime, imena[i])))
 # }
+
+h2h <- data.frame(h2h, str_split_fixed(h2h$Result, ", ", 5))
+h2h$X1 <- sub('\\(.*', '', h2h$X1)
+h2h$X2 <- sub('\\(.*', '', h2h$X2)
+h2h$X3 <- sub('\\(.*', '', h2h$X3)
+h2h$X4 <- sub('\\(.*', '', h2h$X4)
+h2h$X5 <- sub('\\(.*', '', h2h$X5)
+#potrebno še razmislit kako z nizi 
+#odstranit ne potrebne stolpce
