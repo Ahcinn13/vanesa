@@ -4,6 +4,7 @@ library(dplyr)
 library(RPostgreSQL)
 
 source('auth.R', encoding='UTF-8')
+source('uvoz/uvoz_csv_tabel.R', encoding='UTF-8')
 
 # Povežemo se z gonilnikom za PostgreSQL
 drv <- dbDriver("PostgreSQL")
@@ -18,10 +19,10 @@ delete_table <- function(){
     
     # Če tabela obstaja, jo zbrišemo, ter najprej zbrišemo tiste, 
     # ki se navezujejo na druge
-    del_coach <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS coach'))
     del_stat <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS statistics'))
-    del_match <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS match'))
+    del_h2h <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS head2head'))
     del_player <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS player'))
+    del_coach <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS coach'))
     del_tourn <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS tournament'))
     del_loc <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS location'))
   }, finally = {
@@ -118,7 +119,7 @@ create_table <- function(){
     # Ustvarimo relacijo 'is_played_in'
     # Hilfe!
     #ipi <- dbSendQuery(conn, build_sql('CREATE TABLE is_played_in (
-                                       '))
+                                       #'))
     
     
   }, finally = {
@@ -134,7 +135,15 @@ insert_data <- function(){
     # Vzpostavimo povezavo z bazo
     conn <- dbConnect(drv, dbname = db, host = host, user = user, password = password)
     
-    #dbWriteTable(conn, name="player", igralci, overwrite=T, row.names=FALSE)
+    vstavi_coach <- dbWriteTable(conn, name='coach', trenerji, append=T, row.names=F)
+    
+    vstavi_player <- dbWriteTable(conn, name='player', igralci, append=T, row.names=F)
+    
+    vstavi_statistics <- dbWriteTable(conn, name='statistics', stat, append=T, row.names=F)
+    
+    vstavi_location <- dbWriteTable(conn, name='location', lokacije, append=T, row.names=F)
+    
+    vstavi_tournament <- dbWriteTable(conn, name='tournament', turnirji, append=T, row.names=F)
     
     
   }, finally = {
@@ -144,4 +153,4 @@ insert_data <- function(){
 
 delete_table()
 create_table()
-#insert_data()
+insert_data()
