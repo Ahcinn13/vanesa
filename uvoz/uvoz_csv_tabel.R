@@ -26,4 +26,4 @@ colnames(stat) <- c('Name', 'Won_Loss', 'perc_SPW', 'Aces', 'DFs', 'perc_RPW', '
 colnames(trenerji) <- c('Name', 'Coaches')
 colnames(turnirji) <- c('ID', 'Year', 'Surface', 'Category', 'Aces_Per_Match', 'Points_Per_Match', 'Games_Per_Match')
 #colnames(h2h) <- c('Year', 'Tournament', 'Round', 'Player_1', 'Player_2', 'W/L_P1', 'Result', 'Sets_P1', 'Sets_P2')
-colnames(head2head) <- c('Year', 'Tournament', 'Round', 'Player', 'Opponent', 'W/L_P1', 'Result', 'Sets_P1', 'Sets_P2')
+colnames(head2head) <- c('Year', 'Tournament', 'Round', 'Player', 'Opponent', 'WL_P1', 'Set_1', 'Set_2', 'Set_3', 'Set_4', 'Set_5')

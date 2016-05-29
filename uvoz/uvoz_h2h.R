@@ -92,7 +92,8 @@ head2head <- as.matrix(h2h3) %>% rbind(as.matrix(h2h)) %>% as.data.frame()
 #   test <- rbind(test, as.matrix(head2head(ime, imena[i])))
 # }
 
-h2h <- data.frame(h2h, str_split_fixed(h2h$Result, ", ", 5))
+h2h <- head2head
+h2h <- data.frame(h2h, str_split_fixed(h2h$Result, ", ", 5), stringsAsFactors = FALSE)
 h2h$X1 <- sub('\\(.*', '', h2h$X1)
 h2h$X2 <- sub('\\(.*', '', h2h$X2)
 h2h$X3 <- sub('\\(.*', '', h2h$X3)
@@ -100,3 +101,9 @@ h2h$X4 <- sub('\\(.*', '', h2h$X4)
 h2h$X5 <- sub('\\(.*', '', h2h$X5)
 #potrebno še razmislit kako z nizi 
 #odstranit ne potrebne stolpce
+h2h <- h2h[,-c(7,8,9)]
+colnames(h2h) <- c('Year', 'Tournament', 'Round', 'Player', 'Opponent', 'WL_P1', 'Set_1', 'Set_2', 'Set_3', 'Set_4', 'Set_5')
+
+test <- function(niz){
+  return(as.numeric(strsplit(niz, '-')[[1]][1]) > as.numeric(strsplit(niz, '-')[[1]][2]))
+}

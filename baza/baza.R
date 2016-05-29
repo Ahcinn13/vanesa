@@ -8,7 +8,7 @@ source('auth.R', encoding='UTF-8')
 # Povežemo se z gonilnikom za PostgreSQL
 drv <- dbDriver("PostgreSQL")
 
-# Funkcija za brisanje tabel (napiši?)
+# Funkcija za brisanje tabel
 delete_table <- function(){
   # Uporabimo funkcijo tryCatch,
   # da prisilimo prekinitev povezave v primeru napake
@@ -18,12 +18,12 @@ delete_table <- function(){
     
     # Če tabela obstaja, jo zbrišemo, ter najprej zbrišemo tiste, 
     # ki se navezujejo na druge
-    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS coach'))
-    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS statistics'))
-    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS location'))
-    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS match'))
-    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS player'))
-    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS tournament'))
+    del_coach <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS coach'))
+    del_stat <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS statistics'))
+    del_loc <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS location'))
+    del_match <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS match'))
+    del_player <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS player'))
+    del_tourn <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS tournament'))
   }, finally = {
     dbDisconnect(conn)
   })
@@ -63,6 +63,7 @@ create_table <- function(){
     
     # Ustvarimo tabelo STATISTICS
     # Še veliko za popravit
+    # Mogoče 'season' ne bi bil INTEGER, ampak kaj drugega?
     statistics <- dbSendQuery(conn, build_sql('CREATE TABLE statistics (
                                               name TEXT REFERENCES player(name),
                                               won_loss TEXT NOT NULL,
@@ -72,7 +73,27 @@ create_table <- function(){
                                               perc_rpw NUMERIC,
                                               perc_bpoc NUMERIC,
                                               tiebreak_wl TEXT,
-                                              season INTEGER)'))
+                                              season INTEGER,
+                                              PRIMARY KEY (name, season))'))
+    
+    # Ustvarimo tabelo LOCATION
+    location <- dbSendQuery(conn, build_sql('CREATE TABLE location (
+                                            city TEXT PRIMARY KEY,
+                                            country TEXT NOT NULL)'))
+    
+    # Ustvarimo tabelo TOURNAMENT
+    # 'year' kot INTEGER ali kaj drugega?
+    # Dodaj še 'location' in 'country' ... mislim da pravilno rešeno?
+    tournament <- dbSendQuery(conn, build_sql('CREATE TABLE tournament (
+                                              id TEXT,
+                                              year INTEGER, 
+                                              surface TEXT NOT NULL,
+                                              category TEXT NOT NULL,
+                                              apm NUMERIC,
+                                              ppm NUMERIC,
+                                              gpm NUMERIC,
+                                              city TEXT REFERENCES location(city),
+                                              PRIMARY KEY (id, year))'))
     
     
     
