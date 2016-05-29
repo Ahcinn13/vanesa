@@ -20,10 +20,10 @@ delete_table <- function(){
     # ki se navezujejo na druge
     del_coach <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS coach'))
     del_stat <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS statistics'))
-    del_loc <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS location'))
     del_match <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS match'))
     del_player <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS player'))
     del_tourn <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS tournament'))
+    del_loc <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS location'))
   }, finally = {
     dbDisconnect(conn)
   })
