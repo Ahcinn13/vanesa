@@ -1,51 +1,51 @@
-"Rank","Name","Country","Ranking_Points","Age","Height","Weight","Plays","Backhand","Turned_Pro","Career_Titles","Prize_Money_Earned"
-1,"Novak Djokovic","Serbia",16550,28,188,78,"Right-Handed","Two-Handed",2003,64,99272343
-2,"Roger Federer","Switzerland",7525,28,191,84,"Right-Handed","Two-Handed",2005,35,44339508
-3,"Andy Murray","Great Britain",7525,34,185,85,"Right-Handed","One-Handed",1998,88,97958429
-4,"Stanislas Wawrinka","Switzerland",6380,31,183,81,"Right-Handed","One-Handed",2002,13,21912490
-5,"Rafael Nadal","Spain",5675,29,185,85,"Left-Handed","Two-Handed",2001,69,78007139
-6,"Kei Nishikori","Japan",4290,26,178,75,"Right-Handed","Two-Handed",2007,11,12859869
-7,"Jo-Wilfried Tsonga","France",3400,31,188,91,"Right-Handed","Two-Handed",2004,12,17312083
-8,"Tomas Berdych","Czech Republic",2940,30,196,91,"Right-Handed","Two-Handed",2002,12,24567879
-9,"David Ferrer","Spain",2920,34,175,73,"Right-Handed","Two-Handed",2000,26,28839132
-10,"Milos Raonic","Canada",2740,29,185,75,"Right-Handed","One-Handed",2002,13,13835218
-11,"Marin Cilic","Croatia",2725,25,196,98,"Right-Handed","Two-Handed",2008,8,10267349
-12,"Richard Gasquet","France",2680,27,198,89,"Right-Handed","Two-Handed",2005,14,13771599
-13,"David Goffin","Belgium",2570,25,180,68,"Right-Handed","Two-Handed",2009,2,3541952
-14,"Gael Monfils","France",2460,29,193,80,"Right-Handed","Two-Handed",2004,5,10474256
-15,"Dominic Thiem","Austria",2340,22,185,82,"Right-Handed","One-Handed",2011,5,2901723
-16,"John Isner","USA",2100,31,208,108,"Right-Handed","Two-Handed",2007,10,9437400
-17,"Roberto Bautista Agut","Spain",2015,28,183,76,"Right-Handed","Two-Handed",2005,4,4378412
-18,"Gilles Simon","France",1945,31,183,70,"Right-Handed","Two-Handed",2002,12,11015324
-19,"Kevin Anderson","South Africa",1840,29,203,89,"Right-Handed","Two-Handed",2007,3,6806613
-20,"Nick Kyrgios","Australia",1795,21,193,85,"Right-Handed","Two-Handed",2013,1,2538778
-21,"Benoit Paire","France",1686,27,196,80,"Right-Handed","Two-Handed",2007,1,3579203
-22,"Bernard Tomic","Australia",1625,23,196,91,"Right-Handed","Two-Handed",2008,3,4026493
-23,"Feliciano Lopez","Spain",1585,34,188,85,"Left-Handed","One-Handed",1997,4,11779956
-24,"Viktor Troicki","Serbia",1580,30,193,86,"Right-Handed","Two-Handed",2006,3,6269563
-25,"Pablo Cuevas","Uruguay",1485,30,180,80,"Right-Handed","One-Handed",2004,5,4405208
-26,"Philipp Kohlschreiber","Germany",1485,23,191,84,"Right-Handed","Two-Handed",2011,1,3447491
-27,"Jack Sock","USA",1470,32,178,70,"Right-Handed","One-Handed",2001,7,9077947
-28,"Alexandr Dolgopolov","Ukraine",1330,27,180,71,"Right-Handed","Two-Handed",2006,2,5724911
-29,"Ivo Karlovic","Croatia",1315,24,191,80,"Right-Handed","One-Handed",2008,4,6198307
-30,"Joao Sousa","Portugal",1300,28,178,74,"Right-Handed","Two-Handed",2004,3,7347080
-31,"Fabio Fognini","Italy",1285,37,211,104,"Right-Handed","One-Handed",2000,6,6961381
-32,"Jeremy Chardy","France",1220,26,188,86,"Right-Handed","Two-Handed",2012,0,2348313
-33,"Federico Delbonis","Argentina",1210,29,188,75,"Right-Handed","Two-Handed",2005,1,6001111
-34,"Steve Johnson","USA",1190,27,185,73,"Right-Handed","Two-Handed",2005,2,2840986
-35,"Grigor Dimitrov","Bulgaria",1185,28,188,82,"Left-Handed","Two-Handed",2005,4,4365040
-36,"Sam Querrey","USA",1135,25,191,88,"Left-Handed","Two-Handed",2007,2,2059841
-37,"Thomaz Bellucci","Brazil",1080,28,198,95,"Right-Handed","Two-Handed",2006,8,6870992
-38,"Marcos Baghdatis","Cyprus",1067,30,178,82,"Right-Handed","Two-Handed",2003,4,7016844
-39,"Andrey Kuznetsov","Russia",1050,25,185,71,"Right-Handed","Two-Handed",2008,0,1730427
-40,"Gilles Muller","Luxembourg",1020,19,185,79,"Right-Handed","Two-Handed",2013,0,1226792
-41,"Borna Coric","Croatia",1015,32,191,75,"Right-Handed","Two-Handed",2002,3,7727036
-42,"Andreas Seppi","Italy",1005,33,193,88,"Left-Handed","Two-Handed",2001,0,3450903
-43,"Pablo Carreno Busta","Spain",995,25,185,83,"Left-Handed","Two-Handed",2007,0,1057728
-44,"Alexander Zverev","Germany",975,26,191,75,"Left-Handed","Two-Handed",2007,4,3307028
-45,"Martin Klizan","Slovakia",970,25,193,84,"Right-Handed","Two-Handed",2007,0,3837896
-46,"Vasek Pospisil","Canada",965,28,191,83,"Right-Handed","One-Handed",2003,1,3917167
-47,"Nicolas Almagro","Spain",944,32,188,82,"Right-Handed","One-Handed",2002,5,6391724
-48,"Nicolas Mahut","France",931,34,191,80,"Right-Handed","One-Handed",2000,3,6239358
-49,"Leonardo Mayer","Argentina",920,19,198,86,"Right-Handed","Two-Handed",2013,0,852279
-50,"Guido Pella","Argentina",914,24,188,74,"Right-Handed","Two-Handed",2009,0,1733035
+"Rank","Name","Country","Ranking_Points","Age","Height","Weight","Plays","Backhand","Turned_Pro","Career_Titles","Prize_Money_Earned","Coach"
+1,"Novak Djokovic","Serbia",16150,29,188,78,"Right-Handed","Two-Handed",2003,64,99673404,"Boris Becker"
+2,"Andy Murray","Great Britain",8435,29,191,84,"Right-Handed","Two-Handed",2005,36,45157463,"Jamie Delgado"
+3,"Roger Federer","Switzerland",7015,34,185,85,"Right-Handed","One-Handed",1998,88,98011727,"Severin Luthi"
+4,"Stanislas Wawrinka","Switzerland",6315,31,183,81,"Right-Handed","One-Handed",2002,14,22066271,"Magnus Norman"
+5,"Rafael Nadal","Spain",5675,29,185,85,"Left-Handed","Two-Handed",2001,69,78109778,"Toni Nadal"
+6,"Kei Nishikori","Japan",4470,26,178,75,"Right-Handed","Two-Handed",2007,11,13061719,"Dante Bottini"
+7,"Jo-Wilfried Tsonga","France",3355,31,188,91,"Right-Handed","Two-Handed",2004,12,17312083,"Thierry Ascione"
+8,"Tomas Berdych","Czech Republic",2850,30,196,91,"Right-Handed","Two-Handed",2002,12,24621176,"Daniel Vallverdu"
+9,"Milos Raonic","Canada",2785,25,196,98,"Right-Handed","Two-Handed",2008,8,10295446,"Riccardo Piatti"
+10,"Marin Cilic","Croatia",2775,27,198,89,"Right-Handed","Two-Handed",2005,14,13824520,"Goran Ivanisevic"
+11,"David Ferrer","Spain",2740,34,175,73,"Right-Handed","Two-Handed",2000,26,28921094,"Francisco Fogues"
+12,"Richard Gasquet","France",2725,29,185,75,"Right-Handed","One-Handed",2002,13,13888515,"Segi Bruguera"
+13,"David Goffin","Belgium",2570,25,180,68,"Right-Handed","Two-Handed",2009,2,3644590,"Thierry Van Cleemput"
+14,"Gael Monfils","France",2470,29,193,80,"Right-Handed","Two-Handed",2004,5,10489428,"Mikael Tillstrom"
+15,"Dominic Thiem","Austria",2430,22,185,82,"Right-Handed","One-Handed",2011,6,3105805,"Joakim Nystrom"
+16,"Roberto Bautista Agut","Spain",2015,28,183,76,"Right-Handed","Two-Handed",2005,4,4406509,"Pepe Vendrell"
+17,"John Isner","USA",1965,31,208,108,"Right-Handed","Two-Handed",2007,10,9447024,"Justin Gimelstob"
+18,"Gilles Simon","France",1945,31,183,70,"Right-Handed","Two-Handed",2002,12,11030470,"Jan De Witt"
+19,"Nick Kyrgios","Australia",1855,21,193,85,"Right-Handed","Two-Handed",2013,1,2592076,"Lleyton Hewitt"
+20,"Kevin Anderson","South Africa",1840,30,203,89,"Right-Handed","Two-Handed",2007,3,6849856,"Neville Godwin"
+21,"Benoit Paire","France",1641,27,196,80,"Right-Handed","Two-Handed",2007,1,3624480,"Lionel Zimbler"
+22,"Bernard Tomic","Australia",1625,23,196,91,"Right-Handed","Two-Handed",2008,3,4041665,"John Tomic"
+23,"Feliciano Lopez","Spain",1550,34,188,85,"Left-Handed","One-Handed",1997,4,11799484,"José Manuel ""Pepo"" Clavet"
+24,"Viktor Troicki","Serbia",1535,30,193,86,"Right-Handed","Two-Handed",2006,3,6313624,"Jack Reader"
+25,"Jack Sock","USA",1505,23,191,84,"Right-Handed","Two-Handed",2011,1,3537592,"Troy Hahn"
+26,"Philipp Kohlschreiber","Germany",1485,32,178,70,"Right-Handed","One-Handed",2001,7,9122008,"Stephan Fehske"
+27,"Pablo Cuevas","Uruguay",1450,30,180,80,"Right-Handed","One-Handed",2004,5,4436344,"Alberto Mancini"
+28,"Ivo Karlovic","Croatia",1280,37,211,104,"Right-Handed","One-Handed",2000,6,6976553,"Petar Popovic"
+29,"Joao Sousa","Portugal",1275,27,185,73,"Right-Handed","Two-Handed",2005,2,2903923,"Frederico Marques"
+30,"Alexandr Dolgopolov","Ukraine",1270,27,180,71,"Right-Handed","Two-Handed",2006,2,5740083,"Felix Mantilla"
+31,"Lucas Pouille","France",1266,22,185,81,"Right-Handed","Two-Handed",2012,0,1242223,"Emmanuel Planque"
+32,"Jeremy Chardy","France",1265,29,188,75,"Right-Handed","Two-Handed",2005,1,6054408,"Magnus Tideman"
+33,"Fabio Fognini","Italy",1205,29,178,74,"Right-Handed","Two-Handed",2004,3,7371897,"Jose Perlas"
+34,"Steve Johnson","USA",1190,26,188,86,"Right-Handed","Two-Handed",2012,0,2396618,"Craig Boynton"
+35,"Federico Delbonis","Argentina",1165,25,191,88,"Left-Handed","Two-Handed",2007,2,2076174,"Gustavo Tavernini"
+36,"Grigor Dimitrov","Bulgaria",1150,25,191,80,"Right-Handed","One-Handed",2008,4,6213479,"Franco Davin"
+37,"Sam Querrey","USA",1135,28,198,95,"Right-Handed","Two-Handed",2006,8,6915375,"Craig Boynton"
+38,"Andreas Seppi","Italy",1095,32,191,75,"Right-Handed","Two-Handed",2002,3,7775986,"Massimo Sartori"
+39,"Marcos Baghdatis","Cyprus",1067,30,178,82,"Right-Handed","Two-Handed",2003,4,7016844,"Dejan Vojnovic"
+40,"Andrey Kuznetsov","Russia",1063,25,185,71,"Right-Handed","Two-Handed",2008,0,1749247,"Alexander Kuznetsov"
+41,"Alexander Zverev","Germany",1060,19,198,86,"Right-Handed","Two-Handed",2013,0,937715,"Alexander Zverev Sr."
+42,"Gilles Muller","Luxembourg",1020,33,193,88,"Left-Handed","Two-Handed",2001,0,3450903,"Alexandre Lisiecki"
+43,"Pablo Carreno Busta","Spain",995,24,188,74,"Right-Handed","Two-Handed",2009,0,1749368,"Samuel Lopez"
+44,"Nicolas Mahut","France",976,34,191,80,"Right-Handed","One-Handed",2000,3,6267455,"Thierry Ascione"
+45,"Martin Klizan","Slovakia",960,26,191,75,"Left-Handed","Two-Handed",2007,4,3307028,"Martin Hromec"
+46,"Vasek Pospisil","Canada",955,25,193,84,"Right-Handed","Two-Handed",2007,0,3915072,"Frederic Fontang"
+47,"Borna Coric","Croatia",935,19,185,79,"Right-Handed","Two-Handed",2013,0,1241963,"Miles Maclagan"
+48,"Guido Pella","Argentina",899,26,185,83,"Left-Handed","Two-Handed",2007,0,1088046,"Gustavo Marcaccio"
+49,"Nicolas Almagro","Spain",899,30,183,84,"Right-Handed","One-Handed",2003,13,9841303,"Samuel Lopez"
+50,"Ricardas Berankis","Lithuania",885,25,191,88,"Left-Handed","Two-Handed",2007,2,2076174,"Rainer Schuettler"

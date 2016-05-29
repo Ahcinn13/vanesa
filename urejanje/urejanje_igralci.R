@@ -5,7 +5,7 @@
 
 ### Najprej odstranimo vse nepotrebne podatke
 igralci <- igralci[, -2] # Odstranimo 2. stolpec (premikanje po lestvici)
-igralci <- igralci[1:100, ] # Zožamo na TOP100 igralcev
+igralci <- igralci[1:50, ] # Zožamo na TOP100 igralcev
 
 # Popravimo imena, ki imajo 2 presledka namesto 1
 igralci$Name[grepl('  ', igralci$Name)] <- gsub('  ', ' ', igralci$Name[grepl('  ', igralci$Name)])
@@ -64,13 +64,13 @@ igralci[match(c("Philipp Kohlschreiber", "Alexandr Dolgopolov"), igralci$Name), 
 igralci[match(c("Grigor Dimitrov", "Fabio Fognini"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/grigor-dimitrov-vs-fabio-fognini/D875/F510')
 igralci[match(c("Ivo Karlovic", "Steve Johnson"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/ivo-karlovic-vs-steve-johnson/K336/J386')
 igralci[match(c("Jeremy Chardy", "Joao Sousa"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/jeremy-chardy-vs-joao-sousa/CA12/SH90')
-igralci[match(c("Thomaz Bellucci", "Federico Delbonis"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/thomaz-bellucci-vs-federico-delbonis/BD20/D874')
+igralci[match(c("Nicolas Almagro", "Federico Delbonis"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/nicolas-almagro-vs-federico-delbonis/A479/D874')
 igralci[match(c("Sam Querrey", "Marcos Baghdatis"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/sam-querrey-vs-marcos-baghdatis/Q927/B837')
 igralci[match(c("Andrey Kuznetsov", "Borna Coric"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/andrey-kuznetsov-vs-borna-coric/KB54/CG80')
 igralci[match(c("Andreas Seppi", "Gilles Muller"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/andreas-seppi-vs-gilles-muller/SA93/MA30')
 igralci[match(c("Guido Pella", "Martin Klizan"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/guido-pella-vs-martin-klizan/PC11/K966')
-igralci[match(c("Vasek Pospisil", "Leonardo Mayer"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/vasek-pospisil-vs-leonardo-mayer/PD07/MD56')
-igralci[match(c("Guillermo Garcia-Lopez", "Nicolas Mahut"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/guillermo-garcia-lopez-vs-nicolas-mahut/G476/M873')
+igralci[match(c("Vasek Pospisil", "Richard Berankis"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/vasek-pospisil-vs-federico-delbonis/PD07/D874')
+igralci[match(c("Lucas Pouille", "Nicolas Mahut"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/lucas-pouille-vs-nicolas-mahut/PF39/M873')
 igralci[match(c("Alexander Zverev", "Pablo Carreno Busta"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/alexander-zverev-vs-pablo-carreno%20busta/Z355/CD85')
 
 #Zaželjeno bi bilo dodati še nekaj igralcev
@@ -82,5 +82,4 @@ igralci$Turned_Pro <- sapply(igralci$Turned_Pro, function(x) as.numeric(x))
 igralci$Career_Titles <- sapply(igralci$Career_Titles, function(x) as.numeric(x))
 igralci$Prize_Money_Earned <- sapply(igralci$Prize_Money_Earned, function(x) as.numeric(x))
 
-
-igralci <- igralci[1:50, ] # Zožamo na TOP50 igralcev
+igralci$Name[igralci$Name == 'Richard Berankis'] <- 'Ricardas Berankis'

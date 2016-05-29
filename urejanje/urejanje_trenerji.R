@@ -38,7 +38,6 @@ trenerji[length(trenerji$Name)+1, ] <- c('Jack Reader', 'Viktor Troicki')
 trenerji[length(trenerji$Name)+1, ] <- c('Troy Hahn', 'Jack Sock')
 trenerji[length(trenerji$Name)+1, ] <- c('Craig Boynton', 'Steve Johnson')
 trenerji[length(trenerji$Name)+1, ] <- c('Magnus Tideman', 'Jeremy Chardy')
-trenerji[length(trenerji$Name)+1, ] <- c('João Zwestch', 'Thomaz Bellucci') ###### POSEBEN 'a' -> ã
 trenerji[length(trenerji$Name)+1, ] <- c('Craig Boynton', 'Sam Querrey') ###### ISTI TRENER KOT PRI 'Steve Johnson'
 trenerji[length(trenerji$Name)+1, ] <- c('Dejan Vojnovic', 'Marcos Baghdatis')
 trenerji[length(trenerji$Name)+1, ] <- c('Alexander Kuznetsov', 'Andrey Kuznetsov')
@@ -49,3 +48,11 @@ trenerji[length(trenerji$Name)+1, ] <- c('Martin Hromec', 'Martin Klizan')
 trenerji[length(trenerji$Name)+1, ] <- c('Thierry Ascione', 'Nicolas Mahut') ###### IMA 2 TRENERJA + VPISAN TRENER SE PONOVI ŠE PRI 'Jo-Wilfried Tsonga'
 trenerji[length(trenerji$Name)+1, ] <- c('Alexander Zverev Sr.', 'Alexander Zverev')
 trenerji[length(trenerji$Name)+1, ] <- c('Samuel Lopez', 'Pablo Carreno Busta') ###### IMA 2 TRENERJA
+trenerji[length(trenerji$Name)+1, ] <- c('Emmanuel Planque', 'Lucas Pouille')
+trenerji[length(trenerji$Name)+1, ] <- c('Rainer Schuettler', 'Ricardas Berankis')
+
+igralci$Coach <- trenerji$Name[match(igralci$Name, trenerji$Coaches)] # Dodamo stolpec k igralcem
+
+trenerji <- trenerji[-c(39,46,48),] # Odstranimo trenerje, ki se ponovijo
+#trenerji <- trenerji[,-2] # Odstranimo 2. stolpec
+trenerji <- data.frame(Name=trenerji[,1], stringsAsFactors=FALSE)
