@@ -66,13 +66,15 @@ create_table <- function(){
     # Mogoče 'season' ne bi bil INTEGER, ampak kaj drugega?
     statistics <- dbSendQuery(conn, build_sql('CREATE TABLE statistics (
                                               name TEXT REFERENCES player(name),
-                                              won_loss TEXT NOT NULL,
+                                              won INTEGER NOT NULL,
+                                              loss INTEGER NOT NULL,
                                               perc_spw NUMERIC,
                                               aces INTEGER,
                                               dfs INTEGER,
                                               perc_rpw NUMERIC,
                                               perc_bpoc NUMERIC,
-                                              tiebreak_wl TEXT,
+                                              tiebreak_w INTEGER,
+                                              tiebreak_l INTEGER,
                                               season INTEGER,
                                               PRIMARY KEY (name, season))'))
     
