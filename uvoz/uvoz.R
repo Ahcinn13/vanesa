@@ -127,7 +127,7 @@ stat <- as.data.frame(rbind(as.matrix(stat_2014), as.matrix(stat_2015), as.matri
 
 
 ### #########################
-### UVOZIMO TABELO STATISTIKE
+### UVOZIMO TABELO LOKACIJE
 ### #########################
 
 ustvari_lokacije <- function() {

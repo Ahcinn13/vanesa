@@ -34,25 +34,30 @@ imena[imena == 'Stanislas Wawrinka'] <- 'Stan Wawrinka'
 
 matrika <- matrix(nrow = 0, ncol = 9)
 for(i in 1:50){
-  for(j in (i+1):50){ # Ne rabimo if stavka za i+1 = 50, ker imamo pol par (50, 50) in (50, 51) za (i,j) in dobimo prazno tabelo
-    matrika <- rbind(matrika, as.matrix(head2head(imena[i], imena[j])))
+  for(j in 1:50){ # Ne rabimo if stavka za i+1 = 50, ker imamo pol par (50, 50) in (50, 51) za (i,j) in dobimo prazno tabelo
+    if(i==j){
+      next
+    }
+    else{
+      matrika <- rbind(matrika, as.matrix(head2head(imena[i], imena[j])))
+    }
   }
 }
 
-h2h <- as.data.frame(matrika)
-colnames(h2h) <- c('Year', 'Tournament', 'Round', 'Player_1', 'Player_2', 'W/L_P1', 'Result', 'Sets_P1', 'Sets_P2')
+head2head <- as.data.frame(matrika)
+colnames(head2head) <- c('Year', 'Tournament', 'Round', 'Player_1', 'Player_2', 'W/L_P1', 'Result', 'Sets_P1', 'Sets_P2')
 
 
-### TUKAJ NAREDIMO RAVNO OBRATNO TABELO ZGORNJE
-matrika1 <- matrix(nrow = 0, ncol = 9)
-for(i in 15:50){
-  for(j in 1:(i-1)){ # Ne rabimo if stavka za i+1 = 50, ker imamo pol par (50, 50) in (50, 51) za (i,j) in dobimo prazno tabelo
-    matrika1 <- rbind(matrika1, as.matrix(head2head(imena[i], imena[j])))
-  }
-}
-
-h2h2 <- as.data.frame(matrika1, row.names = FALSE)
-colnames(h2h2) <- c('Year', 'Tournament', 'Round', 'Player_1', 'Player_2', 'W/L_P1', 'Result', 'Sets_P1', 'Sets_P2')
+# ### TUKAJ NAREDIMO RAVNO OBRATNO TABELO ZGORNJE
+# matrika1 <- matrix(nrow = 0, ncol = 9)
+# for(i in 15:50){
+#   for(j in 1:(i-1)){ # Ne rabimo if stavka za i+1 = 50, ker imamo pol par (50, 50) in (50, 51) za (i,j) in dobimo prazno tabelo
+#     matrika1 <- rbind(matrika1, as.matrix(head2head(imena[i], imena[j])))
+#   }
+# }
+# 
+# h2h2 <- as.data.frame(matrika1, row.names = FALSE)
+# colnames(h2h2) <- c('Year', 'Tournament', 'Round', 'Player_1', 'Player_2', 'W/L_P1', 'Result', 'Sets_P1', 'Sets_P2')
 
 ### TEST, KER 1 VRSTICA V 2. TABELI MANJKA
 ### IZKAŽE SE, DA PRI 'Gilles' - 'Tsonga' manjka 1 tekma, ki je prisotna pri 'Tsonga' - 'Gilles'
@@ -89,18 +94,7 @@ head2head <- as.matrix(h2h3) %>% rbind(as.matrix(h2h)) %>% as.data.frame()
 #   test <- rbind(test, as.matrix(head2head(ime, imena[i])))
 # }
 
-h2h <- head2head
-h2h <- data.frame(h2h, str_split_fixed(h2h$Result, ", ", 5), stringsAsFactors = FALSE)
-h2h$X1 <- sub('\\(.*', '', h2h$X1)
-h2h$X2 <- sub('\\(.*', '', h2h$X2)
-h2h$X3 <- sub('\\(.*', '', h2h$X3)
-h2h$X4 <- sub('\\(.*', '', h2h$X4)
-h2h$X5 <- sub('\\(.*', '', h2h$X5)
-#potrebno še razmislit kako z nizi 
-#odstranit ne potrebne stolpce
-h2h <- h2h[,-c(7,8,9)]
-colnames(h2h) <- c('Year', 'Tournament', 'Round', 'Player', 'Opponent', 'WL_P1', 'Set_1', 'Set_2', 'Set_3', 'Set_4', 'Set_5')
 
-test <- function(niz){
-  return(as.numeric(strsplit(niz, '-')[[1]][1]) > as.numeric(strsplit(niz, '-')[[1]][2]))
-}
+# test <- function(niz){
+#   return(as.numeric(strsplit(niz, '-')[[1]][1]) > as.numeric(strsplit(niz, '-')[[1]][2]))
+# }
