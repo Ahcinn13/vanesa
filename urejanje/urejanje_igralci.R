@@ -5,7 +5,7 @@
 
 ### Najprej odstranimo vse nepotrebne podatke
 igralci <- igralci[, -2] # Odstranimo 2. stolpec (premikanje po lestvici)
-igralci <- igralci[1:50, ] # Zožamo na TOP50 igralcev
+igralci <- igralci[1:100, ] # Zožamo na TOP100 igralcev
 
 # Popravimo imena, ki imajo 2 presledka namesto 1
 igralci$Name[grepl('  ', igralci$Name)] <- gsub('  ', ' ', igralci$Name[grepl('  ', igralci$Name)])
@@ -47,31 +47,33 @@ poberi_iz_tabele <- function(naslov){
 
 # Dodajajmo sedaj igralcem manjkajoče vrednosti (dodajamo po parih, npr. (1, 2), (3, 4), ...)
 
-igralci[c(1, 2), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/novak-djokovic-vs-andy-murray/D643/MC10')
-igralci[c(3, 4), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/roger-federer-vs-stan-wawrinka/F324/W367')
-igralci[c(5, 6), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/rafael-nadal-vs-kei-nishikori/N409/N552')
-igralci[c(7, 8), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/jo-wilfried-tsonga-vs-tomas-berdych/T786/BA47')
-igralci[c(9, 10), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/david-ferrer-vs-richard-gasquet/F401/G628')
-igralci[c(11, 12), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/milos-raonic-vs-marin-cilic/R975/C977')
-igralci[c(13, 14), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/david-goffin-vs-gael-monfils/GB88/MC65')
-igralci[c(15, 16), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/dominic-thiem-vs-john-isner/TB69/I186')
-igralci[c(17, 18), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/roberto-bautista%20agut-vs-gilles-simon/BD06/SD32')
-igralci[c(19, 20), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/kevin-anderson-vs-nick-kyrgios/A678/KE17')
-igralci[c(21, 22), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/benoit-paire-vs-bernard-tomic/PD31/TA46')
-igralci[c(23, 24), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/feliciano-lopez-vs-viktor-troicki/L397/T840')
-igralci[c(25, 26), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/pablo-cuevas-vs-jack-sock/C882/SM25')
-igralci[c(27, 28), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/philipp-kohlschreiber-vs-alexandr-dolgopolov/K435/D801')
-igralci[c(29, 30), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/grigor-dimitrov-vs-fabio-fognini/D875/F510')
-igralci[c(31, 32), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/ivo-karlovic-vs-steve-johnson/K336/J386')
-igralci[c(33, 34), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/jeremy-chardy-vs-joao-sousa/CA12/SH90')
-igralci[c(35, 36), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/thomaz-bellucci-vs-federico-delbonis/BD20/D874')
-igralci[c(37, 38), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/sam-querrey-vs-marcos-baghdatis/Q927/B837')
-igralci[c(39, 40), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/andrey-kuznetsov-vs-borna-coric/KB54/CG80')
-igralci[c(41, 42), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/andreas-seppi-vs-gilles-muller/SA93/MA30')
-igralci[c(43, 44), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/guido-pella-vs-martin-klizan/PC11/K966')
-igralci[c(45, 46), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/vasek-pospisil-vs-leonardo-mayer/PD07/MD56')
-igralci[c(47, 48), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/guillermo-garcia-lopez-vs-nicolas-mahut/G476/M873')
-igralci[c(49, 50), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/alexander-zverev-vs-pablo-carreno%20busta/Z355/CD85')
+igralci[match(c("Novak Djokovic", "Andy Murray"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/novak-djokovic-vs-andy-murray/D643/MC10')
+igralci[match(c("Roger Federer", "Stanislas Wawrinka"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/roger-federer-vs-stan-wawrinka/F324/W367')
+igralci[match(c("Rafael Nadal", "Kei Nishikori"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/rafael-nadal-vs-kei-nishikori/N409/N552')
+igralci[match(c("Jo-Wilfried Tsonga", "Tomas Berdych"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/jo-wilfried-tsonga-vs-tomas-berdych/T786/BA47')
+igralci[match(c("David Ferrer", "Richard Gasquet"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/david-ferrer-vs-richard-gasquet/F401/G628')
+igralci[match(c("Milos Raonic", "Marin Cilic"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/milos-raonic-vs-marin-cilic/R975/C977')
+igralci[match(c("David Goffin", "Gael Monfils"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/david-goffin-vs-gael-monfils/GB88/MC65')
+igralci[match(c("Dominic Thiem", "John Isner"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/dominic-thiem-vs-john-isner/TB69/I186')
+igralci[match(c("Roberto Bautista Agut", "Gilles Simon"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/roberto-bautista%20agut-vs-gilles-simon/BD06/SD32')
+igralci[match(c("Kevin Anderson", "Nick Kyrgios"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/kevin-anderson-vs-nick-kyrgios/A678/KE17')
+igralci[match(c("Benoit Paire", "Bernard Tomic"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/benoit-paire-vs-bernard-tomic/PD31/TA46')
+igralci[match(c("Feliciano Lopez", "Viktor Troicki"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/feliciano-lopez-vs-viktor-troicki/L397/T840')
+igralci[match(c("Pablo Cuevas", "Jack Sock"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/pablo-cuevas-vs-jack-sock/C882/SM25')
+igralci[match(c("Philipp Kohlschreiber", "Alexandr Dolgopolov"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/philipp-kohlschreiber-vs-alexandr-dolgopolov/K435/D801')
+igralci[match(c("Grigor Dimitrov", "Fabio Fognini"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/grigor-dimitrov-vs-fabio-fognini/D875/F510')
+igralci[match(c("Ivo Karlovic", "Steve Johnson"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/ivo-karlovic-vs-steve-johnson/K336/J386')
+igralci[match(c("Jeremy Chardy", "Joao Sousa"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/jeremy-chardy-vs-joao-sousa/CA12/SH90')
+igralci[match(c("Thomaz Bellucci", "Federico Delbonis"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/thomaz-bellucci-vs-federico-delbonis/BD20/D874')
+igralci[match(c("Sam Querrey", "Marcos Baghdatis"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/sam-querrey-vs-marcos-baghdatis/Q927/B837')
+igralci[match(c("Andrey Kuznetsov", "Borna Coric"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/andrey-kuznetsov-vs-borna-coric/KB54/CG80')
+igralci[match(c("Andreas Seppi", "Gilles Muller"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/andreas-seppi-vs-gilles-muller/SA93/MA30')
+igralci[match(c("Guido Pella", "Martin Klizan"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/guido-pella-vs-martin-klizan/PC11/K966')
+igralci[match(c("Vasek Pospisil", "Leonardo Mayer"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/vasek-pospisil-vs-leonardo-mayer/PD07/MD56')
+igralci[match(c("Guillermo Garcia-Lopez", "Nicolas Mahut"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/guillermo-garcia-lopez-vs-nicolas-mahut/G476/M873')
+igralci[match(c("Alexander Zverev", "Pablo Carreno Busta"), igralci$Name), 5:12] <- poberi_iz_tabele('http://www.atpworldtour.com/en/players/fedex-head-2-head/alexander-zverev-vs-pablo-carreno%20busta/Z355/CD85')
+
+#Zaželjeno bi bilo dodati še nekaj igralcev
 
 igralci$Age <- sapply(igralci$Age, function(x) as.numeric(x))
 igralci$Height <- sapply(igralci$Height, function(x) as.numeric(x))
@@ -79,3 +81,6 @@ igralci$Weight <- sapply(igralci$Weight, function(x) as.numeric(x))
 igralci$Turned_Pro <- sapply(igralci$Turned_Pro, function(x) as.numeric(x))
 igralci$Career_Titles <- sapply(igralci$Career_Titles, function(x) as.numeric(x))
 igralci$Prize_Money_Earned <- sapply(igralci$Prize_Money_Earned, function(x) as.numeric(x))
+
+
+igralci <- igralci[1:50, ] # Zožamo na TOP50 igralcev
