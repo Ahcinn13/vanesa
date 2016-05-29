@@ -20,6 +20,6 @@ colnames(lokacije) <- c('City', 'Country', 'Continent')
 
 colnames(stat) <- c('Name', 'Won_Loss', 'perc_SPW', 'Aces', 'DFs', 'perc_RPW', 'perc_BPOC', 'Tiebreak_WL', 'season')
 colnames(trenerji) <- c('Name')
-colnames(turnirji) <- c('ID', 'Year', 'Surface', 'Category', 'Aces_Per_Match', 'Points_Per_Match', 'Games_Per_Match')
+colnames(turnirji) <- c('ID', 'Year', 'Surface', 'Category', 'Aces_Per_Match', 'Points_Per_Match', 'Games_Per_Match', 'City')
 
 colnames(head2head) <- c('Year', 'Tournament', 'Round', 'Player', 'Opponent', 'WL_P1', 'Set_1', 'Set_2', 'Set_3', 'Set_4', 'Set_5')
