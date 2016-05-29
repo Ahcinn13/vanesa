@@ -1,4 +1,4 @@
-db = 'banka2016_samom'
+db = 'seminarska_samom'
 host = 'baza.fmf.uni-lj.si'
 user = 'javnost'
 password = 'javnogeslo'
