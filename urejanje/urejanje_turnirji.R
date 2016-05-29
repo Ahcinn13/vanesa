@@ -14,3 +14,8 @@ turnirji$City[turnirji$ID == 'Paris Masters'] <- 'Paris'
 turnirji$City[turnirji$ID == 'Shanghai Masters'] <- 'Shanghai'
 turnirji$City[turnirji$ID == 'US Open'] <- 'New York City'
 turnirji$City[turnirji$ID == 'Wimbledon'] <- 'London'
+
+turnirji$City[turnirji$ID == 'Canadian Open' & turnirji$Year %% 2 == 1] <- 'Montreal'
+turnirji$City[turnirji$ID == 'Canadian Open' & turnirji$Year %% 2 == 0] <- 'Toronto'
+
+turnirji$City[turnirji$ID == 'ATP WT Finals'] <- 'London'
