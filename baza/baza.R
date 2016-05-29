@@ -81,7 +81,8 @@ create_table <- function(){
     # Ustvarimo tabelo LOCATION
     location <- dbSendQuery(conn, build_sql('CREATE TABLE location (
                                             city TEXT PRIMARY KEY,
-                                            country TEXT NOT NULL)'))
+                                            country TEXT NOT NULL,
+                                            continent TEXT NOT NULL)'))
     
     # Ustvarimo tabelo TOURNAMENT
     # 'year' kot INTEGER ali kaj drugega?
@@ -97,7 +98,27 @@ create_table <- function(){
                                               city TEXT REFERENCES location(city),
                                               PRIMARY KEY (id, year))'))
     
+    # Ustvarimo tabelo HEAD2HEAD
+    # Pri stoplcu 'tournament' kako naret, da nekateri so iz tournament(id), nekateri pa ne????
+    # Kaj naret z 'round'????
+    h2h <- dbSendQuery(conn, build_sql('CREATE TABLE head2head (
+                                       year INTEGER NOT NULL,
+                                       tournament TEXT,
+                                       round TEXT,
+                                       player TEXT REFERENCES player(name),
+                                       opponent TEXT REFERENCES player(name),
+                                       wl_p1 TEXT NOT NULL,
+                                       set_1 TEXT,
+                                       set_2 TEXT,
+                                       set_3 TEXT,
+                                       set_4 TEXT,
+                                       set_5 TEXT,
+                                       PRIMARY KEY(player, opponent, year, round, tournament))'))
     
+    # Ustvarimo relacijo 'is_played_in'
+    # Hilfe!
+    #ipi <- dbSendQuery(conn, build_sql('CREATE TABLE is_played_in (
+                                       '))
     
     
   }, finally = {
