@@ -13,7 +13,7 @@ trenerji <- ustvari_tabelo('trenerji')
 turnirji <- ustvari_tabelo('turnirji')
 head2head <- ustvari_tabelo('head2head')
 
-colnames(igralci) <- c('Rank', 'Name', 'Country', 'Ranking_Points', 'Age', 'Height', 'Weight', 'Plays', 'Backhand', 'Turned_pro', 'Career_Titles', 'Prize_Money_Earned')
+colnames(igralci) <- c('Name', 'Country', 'Ranking_Points', 'Age', 'Height', 'Weight', 'Plays', 'Backhand', 'Turned_pro', 'Career_Titles', 'Prize_Money_Earned')
 colnames(lokacije) <- c('City', 'Country', 'Continent')
 colnames(stat) <- c('Name', 'Won_Loss', 'perc_SPW', 'Aces', 'DFs', 'perc_RPW', 'perc_BPOC', 'Tiebreak_WL', 'season')
 colnames(trenerji) <- c('Name')

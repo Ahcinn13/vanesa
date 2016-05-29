@@ -83,3 +83,5 @@ igralci$Career_Titles <- sapply(igralci$Career_Titles, function(x) as.numeric(x)
 igralci$Prize_Money_Earned <- sapply(igralci$Prize_Money_Earned, function(x) as.numeric(x))
 
 igralci$Name[igralci$Name == 'Richard Berankis'] <- 'Ricardas Berankis'
+
+igralci <- igralci[,-1]

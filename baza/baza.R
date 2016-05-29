@@ -39,27 +39,27 @@ create_table <- function(){
     # Vzpostavimo povezavo z bazo
     conn <- dbConnect(drv, dbname = db, host = host, user = user, password = password)
     
-    # Ustvarimo tabelo PLAYER
-    # Preveri še kakšen tip bi lahko blo 'turned_pro', ki je leto
-    player <- dbSendQuery(conn, build_sql('CREATE TABLE player (
-                                        rank INTEGER NOT NULL,
-                                        name TEXT PRIMARY KEY,
-                                        country TEXT,
-                                        ranking_points INTEGER NOT NULL,
-                                        age INTEGER NOT NULL,
-                                        height INTEGER NOT NULL,
-                                        weight INTEGER NOT NULL,
-                                        plays TEXT NOT NULL,
-                                        backhand TEXT NOT NULL,
-                                        turned_pro INTEGER NOT NULL,
-                                        career_titles INTEGER NOT NULL,
-                                        prize_money_earned INTEGER NOT NULL)'))
-    
     # Ustvarimo tabelo COACH
     # Preveri kam daš 'Coaches' (koga trenira)
     coach <- dbSendQuery(conn, build_sql('CREATE TABLE coach (
-                                         name TEXT PRIMARY KEY,
-                                         coaches TEXT REFERENCES player(name))'))
+                                         name TEXT PRIMARY KEY)'))
+    
+    # Ustvarimo tabelo PLAYER
+    # Preveri še kakšen tip bi lahko blo 'turned_pro', ki je leto
+    player <- dbSendQuery(conn, build_sql('CREATE TABLE player (
+                                          name TEXT PRIMARY KEY,
+                                          country TEXT NOT NULL,
+                                          ranking_points INTEGER NOT NULL,
+                                          age INTEGER NOT NULL,
+                                          height INTEGER NOT NULL,
+                                          weight INTEGER NOT NULL,
+                                          plays TEXT NOT NULL,
+                                          backhand TEXT NOT NULL,
+                                          turned_pro INTEGER NOT NULL,
+                                          career_titles INTEGER NOT NULL,
+                                          prize_money_earned INTEGER NOT NULL,
+                                          coach TEXT REFERENCES coach(name))'))
+    
     
     # Ustvarimo tabelo STATISTICS
     # Še veliko za popravit
