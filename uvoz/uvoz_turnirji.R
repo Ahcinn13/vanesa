@@ -17,18 +17,6 @@ ustvari_tabelo_turnir <- function(ime){
              Games_Per_Match=tabela[2:7, 7], stringsAsFactors=FALSE)
 }
 
-# t1 <- ustvari_tabelo_turnir('wimbledon')
-# t2 <- ustvari_tabelo_turnir('roland_garros')
-# t3 <- ustvari_tabelo_turnir('australian_open')
-# t4 <- ustvari_tabelo_turnir('us_open')
-
-# ## Ne bo delovalo, če ne popraviš nekaterih imen stolpcev + dodat preostalih tabel
-# turnirji <- data.frame(ID=c(t1$ID, t2$ID, t3$ID, t4$ID), Year=c(t1$Year, t2$Year, t3$Year, t4$Year),
-#                    Surface=c(t1$Surface, t2$Surface, t3$Surface, t4$Surface),
-#                    Category=c(t1$Category, t2$Category, t3$Category, t4$Category),
-#                    Aces_Per_Match=c(t1$Aces, t2$Aces, t3$Aces, t4$Aces),
-#                    Points_Per_Match=c(t1$Points, t2$Points, t3$Points, t4$Points),
-#                    Games_Per_Match=c(t1$Games, t2$Games, t3$Games, t4$Games), stringsAsFactors=FALSE)
 
 
 # imena <- c('wimbledon', 'roland_garros', 'australian_open', 'us_open', 'indian_wells')

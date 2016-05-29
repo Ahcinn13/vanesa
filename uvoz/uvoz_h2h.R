@@ -28,10 +28,7 @@ head2head <- function(player1, player2) {
 
 # h2h <- head2head("Novak Djokovic", "Andy Murray")
 
-# Potrebno je popraviti nekatera imena, da se ujemajo s tistimi na tennisscores-stats.com
-# Pri imena[20] (Nick Kyrgios), imena[25] (Pablo Cuevas), 
-# imena[33] (Federico Delbonis), 34, 44 je problem, treba rešit!!! (Za par z Novak Djokovič)
-### V RESNICI JE PROBLEM, DA NE DELUJE ZA TISTE, KI NISO ODIGRALI NOBENE MEDSEBOJNE TEKME
+
 imena <- igralci$Name
 imena[imena == 'Stanislas Wawrinka'] <- 'Stan Wawrinka'
 

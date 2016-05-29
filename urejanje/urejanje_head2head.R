@@ -1,6 +1,6 @@
 library(stringr)
 
-#uredimo imena turinrjev
+#uredimo imena turnirjev
 head2head$Tournament <- sub('\\ 1.*', '', head2head$Tournament)
 
 head2head$Tournament[head2head$Tournament == 'Roland Garros'] <- 'French Open'
