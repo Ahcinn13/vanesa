@@ -25,5 +25,17 @@ head2head$Tournament[head2head$Tournament == 'Toronto Masters'] <-'Canadian Open
 head2head$Player[head2head$Player == 'Stan Wawrinka'] <- 'Stanislas Wawrinka'
 head2head$Opponent[head2head$Opponent == 'Stan Wawrinka'] <- 'Stanislas Wawrinka'
 
-head2head <- head2head[head2head$Player %in% igralci$Name & head2head$Opponent %in% igralci$Name,]
+#head2head <- head2head[-c(484, 515, 645, 1158, 1793, 4655),] # Odpravimo tekmi, ki se ponovita 2-krat
 
+#View(head2head[head2head$Player == 'Andy Murray' & head2head$Opponent == 'Bernard Tomic',])
+#View(head2head[head2head$Opponent == 'Andy Murray' & head2head$Player == 'Bernard Tomic',])
+
+
+a <- c()
+for(i in 1:7575){
+  if(sum(head2head[i,1:4] == head2head[(i+1),1:4]) == 4){
+    a <- c(a, i+1)
+  }
+}
+
+head2head <- head2head[-a,] # Odstranimo tekme, ki se ponovijo 2-krat

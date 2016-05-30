@@ -4,7 +4,7 @@ library(dplyr)
 library(gsubfn)
 library(stringr)
 
-head2head <- function(player1, player2) {
+uvoz_head2head <- function(player1, player2) {
   link <- "http://www.tennisscores-stats.com/headtohead.php"
   data <- list(search = "GO!",
                Player = player1,
@@ -39,13 +39,13 @@ for(i in 1:50){
       next
     }
     else{
-      matrika <- rbind(matrika, as.matrix(head2head(imena[i], imena[j])))
+      matrika <- rbind(matrika, as.matrix(uvoz_head2head(imena[i], imena[j])))
     }
   }
 }
 
-head2head <- as.data.frame(matrika)
-colnames(head2head) <- c('Year', 'Tournament', 'Round', 'Player_1', 'Player_2', 'W/L_P1', 'Result', 'Sets_P1', 'Sets_P2')
+head2head <- as.data.frame(matrika, stringsAsFactors=F)
+colnames(head2head) <- c('Year', 'Tournament', 'Round', 'Player', 'Opponent', 'WL_P1', 'Result', 'Sets_P1', 'Sets_P2')
 
 
 # ### TUKAJ NAREDIMO RAVNO OBRATNO TABELO ZGORNJE
@@ -61,24 +61,27 @@ colnames(head2head) <- c('Year', 'Tournament', 'Round', 'Player_1', 'Player_2', 
 
 ### TEST, KER 1 VRSTICA V 2. TABELI MANJKA
 ### IZKAŽE SE, DA PRI 'Gilles' - 'Tsonga' manjka 1 tekma, ki je prisotna pri 'Tsonga' - 'Gilles'
-prva <- sapply(imena, function(x) sum(h2h$Player_1 == x) + sum(h2h$Player_2 == x))
-druga <- sapply(imena, function(x) sum(h2h2$Player_1 == x) + sum(h2h2$Player_2 == x))
+prva <- sapply(imena, function(x) sum(head2head$Player == x))
+druga <- sapply(imena, function(x) sum(head2head$Opponent == x))
 
-### Dodajmo manjkajočo tekmo na roke
-m1 <- as.matrix(h2h2)
-m <- rbind(m1[1:1195,],
-           matrix(c(as.integer(2008), 'Casablanca Masters 250', 'S', 'Gilles Simon', 'Jo-Wilfried Tsonga',
-                    'W', 'WO', as.integer(0), as.integer(0)), 1, 9),
-           m1[1196:3903,])
+head2head[dim(head2head)[1]+1,] <- c(as.integer(2008), 'Casablanca Masters 250', 'S', 'Gilles Simon', 'Jo-Wilfried Tsonga',
+                          'W', 'WO', as.integer(0), as.integer(0))
 
-h2h3 <- as.data.frame(m, row.names = FALSE)
+# ### Dodajmo manjkajočo tekmo na roke
+# m1 <- as.matrix(h2h2)
+# m <- rbind(m1[1:1195,],
+#            matrix(c(as.integer(2008), 'Casablanca Masters 250', 'S', 'Gilles Simon', 'Jo-Wilfried Tsonga',
+#                     'W', 'WO', as.integer(0), as.integer(0)), 1, 9),
+#            m1[1196:3903,])
+# 
+# h2h3 <- as.data.frame(m, row.names = FALSE)
 
 # # Dodaj kasneje
 #write.csv(h2h, 'podatki/csv/h2h.csv', row.names = FALSE)
 #write.csv(h2h2, 'podatki/csv/h2h2.csv', row.names = FALSE)
 
 
-head2head <- as.matrix(h2h3) %>% rbind(as.matrix(h2h)) %>% as.data.frame()
+#head2head <- as.matrix(h2h3) %>% rbind(as.matrix(h2h)) %>% as.data.frame()
 # matrika <- matrix(nrow = 0, ncol = 9)
 # for(i in 1:5){
 #   if(i == 5){next}

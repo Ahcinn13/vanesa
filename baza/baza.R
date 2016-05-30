@@ -145,6 +145,8 @@ insert_data <- function(){
     
     vstavi_tournament <- dbWriteTable(conn, name='tournament', turnirji, append=T, row.names=F)
     
+    vstavi_h2h <- dbWriteTable(conn, name='head2head', head2head, append=T, row.names=F)
+    
     
   }, finally = {
     dbDisconnect(conn)
