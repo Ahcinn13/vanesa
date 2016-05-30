@@ -19,6 +19,7 @@ delete_table <- function(){
     
     # Če tabela obstaja, jo zbrišemo, ter najprej zbrišemo tiste, 
     # ki se navezujejo na druge
+    del_sets <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS sets'))
     del_stat <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS statistics'))
     del_h2h <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS head2head'))
     del_player <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS player'))
@@ -103,18 +104,20 @@ create_table <- function(){
     # Pri stoplcu 'tournament' kako naret, da nekateri so iz tournament(id), nekateri pa ne????
     # Kaj naret z 'round'????
     h2h <- dbSendQuery(conn, build_sql('CREATE TABLE head2head (
-                                       ID TEXT PRIMARY KEY,
+                                       id INTEGER PRIMARY KEY,
                                        year INTEGER NOT NULL,
                                        tournament TEXT,
                                        round TEXT,
                                        player TEXT REFERENCES player(name),
-                                       opponent TEXT REFERENCES player(name),
-                                       wl_p1 TEXT NOT NULL,
-                                       set_1 TEXT,
-                                       set_2 TEXT,
-                                       set_3 TEXT,
-                                       set_4 TEXT,
-                                       set_5 TEXT)'))
+                                       opponent TEXT REFERENCES player(name))'))
+    
+    # Ustvarimo tabelo SETS
+    nizi <- dbSendQuery(conn, build_sql('CREATE TABLE sets (
+                                        id INTEGER REFERENCES head2head(id),
+                                        set INTEGER NOT NULL,
+                                        p1_score INTEGER NOT NULL,
+                                        p2_score INTEGER NOT NULL,
+                                        PRIMARY KEY (id, set))'))
     
     # Ustvarimo relacijo 'is_played_in'
     # Hilfe!
@@ -145,7 +148,9 @@ insert_data <- function(){
     
     vstavi_tournament <- dbWriteTable(conn, name='tournament', turnirji, append=T, row.names=F)
     
-    vstavi_h2h <- dbWriteTable(conn, name='head2head', head2head, append=T, row.names=T)
+    vstavi_h2h <- dbWriteTable(conn, name='head2head', head2head, append=T, row.names=F)
+    
+    vstavi_sets <- dbWriteTable(conn, name='sets', sets, append=T, row.names=F)
     
     
   }, finally = {

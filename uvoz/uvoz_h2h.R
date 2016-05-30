@@ -20,9 +20,9 @@ uvoz_head2head <- function(player1, player2) {
     h2h <- tabela[[1]] %>% html_nodes(xpath="tr[@class!='special']") %>%
       sapply(. %>% html_nodes(xpath=".//input[@type='text']") %>%
                sapply(. %>% html_attr("value"))) %>% t() %>% data.frame()
-    } else {
-      h2h <- data.frame(matrix(ncol=9, nrow=0))
-    }
+  } else {
+    h2h <- data.frame(matrix(ncol=9, nrow=0))
+  }
   return(h2h)
 }
 
@@ -31,21 +31,16 @@ uvoz_head2head <- function(player1, player2) {
 
 imena <- igralci$Name
 imena[imena == 'Stanislas Wawrinka'] <- 'Stan Wawrinka'
-
 imena <- sort(imena)
+
 matrika <- matrix(nrow = 0, ncol = 9)
-for(i in 1:50){
-  for(j in 1:50){ # Ne rabimo if stavka za i+1 = 50, ker imamo pol par (50, 50) in (50, 51) za (i,j) in dobimo prazno tabelo
-    if(i==j){
-      next
-    }
-    else{
-      matrika <- rbind(matrika, as.matrix(uvoz_head2head(imena[i], imena[j])))
-    }
+for(i in 1:49){
+  for(j in (i+1):50){
+    matrika <- rbind(matrika, as.matrix(uvoz_head2head(imena[i], imena[j])))
   }
 }
 
-head2head <- as.data.frame(matrika, stringsAsFactors=F)
+head2head <- as.data.frame(matrika, row.names=1:dim(matrika)[1], stringsAsFactors=F)
 colnames(head2head) <- c('Year', 'Tournament', 'Round', 'Player', 'Opponent', 'WL_P1', 'Result', 'Sets_P1', 'Sets_P2')
 
 
@@ -60,13 +55,13 @@ colnames(head2head) <- c('Year', 'Tournament', 'Round', 'Player', 'Opponent', 'W
 # h2h2 <- as.data.frame(matrika1, row.names = FALSE)
 # colnames(h2h2) <- c('Year', 'Tournament', 'Round', 'Player_1', 'Player_2', 'W/L_P1', 'Result', 'Sets_P1', 'Sets_P2')
 
-### TEST, KER 1 VRSTICA V 2. TABELI MANJKA
-### IZKAŽE SE, DA PRI 'Gilles' - 'Tsonga' manjka 1 tekma, ki je prisotna pri 'Tsonga' - 'Gilles'
-prva <- sapply(imena, function(x) sum(head2head$Player == x))
-druga <- sapply(imena, function(x) sum(head2head$Opponent == x))
-
-head2head[dim(head2head)[1]+1,] <- c(as.integer(2008), 'Casablanca Masters 250', 'S', 'Gilles Simon', 'Jo-Wilfried Tsonga',
-                          'W', 'WO', as.integer(0), as.integer(0))
+# ### TEST, KER 1 VRSTICA V 2. TABELI MANJKA
+# ### IZKAŽE SE, DA PRI 'Gilles' - 'Tsonga' manjka 1 tekma, ki je prisotna pri 'Tsonga' - 'Gilles'
+# prva <- sapply(imena, function(x) sum(head2head$Player == x))
+# druga <- sapply(imena, function(x) sum(head2head$Opponent == x))
+# 
+# head2head[dim(head2head)[1]+1,] <- c(as.integer(2008), 'Casablanca Masters 250', 'S', 'Gilles Simon', 'Jo-Wilfried Tsonga',
+#                           'W', 'WO', as.integer(0), as.integer(0))
 
 # ### Dodajmo manjkajočo tekmo na roke
 # m1 <- as.matrix(h2h2)
