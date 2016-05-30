@@ -103,6 +103,7 @@ create_table <- function(){
     # Pri stoplcu 'tournament' kako naret, da nekateri so iz tournament(id), nekateri pa ne????
     # Kaj naret z 'round'????
     h2h <- dbSendQuery(conn, build_sql('CREATE TABLE head2head (
+                                       ID TEXT PRIMARY KEY,
                                        year INTEGER NOT NULL,
                                        tournament TEXT,
                                        round TEXT,
@@ -113,8 +114,7 @@ create_table <- function(){
                                        set_2 TEXT,
                                        set_3 TEXT,
                                        set_4 TEXT,
-                                       set_5 TEXT,
-                                       PRIMARY KEY(player, opponent, year, round, tournament))'))
+                                       set_5 TEXT)'))
     
     # Ustvarimo relacijo 'is_played_in'
     # Hilfe!
@@ -145,7 +145,7 @@ insert_data <- function(){
     
     vstavi_tournament <- dbWriteTable(conn, name='tournament', turnirji, append=T, row.names=F)
     
-    vstavi_h2h <- dbWriteTable(conn, name='head2head', head2head, append=T, row.names=F)
+    vstavi_h2h <- dbWriteTable(conn, name='head2head', head2head, append=T, row.names=T)
     
     
   }, finally = {

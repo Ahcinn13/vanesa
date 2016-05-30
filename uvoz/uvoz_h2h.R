@@ -32,6 +32,7 @@ uvoz_head2head <- function(player1, player2) {
 imena <- igralci$Name
 imena[imena == 'Stanislas Wawrinka'] <- 'Stan Wawrinka'
 
+imena <- sort(imena)
 matrika <- matrix(nrow = 0, ncol = 9)
 for(i in 1:50){
   for(j in 1:50){ # Ne rabimo if stavka za i+1 = 50, ker imamo pol par (50, 50) in (50, 51) za (i,j) in dobimo prazno tabelo

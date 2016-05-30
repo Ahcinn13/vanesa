@@ -33,9 +33,13 @@ head2head$Opponent[head2head$Opponent == 'Stan Wawrinka'] <- 'Stanislas Wawrinka
 
 a <- c()
 for(i in 1:7575){
-  if(sum(head2head[i,1:4] == head2head[(i+1),1:4]) == 4){
+  if(sum(head2head[i,] == head2head[(i+1),]) == 11){
     a <- c(a, i+1)
   }
 }
 
 head2head <- head2head[-a,] # Odstranimo tekme, ki se ponovijo 2-krat
+rownames(head2head) <- 1:dim(head2head)[1] 
+head2head <- head2head[ , 1:5]
+
+
