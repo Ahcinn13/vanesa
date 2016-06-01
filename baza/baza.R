@@ -43,8 +43,8 @@ create_table <- function(){
     
     # Ustvarimo tabelo COACH
     # Preveri kam daš 'Coaches' (koga trenira)
-    coach <- dbSendQuery(conn, build_sql('CREATE TABLE coach (
-                                         name TEXT PRIMARY KEY)'))
+    #coach <- dbSendQuery(conn, build_sql('CREATE TABLE coach (
+    #                                     name TEXT PRIMARY KEY)'))
     
     # Ustvarimo tabelo PLAYER
     # Preveri še kakšen tip bi lahko blo 'turned_pro', ki je leto
@@ -59,9 +59,16 @@ create_table <- function(){
                                           backhand TEXT NOT NULL,
                                           turned_pro INTEGER NOT NULL,
                                           career_titles INTEGER NOT NULL,
-                                          prize_money_earned INTEGER NOT NULL,
-                                          coach TEXT REFERENCES coach(name))'))
-
+                                          prize_money_earned INTEGER NOT NULL'))
+    # Ustvarimo tabelo COACH
+    # Tabela coach je bila po našem ER diagramu napačna,
+    # podatek o tem, koga trenira, damo v tabelo coach, ne v player.
+    # Morda bi dodali še, da se sme zbrisati ali posodobiti rederenčne tabele,
+    # oziroma da se to ne sme .. (on delete/update cascade
+    # in on delete/update restrict). Če bi bilo potrebno.
+    coach <- dbSendQuery(conn, build_sql('CREATE TABLE coach (
+                                         name TEXT PRIMARY KEY,
+                                         player TEXT REFERENCES player(name))'))
     
     
     # Ustvarimo tabelo STATISTICS
