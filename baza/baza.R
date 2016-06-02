@@ -90,15 +90,15 @@ create_table <- function(){
     # 'year' kot INTEGER ali kaj drugega?
     # Dodaj še 'location' in 'country' ... mislim da pravilno rešeno?
     tournament <- dbSendQuery(conn, build_sql('CREATE TABLE tournament (
-                                              id TEXT,
+                                              id SERIAL PRIMARY KEY,
+                                              name TEXT,
                                               year INTEGER, 
-                                              surface TEXT NOT NULL,
-                                              category TEXT NOT NULL,
+                                              surface TEXT,
+                                              category TEXT,
                                               apm NUMERIC,
                                               ppm NUMERIC,
                                               gpm NUMERIC,
-                                              city TEXT REFERENCES location(city),
-                                              PRIMARY KEY (id, year))'))
+                                              city TEXT REFERENCES location(city)'))
     
     # Ustvarimo tabelo HEAD2HEAD
     # Pri stoplcu 'tournament' kako naret, da nekateri so iz tournament(id), nekateri pa ne????
@@ -106,7 +106,7 @@ create_table <- function(){
     h2h <- dbSendQuery(conn, build_sql('CREATE TABLE head2head (
                                        id INTEGER PRIMARY KEY,
                                        year INTEGER NOT NULL,
-                                       tournament TEXT,
+                                       tournament INTEGER NOT NULL REFERENCES tournament(id),
                                        round TEXT,
                                        player TEXT REFERENCES player(name),
                                        opponent TEXT REFERENCES player(name))'))
@@ -123,8 +123,9 @@ create_table <- function(){
     # Hilfe!
     #ipi <- dbSendQuery(conn, build_sql('CREATE TABLE is_played_in (
                                        #'))
-    
-    
+    pravice <- dbSendQuery(conn, build_sql('GRANT SELECT ON ALL TABLES IN SCHEMA public TO javnost'))
+    pravice2 <- dbSendQuery(conn, build_sql('GRANT ALL ON DATABASE sem2016_samom TO valentinag'))                               
+    pravice3 <- dbSendQuery(conn, build_sql('GRANT SELECT ON ALL TABLES IN SCHEMA public TO valentinag'))
   }, finally = {
     dbDisconnect(conn)
   })
