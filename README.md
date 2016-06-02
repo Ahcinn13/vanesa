@@ -1,6 +1,6 @@
-# Tenis
+﻿# Tenis
 **Projekt pri predmetu OPB, 2015/16**
-![ER diagram](ERdiagram/ERdiagram.png)
+![ER diagram](ERdiagram/ERdiagram1.png)
 
 ###Viri:
 * [Igralci (top 100)](http://www.tennis.com/rankings/ATP/)
