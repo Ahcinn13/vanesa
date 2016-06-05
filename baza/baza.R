@@ -60,14 +60,14 @@ create_table <- function(){
                                           turned_pro INTEGER NOT NULL,
                                           career_titles INTEGER NOT NULL,
                                           prize_money_earned INTEGER NOT NULL,
-                                          coach TEXT NOT NULL)'))
+                                          coach TEXT NOT NULL REFERENCES coach(name))'))
     
     
     # Ustvarimo tabelo STATISTICS
     # Še veliko za popravit
     # Mogoče 'season' ne bi bil INTEGER, ampak kaj drugega?
     statistics <- dbSendQuery(conn, build_sql('CREATE TABLE statistics (
-                                              name TEXT,
+                                              name TEXT REFERENCES player(name),
                                               won INTEGER NOT NULL,
                                               loss INTEGER NOT NULL,
                                               perc_spw NUMERIC,
@@ -77,7 +77,8 @@ create_table <- function(){
                                               perc_bpoc NUMERIC,
                                               tiebreak_w INTEGER,
                                               tiebreak_l INTEGER,
-                                              season INTEGER)'))
+                                              season INTEGER,
+                                              id SERIAL PRIMARY KEY)'))
     
     # Ustvarimo tabelo LOCATION
     location <- dbSendQuery(conn, build_sql('CREATE TABLE location (
@@ -88,6 +89,7 @@ create_table <- function(){
     # Ustvarimo tabelo TOURNAMENT
     # 'year' kot INTEGER ali kaj drugega?
     # Dodaj še 'location' in 'country' ... mislim da pravilno rešeno?
+    # Location popravi za manjkajoče
     tournament <- dbSendQuery(conn, build_sql('CREATE TABLE tournament (
                                               name TEXT,
                                               year INTEGER, 
@@ -97,7 +99,7 @@ create_table <- function(){
                                               ppm NUMERIC,
                                               gpm NUMERIC,
                                               city TEXT,
-                                              idn SERIAL PRIMARY KEY)'))
+                                              id SERIAL PRIMARY KEY)'))
     
     # Ustvarimo tabelo HEAD2HEAD
     # Pri stoplcu 'tournament' kako naret, da nekateri so iz tournament(id), nekateri pa ne????
@@ -107,16 +109,16 @@ create_table <- function(){
                                        year INTEGER NOT NULL,
                                        tournament TEXT NOT NULL,
                                        round TEXT,
-                                       player TEXT,
-                                       opponent TEXT)'))
+                                       player TEXT REFERENCES player(name),
+                                       opponent TEXT REFERENCES player(name))'))
     
     # Ustvarimo tabelo SETS
     nizi <- dbSendQuery(conn, build_sql('CREATE TABLE sets (
-                                        id INTEGER,
+                                        match INTEGER,
                                         set INTEGER NOT NULL,
                                         p1_score INTEGER NOT NULL,
                                         p2_score INTEGER NOT NULL,
-                                        PRIMARY KEY (id, set))'))
+                                        id SERIAL PRIMARY KEY)'))
     
     # Ustvarimo relacijo 'is_played_in'
     # Hilfe!
@@ -131,7 +133,13 @@ create_table <- function(){
 }
 
 turnirji[,9] <- 1:175
-colnames(turnirji) <- c('name', 'Year', 'Surface', 'Category', 'Aces_Per_Match', 'Points_Per_Match', 'Games_Per_Match', 'City', 'idn')
+colnames(turnirji) <- c('Name', 'Year', 'Surface', 'Category', 'Aces_Per_Match', 'Points_Per_Match', 'Games_Per_Match', 'City', 'id')
+
+stat[,12] <- 1:150
+colnames(stat) <- c('Name', 'Won', 'Loss', 'perc_SPW', 'Aces', 'DFs', 'perc_RPW', 'perc_BPOC', 'Tiebreak_W', 'Tiebreak_L', 'season','id')
+
+sets[,5] <- 1:9782
+colnames(sets) <- c('id', 'Set', 'P1_score', 'P2_score', 'id')
 
 # Vstavimo podatke iz naših tabel
 insert_data <- function(){
