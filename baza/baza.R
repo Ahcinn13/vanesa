@@ -96,7 +96,8 @@ create_table <- function(){
                                               apm NUMERIC,
                                               ppm NUMERIC,
                                               gpm NUMERIC,
-                                              city TEXT)'))
+                                              city TEXT,
+                                              idn SERIAL PRIMARY KEY)'))
     
     # Ustvarimo tabelo HEAD2HEAD
     # Pri stoplcu 'tournament' kako naret, da nekateri so iz tournament(id), nekateri pa ne????
@@ -128,6 +129,9 @@ create_table <- function(){
     dbDisconnect(conn)
   })
 }
+
+turnirji[,9] <- 1:175
+colnames(turnirji) <- c('name', 'Year', 'Surface', 'Category', 'Aces_Per_Match', 'Points_Per_Match', 'Games_Per_Match', 'City', 'idn')
 
 # Vstavimo podatke iz naših tabel
 insert_data <- function(){
