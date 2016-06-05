@@ -20,8 +20,8 @@ delete_table <- function(){
     # Če tabela obstaja, jo zbrišemo, ter najprej zbrišemo tiste, 
     # ki se navezujejo na druge
     del_sets <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS sets'))
-    del_stat <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS statistics'))
     del_h2h <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS head2head'))
+    del_stat <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS statistics'))
     del_player <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS player'))
     del_coach <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS coach'))
     del_tourn <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS tournament'))
@@ -60,14 +60,14 @@ create_table <- function(){
                                           turned_pro INTEGER NOT NULL,
                                           career_titles INTEGER NOT NULL,
                                           prize_money_earned INTEGER NOT NULL,
-                                          coach TEXT REFERENCES coach(name))'))
+                                          coach TEXT NOT NULL)'))
     
     
     # Ustvarimo tabelo STATISTICS
     # Še veliko za popravit
     # Mogoče 'season' ne bi bil INTEGER, ampak kaj drugega?
     statistics <- dbSendQuery(conn, build_sql('CREATE TABLE statistics (
-                                              name TEXT REFERENCES player(name),
+                                              name TEXT,
                                               won INTEGER NOT NULL,
                                               loss INTEGER NOT NULL,
                                               perc_spw NUMERIC,
@@ -77,8 +77,7 @@ create_table <- function(){
                                               perc_bpoc NUMERIC,
                                               tiebreak_w INTEGER,
                                               tiebreak_l INTEGER,
-                                              season INTEGER,
-                                              PRIMARY KEY (name, season))'))
+                                              season INTEGER)'))
     
     # Ustvarimo tabelo LOCATION
     location <- dbSendQuery(conn, build_sql('CREATE TABLE location (
@@ -90,7 +89,6 @@ create_table <- function(){
     # 'year' kot INTEGER ali kaj drugega?
     # Dodaj še 'location' in 'country' ... mislim da pravilno rešeno?
     tournament <- dbSendQuery(conn, build_sql('CREATE TABLE tournament (
-                                              id SERIAL PRIMARY KEY,
                                               name TEXT,
                                               year INTEGER, 
                                               surface TEXT,
@@ -98,7 +96,7 @@ create_table <- function(){
                                               apm NUMERIC,
                                               ppm NUMERIC,
                                               gpm NUMERIC,
-                                              city TEXT REFERENCES location(city)'))
+                                              city TEXT)'))
     
     # Ustvarimo tabelo HEAD2HEAD
     # Pri stoplcu 'tournament' kako naret, da nekateri so iz tournament(id), nekateri pa ne????
@@ -106,14 +104,14 @@ create_table <- function(){
     h2h <- dbSendQuery(conn, build_sql('CREATE TABLE head2head (
                                        id INTEGER PRIMARY KEY,
                                        year INTEGER NOT NULL,
-                                       tournament INTEGER NOT NULL REFERENCES tournament(id),
+                                       tournament TEXT NOT NULL,
                                        round TEXT,
-                                       player TEXT REFERENCES player(name),
-                                       opponent TEXT REFERENCES player(name))'))
+                                       player TEXT,
+                                       opponent TEXT)'))
     
     # Ustvarimo tabelo SETS
     nizi <- dbSendQuery(conn, build_sql('CREATE TABLE sets (
-                                        id INTEGER REFERENCES head2head(id),
+                                        id INTEGER,
                                         set INTEGER NOT NULL,
                                         p1_score INTEGER NOT NULL,
                                         p2_score INTEGER NOT NULL,
