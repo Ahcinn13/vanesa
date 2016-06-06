@@ -132,7 +132,7 @@ create_table <- function(){
   })
 }
 
-turnirji[,9] <- 1:175
+turnirji[,9] <- 1:592
 colnames(turnirji) <- c('Name', 'Year', 'Surface', 'Category', 'Aces_Per_Match', 'Points_Per_Match', 'Games_Per_Match', 'City', 'id')
 
 stat[,12] <- 1:150
