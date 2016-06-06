@@ -71,18 +71,19 @@
 "Shanghai Masters","2013","Hard","Masters 1000"," 7.41","139.8","22.4","Shanghai"
 "Shanghai Masters","2012","Hard","Masters 1000"," 5.96","138.7","22.0","Shanghai"
 "Shanghai Masters","2011","Hard","Masters 1000"," 5.63","152.8","24.0","Shanghai"
-"US Open","2016","Hard","Grand Slam"," 0.00","  0.0"," 0.0","New York City"
-"US Open","2015","Hard","Grand Slam"," 9.63","214.9","34.6","New York City"
-"US Open","2014","Hard","Grand Slam"," 9.32","218.3","34.7","New York City"
-"US Open","2013","Hard","Grand Slam"," 8.78","226.2","35.7","New York City"
-"US Open","2012","Hard","Grand Slam"," 9.63","231.4","36.8","New York City"
-"US Open","2011","Hard","Grand Slam"," 7.39","210.0","33.1","New York City"
+"US Open","2016","Hard","Masters 1000"," 0.00","  0.0"," 0.0","New York City"
+"US Open","2015","Hard","Masters 1000"," 9.63","214.9","34.6","New York City"
+"US Open","2014","Hard","Masters 1000"," 9.32","218.3","34.7","New York City"
+"US Open","2013","Hard","Masters 1000"," 8.78","226.2","35.7","New York City"
+"US Open","2012","Hard","Masters 1000"," 9.63","231.4","36.8","New York City"
+"US Open","2011","Hard","Masters 1000"," 7.39","210.0","33.1","New York City"
 "Wimbledon","2016","Grass","Grand Slam"," 0.00","  0.0"," 0.0","London"
 "Wimbledon","2015","Grass","Grand Slam","11.89","228.6","37.8","London"
 "Wimbledon","2014","Grass","Grand Slam","12.79","232.1","37.6","London"
 "Wimbledon","2013","Grass","Grand Slam","10.88","217.0","34.9","London"
 "Wimbledon","2012","Grass","Grand Slam","10.95","231.5","37.7","London"
 "Wimbledon","2011","Grass","Grand Slam","10.06","218.6","35.2","London"
+"Wimbledon","2010",NA,NA,NA,NA,NA,NA
 "Washington Masters 500","2015",NA,NA,NA,NA,NA,NA
 "Hamburg Masters 500","2014",NA,NA,NA,NA,NA,NA
 "Munich Masters 250","2016",NA,NA,NA,NA,NA,NA
@@ -94,9 +95,13 @@
 "Kuala Lumpur Masters 250","2015",NA,NA,NA,NA,NA,NA
 "Nottingham Masters 250","2015",NA,NA,NA,NA,NA,NA
 "Montpellier Masters 250","2016",NA,NA,NA,NA,NA,NA
+"Munich Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Rotterdam Masters 500","2015",NA,NA,NA,NA,NA,NA
 "Hamburg Masters 500","2013",NA,NA,NA,NA,NA,NA
+"Marseille Masters 250","2016",NA,NA,NA,NA,NA,NA
 "Stockholm Masters 250","2015",NA,NA,NA,NA,NA,NA
 "Stuttgart Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Madrid Open","2010",NA,NA,NA,NA,NA,NA
 "Brisbane Masters 250","2012",NA,NA,NA,NA,NA,NA
 "Acapulco Masters 500","2016",NA,NA,NA,NA,NA,NA
 "Memphis Masters 250","2015",NA,NA,NA,NA,NA,NA
@@ -106,71 +111,483 @@
 "Rio de Janeiro Masters 500","2014",NA,NA,NA,NA,NA,NA
 "Doha Masters 250","2014",NA,NA,NA,NA,NA,NA
 "Valencia Masters 500","2012",NA,NA,NA,NA,NA,NA
+"Nice Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Acapulco Masters 500","2011",NA,NA,NA,NA,NA,NA
+"US Open","2010",NA,NA,NA,NA,NA,NA
+"Cincinnati Masters","2010",NA,NA,NA,NA,NA,NA
 "Umag Masters 250","2012",NA,NA,NA,NA,NA,NA
 "St. Petersburg Masters 250","2010",NA,NA,NA,NA,NA,NA
 "Barcelona Masters 500","2010",NA,NA,NA,NA,NA,NA
 "Winston-Salem Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Valencia Masters 500","2014",NA,NA,NA,NA,NA,NA
+"Sydney Masters 250","2016",NA,NA,NA,NA,NA,NA
 "London Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Basel Masters 500","2013",NA,NA,NA,NA,NA,NA
+"Winston-Salem Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Acapulco Masters 500","2014",NA,NA,NA,NA,NA,NA
 "Tokyo Masters 500","2014",NA,NA,NA,NA,NA,NA
 "Buenos Aires Masters 250","2014",NA,NA,NA,NA,NA,NA
 "Moscow Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Shanghai Masters","2010",NA,NA,NA,NA,NA,NA
 "Metz Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Barcelona Masters 500","2016",NA,NA,NA,NA,NA,NA
+"Acapulco Masters 500","2015",NA,NA,NA,NA,NA,NA
+"Brisbane Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Moscow Masters 250","2010",NA,NA,NA,NA,NA,NA
 "Beijing Masters 500","2010",NA,NA,NA,NA,NA,NA
+"Umag Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Brisbane Masters 250","2015",NA,NA,NA,NA,NA,NA
 "Casablanca Masters 250","2010",NA,NA,NA,NA,NA,NA
 "Costa Do Sauipe Masters 250","2011",NA,NA,NA,NA,NA,NA
+"French Open","2010",NA,NA,NA,NA,NA,NA
 "Halle Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Rio de Janeiro Masters 500","2016",NA,NA,NA,NA,NA,NA
+"Nice Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Basel Masters 500","2010",NA,NA,NA,NA,NA,NA
+"Tokyo Masters 500","2015",NA,NA,NA,NA,NA,NA
+"Winston-Salem Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Washington Masters 500","2012",NA,NA,NA,NA,NA,NA
 "Vienna Masters 500","2015",NA,NA,NA,NA,NA,NA
+"Canadian Open","2010",NA,NA,NA,NA,NA,NA
 "New Haven Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Italian Open","2010",NA,NA,NA,NA,NA,NA
+"Indian Wells Masters","2010",NA,NA,NA,NA,NA,NA
 "London Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Rotterdam Masters 500","2009",NA,NA,NA,NA,NA,NA
 "Nottingham Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Basel Masters 500","2012",NA,NA,NA,NA,NA,NA
 "Belgrade Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Sydney Masters 250","2013",NA,NA,NA,NA,NA,NA
+"London Masters 250","2010",NA,NA,NA,NA,NA,NA
 "Estoril/Oeiras Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Stockholm Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Monte Carlo Masters","2005",NA,NA,NA,NA,NA,NA
+"Basel Masters 500","2015",NA,NA,NA,NA,NA,NA
+"Beijing Masters 500","2015",NA,NA,NA,NA,NA,NA
 "Bucharest Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Hamburg Masters 500","2010",NA,NA,NA,NA,NA,NA
 "New Haven Masters 250","2008",NA,NA,NA,NA,NA,NA
 "Kitzbuhel Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Winston-Salem Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Cincinnati Masters","2008",NA,NA,NA,NA,NA,NA
+"Metz Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Tokyo Masters 500","2010",NA,NA,NA,NA,NA,NA
+"Marseille Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Doha Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Basel Masters 500","2011",NA,NA,NA,NA,NA,NA
 "Eastbourne Masters 250","2013",NA,NA,NA,NA,NA,NA
 "Lyon Masters 250","2008",NA,NA,NA,NA,NA,NA
 "Palermo Masters 250","2006",NA,NA,NA,NA,NA,NA
 "Valencia Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Nottingham Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Barcelona Masters 500","2007",NA,NA,NA,NA,NA,NA
+"Sydney Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Umag Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Australian Open","2010",NA,NA,NA,NA,NA,NA
+"Vienna Masters 500","2007",NA,NA,NA,NA,NA,NA
+"St. Petersburg Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Paris Masters","2008",NA,NA,NA,NA,NA,NA
 "Gstaad Masters 250","2006",NA,NA,NA,NA,NA,NA
 "Zagreb Masters 250","2006",NA,NA,NA,NA,NA,NA
 "Sofia Masters 250","2016",NA,NA,NA,NA,NA,NA
+"Hamburg Masters 500","2015",NA,NA,NA,NA,NA,NA
+"Metz Masters 250","2013",NA,NA,NA,NA,NA,NA
 "Dubai Masters 500","2013",NA,NA,NA,NA,NA,NA
+"Madrid Open","2009",NA,NA,NA,NA,NA,NA
+"Belgrade Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Indian Wells Masters","2008",NA,NA,NA,NA,NA,NA
+"Rotterdam Masters 500","2006",NA,NA,NA,NA,NA,NA
+"Umag Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Halle Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Dubai Masters 500","2014",NA,NA,NA,NA,NA,NA
+"Eastbourne Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Rotterdam Masters 500","2012",NA,NA,NA,NA,NA,NA
+"Doha Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Paris Masters","2009",NA,NA,NA,NA,NA,NA
+"US Open","2009",NA,NA,NA,NA,NA,NA
+"Cincinnati Masters","2009",NA,NA,NA,NA,NA,NA
+"Italian Open","2009",NA,NA,NA,NA,NA,NA
+"Rotterdam Masters 500","2008",NA,NA,NA,NA,NA,NA
+"Doha Masters 250","2016",NA,NA,NA,NA,NA,NA
+"Zagreb Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Dubai Masters 500","2015",NA,NA,NA,NA,NA,NA
+"Belgrade Masters 250","2010",NA,NA,NA,NA,NA,NA
 "Hamburg Masters","2008",NA,NA,NA,NA,NA,NA
 "Hamburg Masters","2005",NA,NA,NA,NA,NA,NA
+"Doha Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Basel Masters 500","2009",NA,NA,NA,NA,NA,NA
+"Monte Carlo Masters","2009",NA,NA,NA,NA,NA,NA
+"Australian Open","2009",NA,NA,NA,NA,NA,NA
+"Doha Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Monte Carlo Masters","2007",NA,NA,NA,NA,NA,NA
+"Beijing Masters 500","2012",NA,NA,NA,NA,NA,NA
+"Monte Carlo Masters","2008",NA,NA,NA,NA,NA,NA
+"Paris Masters","2007",NA,NA,NA,NA,NA,NA
+"Beijing Masters 500","2013",NA,NA,NA,NA,NA,NA
+"Valencia Masters 500","2010",NA,NA,NA,NA,NA,NA
+"Stockholm Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Miami Open","2009",NA,NA,NA,NA,NA,NA
+"Indian Wells Masters","2009",NA,NA,NA,NA,NA,NA
+"Hamburg Masters","2006",NA,NA,NA,NA,NA,NA
+"Doha Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Rotterdam Masters 500","2014",NA,NA,NA,NA,NA,NA
+"Palermo Masters 250","2005",NA,NA,NA,NA,NA,NA
 "Palermo Masters 250","2004",NA,NA,NA,NA,NA,NA
+"Sydney Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Kitzbuhel Masters 250","2013",NA,NA,NA,NA,NA,NA
 "Geneva Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Gstaad Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Eastbourne Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Casablanca Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Moscow Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Barcelona Masters 500","2014",NA,NA,NA,NA,NA,NA
+"Buenos Aires Masters 250","2013",NA,NA,NA,NA,NA,NA
 "s-Hertogenbosch Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Barcelona Masters 500","2015",NA,NA,NA,NA,NA,NA
+"Barcelona Masters 500","2013",NA,NA,NA,NA,NA,NA
+"Moscow Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Geneva Masters 250","2016",NA,NA,NA,NA,NA,NA
 "Vienna Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Tokyo Masters 500","2011",NA,NA,NA,NA,NA,NA
+"ATP WT Finals","2010",NA,NA,NA,NA,NA,NA
+"Canadian Open","2006",NA,NA,NA,NA,NA,NA
+"Barcelona Masters 500","2006",NA,NA,NA,NA,NA,NA
+"Canadian Open","2007",NA,NA,NA,NA,NA,NA
 "Los Angeles Masters 250","2010",NA,NA,NA,NA,NA,NA
 "Washington Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Paris Masters","2010",NA,NA,NA,NA,NA,NA
+"Madrid Open","2008",NA,NA,NA,NA,NA,NA
+"French Open","2006",NA,NA,NA,NA,NA,NA
 "Bangkok Masters 250","2011",NA,NA,NA,NA,NA,NA
+"ATP WT Finals","2008",NA,NA,NA,NA,NA,NA
+"Italian Open","2007",NA,NA,NA,NA,NA,NA
+"Tokyo Masters 500","2012",NA,NA,NA,NA,NA,NA
 "San Jose Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Canadian Open","2009",NA,NA,NA,NA,NA,NA
+"London Masters 250","2013",NA,NA,NA,NA,NA,NA
+"London Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Australian Open","2008",NA,NA,NA,NA,NA,NA
+"Metz Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Rotterdam Masters 500","2011",NA,NA,NA,NA,NA,NA
+"Cincinnati Masters","2007",NA,NA,NA,NA,NA,NA
+"Wimbledon","2006",NA,NA,NA,NA,NA,NA
+"Beijing Masters 500","2014",NA,NA,NA,NA,NA,NA
+"French Open","2009",NA,NA,NA,NA,NA,NA
+"Barcelona Masters 500","2012",NA,NA,NA,NA,NA,NA
+"French Open","2008",NA,NA,NA,NA,NA,NA
+"London Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Marseille Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Indian Wells Masters","2007",NA,NA,NA,NA,NA,NA
+"Dubai Masters 500","2012",NA,NA,NA,NA,NA,NA
+"Canadian Open","2008",NA,NA,NA,NA,NA,NA
+"Miami Open","2007",NA,NA,NA,NA,NA,NA
+"Madrid Open","2006",NA,NA,NA,NA,NA,NA
+"US Open","2007",NA,NA,NA,NA,NA,NA
+"Monte Carlo Masters","2010",NA,NA,NA,NA,NA,NA
+"US Open","2008",NA,NA,NA,NA,NA,NA
+"Wimbledon","2008",NA,NA,NA,NA,NA,NA
+"Madrid Open","2007",NA,NA,NA,NA,NA,NA
+"Australian Open","2007",NA,NA,NA,NA,NA,NA
+"Dubai Masters 500","2009",NA,NA,NA,NA,NA,NA
+"ATP WT Finals","2009",NA,NA,NA,NA,NA,NA
+"Dubai Masters 500","2008",NA,NA,NA,NA,NA,NA
+"Cincinnati Masters","2006",NA,NA,NA,NA,NA,NA
+"Bangkok Masters 250","2005",NA,NA,NA,NA,NA,NA
 "Newport Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Wimbledon","2009",NA,NA,NA,NA,NA,NA
+"Italian Open","2008",NA,NA,NA,NA,NA,NA
+"Doha Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Miami Open","2006",NA,NA,NA,NA,NA,NA
 "Adelaide Masters 250","2006",NA,NA,NA,NA,NA,NA
 "Basel Masters 250","2005",NA,NA,NA,NA,NA,NA
+"St. Petersburg Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Gstaad Masters 250","2012",NA,NA,NA,NA,NA,NA
+"s-Hertogenbosch Masters 250","2012",NA,NA,NA,NA,NA,NA
 "Bastad Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Montpellier Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Stockholm Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Washington Masters 500","2014",NA,NA,NA,NA,NA,NA
+"Marseille Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Valencia Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Montpellier Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Rotterdam Masters 500","2013",NA,NA,NA,NA,NA,NA
 "Chennai Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Acapulco Masters 500","2012",NA,NA,NA,NA,NA,NA
 "Estoril Masters 250","2016",NA,NA,NA,NA,NA,NA
+"Barcelona Masters 500","2011",NA,NA,NA,NA,NA,NA
 "Auckland Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Chennai Masters 250","2016",NA,NA,NA,NA,NA,NA
+"Buenos Aires Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Kuala Lumpur Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Washington Masters 500","2013",NA,NA,NA,NA,NA,NA
+"Munich Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Stockholm Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Bangkok Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Stockholm Masters 250","2014",NA,NA,NA,NA,NA,NA
 "Bogota Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Marseille Masters 250","2013",NA,NA,NA,NA,NA,NA
 "Delray Beach Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Brisbane Masters 250","2016",NA,NA,NA,NA,NA,NA
+"Nice Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Eastbourne Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Bangkok Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Delray Beach Masters 250","2015",NA,NA,NA,NA,NA,NA
 "Marrakech Masters 250","2016",NA,NA,NA,NA,NA,NA
+"Bucharest Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Estoril Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Winston-Salem Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Auckland Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Dubai Masters 500","2016",NA,NA,NA,NA,NA,NA
+"Chennai Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Rio de Janeiro Masters 500","2015",NA,NA,NA,NA,NA,NA
+"Acapulco Masters 500","2013",NA,NA,NA,NA,NA,NA
+"Bastad Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Shanghai Masters","2009",NA,NA,NA,NA,NA,NA
+"Tokyo Masters 500","2007",NA,NA,NA,NA,NA,NA
+"New Haven Masters 250","2005",NA,NA,NA,NA,NA,NA
+"Valencia Masters 500","2013",NA,NA,NA,NA,NA,NA
+"Auckland Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Australian Open","2004",NA,NA,NA,NA,NA,NA
+"Bastad Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Bastad Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Miami Open","2010",NA,NA,NA,NA,NA,NA
+"Auckland Masters 250","2016",NA,NA,NA,NA,NA,NA
 "Johannesburg Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Kuala Lumpur Masters 250","2013",NA,NA,NA,NA,NA,NA
+"New Haven Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Buenos Aires Masters 250","2016",NA,NA,NA,NA,NA,NA
+"Bastad Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Valencia Masters 500","2009",NA,NA,NA,NA,NA,NA
+"Valencia Masters 250","2008",NA,NA,NA,NA,NA,NA
+"US Open","2006",NA,NA,NA,NA,NA,NA
+"ATP WT Finals","2007",NA,NA,NA,NA,NA,NA
+"Bucharest Masters 250","2004",NA,NA,NA,NA,NA,NA
+"Acapulco Masters 500","2010",NA,NA,NA,NA,NA,NA
+"Auckland Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Auckland Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Indian Wells Masters","2006",NA,NA,NA,NA,NA,NA
+"Miami Open","2005",NA,NA,NA,NA,NA,NA
+"Barcelona Masters 500","2009",NA,NA,NA,NA,NA,NA
+"Barcelona Masters 500","2008",NA,NA,NA,NA,NA,NA
+"French Open","2005",NA,NA,NA,NA,NA,NA
+"Italian Open","2005",NA,NA,NA,NA,NA,NA
 "Stuttgart Masters 500","2004",NA,NA,NA,NA,NA,NA
+"Hamburg Masters","2007",NA,NA,NA,NA,NA,NA
+"Basel Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Monte Carlo Masters","2006",NA,NA,NA,NA,NA,NA
+"Doha Masters 250","2005",NA,NA,NA,NA,NA,NA
 "Vienna Masters 500","2003",NA,NA,NA,NA,NA,NA
+"Stuttgart Masters 500","2006",NA,NA,NA,NA,NA,NA
+"Gstaad Masters 250","2004",NA,NA,NA,NA,NA,NA
+"Valencia Masters 500","2011",NA,NA,NA,NA,NA,NA
 "Shenzhen Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Gstaad Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Kitzbuhel Masters 250","2014",NA,NA,NA,NA,NA,NA
+"s-Hertogenbosch Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Metz Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Stockholm Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Chennai Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Vienna Masters 250","2013",NA,NA,NA,NA,NA,NA
+"St. Petersburg Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Nice Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Kitzbuhel Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Kitzbuhel Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Gstaad Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Umag Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Nice Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Estoril/Oeiras Masters 250","2009",NA,NA,NA,NA,NA,NA
 "Sao Paulo Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Doha Masters 250","2010",NA,NA,NA,NA,NA,NA
 "Vina del Mar Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Beijing Masters 500","2011",NA,NA,NA,NA,NA,NA
+"Munich Masters 250","2014",NA,NA,NA,NA,NA,NA
+"St. Petersburg Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Bucharest Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Costa Do Sauipe Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Stuttgart Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Hamburg Masters 500","2012",NA,NA,NA,NA,NA,NA
+"Umag Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Sydney Masters 250","2012",NA,NA,NA,NA,NA,NA
 "Mumbai Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Stuttgart Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Beijing Masters 500","2009",NA,NA,NA,NA,NA,NA
+"Casablanca Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Vina del Mar Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Casablanca Masters 250","2012",NA,NA,NA,NA,NA,NA
 "Houston Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Bucharest Masters 250","2016",NA,NA,NA,NA,NA,NA
+"Sao Paulo Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Metz Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Buenos Aires Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Gstaad Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Johannesburg Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Australian Open","2006",NA,NA,NA,NA,NA,NA
+"Memphis Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Bangkok Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Indian Wells Masters","2005",NA,NA,NA,NA,NA,NA
+"Marseille Masters 250","2005",NA,NA,NA,NA,NA,NA
+"Madrid Open","2004",NA,NA,NA,NA,NA,NA
+"Cincinnati Masters","2004",NA,NA,NA,NA,NA,NA
+"Wimbledon","2004",NA,NA,NA,NA,NA,NA
 "Memphis Masters 500","2013",NA,NA,NA,NA,NA,NA
+"Marseille Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Wimbledon","2007",NA,NA,NA,NA,NA,NA
+"Houston Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Tokyo Masters 500","2013",NA,NA,NA,NA,NA,NA
+"Brisbane Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Doha Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Vienna Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Gstaad Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Barcelona Masters 500","2005",NA,NA,NA,NA,NA,NA
+"London Masters 250","2008",NA,NA,NA,NA,NA,NA
 "Las Vegas Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Belgrade Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Dubai Masters 500","2011",NA,NA,NA,NA,NA,NA
+"US Open","2004",NA,NA,NA,NA,NA,NA
+"Dubai Masters 500","2004",NA,NA,NA,NA,NA,NA
+"Stuttgart Masters 500","2007",NA,NA,NA,NA,NA,NA
+"Basel Masters 250","2003",NA,NA,NA,NA,NA,NA
+"Sydney Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Cincinnati Masters","2005",NA,NA,NA,NA,NA,NA
+"Marseille Masters 250","2003",NA,NA,NA,NA,NA,NA
+"Basel Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Madrid Open","2003",NA,NA,NA,NA,NA,NA
+"Wimbledon","2003",NA,NA,NA,NA,NA,NA
+"Delray Beach Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Basel Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Montpellier Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Hamburg Masters 500","2011",NA,NA,NA,NA,NA,NA
+"Bucharest Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Tokyo Masters 500","2009",NA,NA,NA,NA,NA,NA
+"Bangkok Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Montpellier Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Washington Masters 500","2011",NA,NA,NA,NA,NA,NA
+"Miami Open","2008",NA,NA,NA,NA,NA,NA
+"Washington Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Halle Masters 250","2013",NA,NA,NA,NA,NA,NA
+"San Jose Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Houston Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Acapulco Masters 500","2009",NA,NA,NA,NA,NA,NA
+"US Open","2005",NA,NA,NA,NA,NA,NA
+"Doha Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Metz Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Vienna Masters 500","2008",NA,NA,NA,NA,NA,NA
+"Italian Open","2006",NA,NA,NA,NA,NA,NA
+"Montpellier Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Metz Masters 250","2005",NA,NA,NA,NA,NA,NA
+"Metz Masters 250","2004",NA,NA,NA,NA,NA,NA
 "Poertschach Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Memphis Masters 500","2012",NA,NA,NA,NA,NA,NA
 "Atlanta Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Atlanta Masters 250","2010",NA,NA,NA,NA,NA,NA
+"San Jose Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Newport Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Atlanta Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Wimbledon","2005",NA,NA,NA,NA,NA,NA
 "Dusseldorf Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Los Angeles Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Nice Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Nottingham Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Dubai Masters 500","2010",NA,NA,NA,NA,NA,NA
+"Halle Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Marseille Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Umag Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Estoril/Oeiras Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Metz Masters 250","2008",NA,NA,NA,NA,NA,NA
 "Indianapolis Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Metz Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Dubai Masters 500","2007",NA,NA,NA,NA,NA,NA
+"Rotterdam Masters 500","2007",NA,NA,NA,NA,NA,NA
+"Marseille Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Sydney Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Bangkok Masters 250","2009",NA,NA,NA,NA,NA,NA
 "Sopot Masters 250","2007",NA,NA,NA,NA,NA,NA
 "Istanbul Masters 250","2016",NA,NA,NA,NA,NA,NA
+"Zagreb Masters 250","2013",NA,NA,NA,NA,NA,NA
+"San Jose Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Eastbourne Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Munich Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Brisbane Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Istanbul Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Newport Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Houston Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Newport Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Houston Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Memphis Masters 500","2010",NA,NA,NA,NA,NA,NA
+"Delray Beach Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Bogota Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Zagreb Masters 250","2010",NA,NA,NA,NA,NA,NA
 "St. Poelten Masters 250","2005",NA,NA,NA,NA,NA,NA
+"Dusseldorf Masters 250","2014",NA,NA,NA,NA,NA,NA
 "Milan Masters 250","2004",NA,NA,NA,NA,NA,NA
+"Moscow Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Indianapolis Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Memphis Masters 500","2007",NA,NA,NA,NA,NA,NA
+"San Jose Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Houston Masters 250","2016",NA,NA,NA,NA,NA,NA
+"Atlanta Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Newport Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Atlanta Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Delray Beach Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Munich Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Gstaad Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Bastad Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Washington Masters 500","2009",NA,NA,NA,NA,NA,NA
+"London Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Marseille Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Brisbane Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Lyon Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Tokyo Masters 500","2008",NA,NA,NA,NA,NA,NA
+"Atlanta Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Las Vegas Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Los Angeles Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Newport Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Memphis Masters 500","2009",NA,NA,NA,NA,NA,NA
+"Kuala Lumpur Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Memphis Masters 250","2016",NA,NA,NA,NA,NA,NA
+"Delray Beach Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Vienna Masters 250","2011",NA,NA,NA,NA,NA,NA
+"Casablanca Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Munich Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Munich Masters 250","2007",NA,NA,NA,NA,NA,NA
+"s-Hertogenbosch Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Halle Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Australian Open","2005",NA,NA,NA,NA,NA,NA
+"Chennai Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Auckland Masters 250","2008",NA,NA,NA,NA,NA,NA
+"Moscow Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Chennai Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Vienna Masters 500","2006",NA,NA,NA,NA,NA,NA
+"Umag Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Zagreb Masters 250","2009",NA,NA,NA,NA,NA,NA
+"Casablanca Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Chennai Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Estoril/Oeiras Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Halle Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Sao Paulo Masters 250","2015",NA,NA,NA,NA,NA,NA
+"Hamburg Masters 500","2009",NA,NA,NA,NA,NA,NA
+"Auckland Masters 250","2012",NA,NA,NA,NA,NA,NA
+"Auckland Masters 250","2007",NA,NA,NA,NA,NA,NA
+"New Haven Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Bastad Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Bastad Masters 250","2005",NA,NA,NA,NA,NA,NA
+"Metz Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Marseille Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Los Angeles Masters 250","2012",NA,NA,NA,NA,NA,NA
+"French Open","2007",NA,NA,NA,NA,NA,NA
+"s-Hertogenbosch Masters 250","2014",NA,NA,NA,NA,NA,NA
+"Estoril Masters 250","2007",NA,NA,NA,NA,NA,NA
+"Sao Paulo Masters 250","2016",NA,NA,NA,NA,NA,NA
+"Halle Masters 250","2010",NA,NA,NA,NA,NA,NA
+"Halle Masters 250","2005",NA,NA,NA,NA,NA,NA
+"Stuttgart Masters 500","2005",NA,NA,NA,NA,NA,NA
+"Munich Masters 250","2013",NA,NA,NA,NA,NA,NA
+"Estoril Masters 250","2004",NA,NA,NA,NA,NA,NA
+"ATP WT Finals","2006",NA,NA,NA,NA,NA,NA
+"Dubai Masters 500","2006",NA,NA,NA,NA,NA,NA
+"Miami Open","2004",NA,NA,NA,NA,NA,NA
+"Halle Masters 250","2006",NA,NA,NA,NA,NA,NA
+"Paris Masters","2006",NA,NA,NA,NA,NA,NA
+"Rotterdam Masters 500","2005",NA,NA,NA,NA,NA,NA
+"Tokyo Masters 500","2006",NA,NA,NA,NA,NA,NA
+"Chennai Masters 250","2014",NA,NA,NA,NA,NA,NA
