@@ -32,14 +32,14 @@ shinyServer(function(input, output) {
  
   output$sta <- DT::renderDataTable({
     # Naredimo poizvedbo
-    t <- tbl.statistics %>% filter(name == input$tenisaci) %>% data.frame()
+    t <- tbl.statistics %>% filter(name == input$tenisaci) %>% select(-name) %>% data.frame()
     
   })
   
   output$tenisaci <- renderUI({
     igralci <- data.frame(tbl.player)
     selectInput("tenisaci", "Choose a player:",
-                choices = c("All" = 0, setNames(igralci$name,
+                choices = c('All' = 0, setNames(igralci$name,
                                                 igralci$name)))
   })
 })
