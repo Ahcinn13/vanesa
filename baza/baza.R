@@ -138,8 +138,9 @@ create_table <- function(){
     # Ustvarimo relacijo 'has_coach'
     # Player 'has_coach' Coach
     has_coach <- dbSendQuery(conn, build_sql('CREATE TABLE has_coach (
-                                             player INTEGER REFERENCES player(player_id),
-                                             coach TEXT REFERENCES coach(name))'))
+                                             coach TEXT REFERENCES coach(name),
+                                             player INTEGER REFERENCES player(player_id))'))
+
     
     # Ustvarimo relacijo 'plays'
     plays <- dbSendQuery(conn, build_sql('CREATE TABLE plays (
@@ -177,7 +178,7 @@ create_table <- function(){
 }
 
 igralci[,13] <- 1:50
-colnames(igralci) <- c('Name', 'Country', 'Ranking_Points', 'Age', 'Height', 'Weight', 'Plays', 'Backhand', 'Turned_pro', 'Career_Titles', 'Prize_Money_Earned', 'id')
+colnames(igralci) <- c('Name', 'Country', 'Ranking_Points', 'Age', 'Height', 'Weight', 'Plays', 'Backhand', 'Turned_pro', 'Career_Titles', 'Prize_Money_Earned', 'Coach', 'id')
 
 
 turnirji[,9] <- 1:592
