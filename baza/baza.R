@@ -109,15 +109,12 @@ create_table <- function(){
                                               tourn_id SERIAL PRIMARY KEY)'))
     
     # Ustvarimo tabelo HEAD2HEAD
-    # Pri stoplcu 'tournament' kako naret, da nekateri so iz tournament(id), nekateri pa ne????
-    # Kaj naret z 'round'????
     h2h <- dbSendQuery(conn, build_sql('CREATE TABLE head2head (
                                        h2h_id SERIAL PRIMARY KEY,
-                                       year INTEGER NOT NULL,
-                                       tournament TEXT NOT NULL,
                                        round TEXT,
                                        player TEXT REFERENCES player(name),
-                                       opponent TEXT REFERENCES player(name))'))
+                                       opponent TEXT REFERENCES player(name),
+                                       tournament INTEGER NOT NULL REFERENCES tournament(tourn_id))'))
     
     # Ustvarimo tabelo SETS
     nizi <- dbSendQuery(conn, build_sql('CREATE TABLE sets (
@@ -206,7 +203,7 @@ insert_data <- function(){
     
     vstavi_tournament <- dbWriteTable(conn, name='tournament', turnirji, append=T, row.names=F)
     
-    vstavi_h2h <- dbWriteTable(conn, name='head2head', head2head, append=T, row.names=F)
+    #vstavi_h2h <- dbWriteTable(conn, name='head2head', head2head, append=T, row.names=F)
     
     vstavi_sets <- dbWriteTable(conn, name='sets', sets, append=T, row.names=F)
     
@@ -219,3 +216,28 @@ insert_data <- function(){
 delete_table()
 create_table()
 insert_data()
+
+con <- src_postgres(dbname = db, host = host, user = user, password = password)
+tbl.tournament <- tbl(con, "tournament")
+data.h2h <- head2head %>%
+  inner_join(tbl.tournament %>%
+               select(tournament = tourn_id, Tournament = name, Year = year),
+             copy = TRUE) %>% select( -Year, -Tournament)
+
+
+
+#Funkcija, ki vstavi relacije
+insert_relation_data <- function(){
+  tryCatch({
+    conn <- dbConnect(drv, dbname = db, host = host, user = user, password = password)
+
+    dbWriteTable(conn, name='head2head', data.h2h, append=T, row.names=F)
+    
+    
+  }, finally = {
+    dbDisconnect(conn) 
+    
+  })
+}
+
+insert_relation_data()
