@@ -50,7 +50,7 @@ for(i in manjkajoci){
   }
 }
 
-dodatni_turnirji <- data.frame(ID=turnir, Year=leto, NA, NA, NA, NA, NA, 'Ni podatka')
+dodatni_turnirji <- data.frame(ID=turnir, Year=leto, NA, NA, NA, NA, NA, NA)
 turnirji <- as.data.frame(rbind(as.matrix(turnirji), as.matrix(dodatni_turnirji)))
 
 #lokacije$Country <- sapply(lokacije$Country, function(x) substr(x, 2, nchar(x)))
