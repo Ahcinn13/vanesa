@@ -26,13 +26,13 @@ shinyServer(function(input, output) {
   #  Pripravimo tabelo
 
   tbl.player <- tbl(conn, "player")
-  tbl.statistics <- tbl(conn, "statistics")
+  tbl.statistics <- tbl(conn, "statistics") %>% inner_join(tbl.player %>% select(player = id, name))
 
   
  
   output$sta <- DT::renderDataTable({
     # Naredimo poizvedbo
-    t <- tbl.statistics %>%  filter(name == input$tenisaci) %>% data.frame()
+    t <- tbl.statistics %>% filter(name == input$tenisaci) %>% data.frame()
     
   })
   
