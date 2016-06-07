@@ -19,14 +19,6 @@ delete_table <- function(){
     
     # Če tabela obstaja, jo zbrišemo, ter najprej zbrišemo tiste, 
     # ki se navezujejo na druge
-     del_has_player <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS has_player'))
-     del_has_coach <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS has_coach'))
-     del_plays <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS plays'))
-     del_has_opponent <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS has_opponent'))
-     del_is_played <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS is_played'))
-     del_is_played_in <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS is_played_in'))
-     del_takes_place_in <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS takes_place_in'))
-    
     del_sets <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS sets'))
     del_h2h <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS head2head'))
     del_stat <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS statistics'))
@@ -34,6 +26,7 @@ delete_table <- function(){
     del_coach <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS coach'))
     del_tourn <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS tournament'))
     del_loc <- dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS location'))
+    
   }, finally = {
     dbDisconnect(conn)
   })
@@ -57,7 +50,7 @@ create_table <- function(){
     # Ustvarimo tabelo PLAYER
     # Preveri še kakšen tip bi lahko blo 'turned_pro', ki je leto
     player <- dbSendQuery(conn, build_sql('CREATE TABLE player (
-                                          name TEXT PRIMARY KEY,
+                                          name TEXT,
                                           country TEXT NOT NULL,
                                           ranking_points INTEGER NOT NULL,
                                           age INTEGER NOT NULL,
@@ -68,14 +61,15 @@ create_table <- function(){
                                           turned_pro INTEGER NOT NULL,
                                           career_titles INTEGER NOT NULL,
                                           prize_money_earned INTEGER NOT NULL,
-                                          coach TEXT NOT NULL REFERENCES coach(name))'))
+                                          coach TEXT NOT NULL REFERENCES coach(name),
+                                          id SERIAL PRIMARY KEY)'))
     
     
     # Ustvarimo tabelo STATISTICS
     # Še veliko za popravit
     # Mogoče 'season' ne bi bil INTEGER, ampak kaj drugega?
+    # Popravi še player -> INTEGER REFERENCES player(id)
     statistics <- dbSendQuery(conn, build_sql('CREATE TABLE statistics (
-                                              name TEXT REFERENCES player(name),
                                               won INTEGER NOT NULL,
                                               loss INTEGER NOT NULL,
                                               perc_spw NUMERIC,
@@ -85,7 +79,8 @@ create_table <- function(){
                                               perc_bpoc NUMERIC,
                                               tiebreak_w INTEGER,
                                               tiebreak_l INTEGER,
-                                              season INTEGER)'))
+                                              season INTEGER,
+                                              player INTEGER REFERENCES player(id))'))
     
     # Ustvarimo tabelo LOCATION
     location <- dbSendQuery(conn, build_sql('CREATE TABLE location (
@@ -105,7 +100,7 @@ create_table <- function(){
                                               apm NUMERIC,
                                               ppm NUMERIC,
                                               gpm NUMERIC,
-                                              city TEXT,
+                                              city TEXT REFERENCES location(city),
                                               tourn_id SERIAL PRIMARY KEY)'))
     
     # Ustvarimo tabelo HEAD2HEAD
@@ -113,60 +108,18 @@ create_table <- function(){
     # Kaj naret z 'round'????
     h2h <- dbSendQuery(conn, build_sql('CREATE TABLE head2head (
                                        h2h_id SERIAL PRIMARY KEY,
-                                       year INTEGER NOT NULL,
-                                       tournament TEXT NOT NULL,
                                        round TEXT,
-                                       player TEXT REFERENCES player(name),
-                                       opponent TEXT REFERENCES player(name))'))
+                                       tournament INTEGER REFERENCES tournament(tourn_id),
+                                       player INTEGER REFERENCES player(id),
+                                       opponent INTEGER REFERENCES player(id))'))
     
     # Ustvarimo tabelo SETS
     nizi <- dbSendQuery(conn, build_sql('CREATE TABLE sets (
-                                        match INTEGER,
+                                        match INTEGER REFERENCES head2head(h2h_id),
                                         set INTEGER NOT NULL,
                                         p1_score INTEGER NOT NULL,
-                                        p2_score INTEGER NOT NULL,
-                                        sets_id SERIAL PRIMARY KEY)'))
-#     
-#     # Ustvarimo relacijo 'has_player'
-#     # Statistics 'has_player' Player
-#     has_player <- dbSendQuery(conn, build_sql('CREATE TABLE has_player (
-#                                               stat INTEGER REFERENCES statistics(stat_id),
-#                                               player INTEGER REFERENCES player(player_id))'))
-#     
-#     # Ustvarimo relacijo 'has_coach'
-#     # Player 'has_coach' Coach
-#     has_coach <- dbSendQuery(conn, build_sql('CREATE TABLE has_coach (
-#                                              coach TEXT REFERENCES coach(name),
-#                                              player INTEGER REFERENCES player(player_id))'))
-# 
-#     
-#     # Ustvarimo relacijo 'plays'
-#     plays <- dbSendQuery(conn, build_sql('CREATE TABLE plays (
-#                                          match INTEGER REFERENCES head2head(h2h_id),
-#                                          player INTEGER REFERENCES player(player_id))'))
-#     
-#     # Ustvarimo relacijo 'has_opponent'
-#     has_opponent <- dbSendQuery(conn, build_sql('CREATE TABLE has_opponent (
-#                                          match INTEGER REFERENCES head2head(h2h_id),
-#                                          opponent INTEGER REFERENCES player(player_id))'))
-#     
-#     # Ustvarimo relacijo 'is_played'
-#     is_played <- dbSendQuery(conn, build_sql('CREATE TABLE is_played (
-#                                              set INTEGER REFERENCES sets(sets_id),
-#                                              match INTEGER REFERENCES head2head(h2h_id))'))
-#     
-#     # Ustvarimo relacijo 'is_played_in'
-#     # Tu še lahko dodamo kar 'round'??
-#     is_played_in <- dbSendQuery(conn, build_sql('CREATE TABLE is_played_in (
-#                                                 match INTEGER REFERENCES head2head(h2h_id),
-#                                                 tournament INTEGER REFERENCES tournament(tourn_id))'))
-#     
-#     # Ustvarimo relacijo 'takes_place_in'
-#     takes_place_in <- dbSendQuery(conn, build_sql('CREATE TABLE takes_place_in (
-#                                                   tournament INTEGER REFERENCES tournament(tourn_id),
-#                                                   city TEXT REFERENCES location(city))'))
-    
-                                       #'))
+                                        p2_score INTEGER NOT NULL)'))
+
     pravice <- dbSendQuery(conn, build_sql('GRANT SELECT ON ALL TABLES IN SCHEMA public TO javnost'))
     pravice2 <- dbSendQuery(conn, build_sql('GRANT ALL ON DATABASE sem2016_samom TO valentinag'))                               
     pravice3 <- dbSendQuery(conn, build_sql('GRANT SELECT ON ALL TABLES IN SCHEMA public TO valentinag'))
@@ -175,18 +128,13 @@ create_table <- function(){
   })
 }
 
-#igralci[,13] <- 1:50
-#colnames(igralci) <- c('Name', 'Country', 'Ranking_Points', 'Age', 'Height', 'Weight', 'Plays', 'Backhand', 'Turned_pro', 'Career_Titles', 'Prize_Money_Earned', 'Coach')
+igralci[,13] <- 1:50
+colnames(igralci) <- c('Name', 'Country', 'Ranking_Points', 'Age', 'Height', 'Weight', 'Plays', 'Backhand', 'Turned_pro', 'Career_Titles', 'Prize_Money_Earned', 'Coach', 'id')
 
 
 turnirji[,9] <- 1:592
 colnames(turnirji) <- c('Name', 'Year', 'Surface', 'Category', 'Aces_Per_Match', 'Points_Per_Match', 'Games_Per_Match', 'City', 'id')
-
-#stat[,12] <- 1:150
-#colnames(stat) <- c('Name', 'Won', 'Loss', 'perc_SPW', 'Aces', 'DFs', 'perc_RPW', 'perc_BPOC', 'Tiebreak_W', 'Tiebreak_L', 'season','id')
-
-sets[,5] <- 1:9782
-colnames(sets) <- c('id', 'Set', 'P1_score', 'P2_score', 'id')
+turnirji$City[592] <- NA
 
 # Vstavimo podatke iz naših tabel
 insert_data <- function(){
@@ -200,13 +148,39 @@ insert_data <- function(){
     
     vstavi_player <- dbWriteTable(conn, name='player', igralci, append=T, row.names=F)
     
-    vstavi_statistics <- dbWriteTable(conn, name='statistics', stat, append=T, row.names=F)
+    # Uredimo tabelo statistics
+    con <- src_postgres(dbname = db, host = host, user = user, password = password)
+    
+    tbl.player <- tbl(con, 'player')
+    data.stat <- stat %>%
+      inner_join(tbl.player %>% select(player = id, Name = name),
+                 copy = TRUE) %>% select(-Name)
+    
+    vstavi_statistics <- dbWriteTable(conn, name='statistics', data.stat, append=T, row.names=F)
+    #vstavi_statistics <- dbWriteTable(conn, name='statistics', stat, append=T, row.names=F)
     
     vstavi_location <- dbWriteTable(conn, name='location', lokacije, append=T, row.names=F)
     
     vstavi_tournament <- dbWriteTable(conn, name='tournament', turnirji, append=T, row.names=F)
     
-    vstavi_h2h <- dbWriteTable(conn, name='head2head', head2head, append=T, row.names=F)
+    # Uredimo tabelo head2head    
+    tbl.tournament <- tbl(con, "tournament")
+    data.h2h <- head2head %>%
+      inner_join(tbl.tournament %>%
+                   select(tournament = tourn_id, Tournament = name, Year = year),
+                 copy = TRUE) %>% select(-Year, -Tournament)
+    
+    data.h2h <- data.h2h %>%
+      inner_join(tbl.player %>% select(player = id, Player = name),
+                 copy = TRUE) %>% select(-Player)
+    
+    data.h2h <- data.h2h %>%
+      inner_join(tbl.player %>% select(opponent = id, Opponent = name),
+                 copy = TRUE) %>% select(-Opponent)
+    
+    
+    vstavi_h2h <- dbWriteTable(conn, name='head2head', data.h2h, append=T, row.names=F)
+    #vstavi_h2h <- dbWriteTable(conn, name='head2head', head2head, append=T, row.names=F)
     
     vstavi_sets <- dbWriteTable(conn, name='sets', sets, append=T, row.names=F)
     
