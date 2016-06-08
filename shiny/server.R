@@ -36,15 +36,23 @@ shinyServer(function(input, output) {
  
   output$sta <- DT::renderDataTable({
     # Naredimo poizvedbo
-    t <- tbl.statistics %>% filter(name == input$tenisaci) %>% select(-player, -name) %>% data.frame()
-    
+    t <- tbl.statistics #%>% #filter(name == input$tenisaci) %>% select(-player, -name) %>% 
+      if (input$tenisaci != "All") {
+        t <- tbl.statistics %>% filter(name == input$tenisaci) %>% select(-player, -name) %>% data.frame()
+      }
+      else {
+        t <- tbl.statistics %>% select(name=Name) %>% data.frame()
+      }
+      data.frame()
+    validate(need(nrow(t) > 0, "No attacks match the criteria."))
+    t
   })
   
   output$tenisaci <- renderUI({
     igralci <- data.frame(tbl.player)
     selectInput("tenisaci", "Choose a player:",
-                choices = c('All' = 0, setNames(igralci$name,
-                                                igralci$name)))
+                choices = c('All', setNames(igralci$name,
+                                            igralci$name)))
   })
   
   output$leto <- renderUI({
