@@ -8,11 +8,11 @@
 library(shiny)
 
 shinyUI(fluidPage(
-  titlePanel("Tenis"),
+  titlePanel("Tennis"),
   tabsetPanel(
     
 ####################################################################################    
-    tabPanel("Statistics",
+    tabPanel("Players",
              h2("Players Statistics"),
              sidebarLayout(
                sidebarPanel(
@@ -32,11 +32,14 @@ shinyUI(fluidPage(
              h2("Tournament Statistics"),
              sidebarLayout(
                sidebarPanel(
-                 uiOutput("turnir"),
-                 uiOutput("leto_t")
-                 #uiOutput("povrsina")
+                 uiOutput("turn"),
+                 uiOutput("leto_t"),
+                 uiOutput("podlaga")
                ),
-               mainPanel()
+               mainPanel(
+                 
+                 DT::dataTableOutput('sta_tour')
+                 )
              )
     )
 )
