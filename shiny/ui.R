@@ -8,20 +8,38 @@
 library(shiny)
 
 shinyUI(fluidPage(
-
-  # Application title
   titlePanel("Tenis"),
   tabsetPanel(
+    
+####################################################################################    
     tabPanel("Statistics",
+             h2("Players Statistics"),
              sidebarLayout(
                sidebarPanel(
-                 uiOutput("tenisaci")
-                 ),
+                 uiOutput("tenisaci"),
+                 uiOutput("leto")
+               ),
                # Show a plot of the generated distribution
                mainPanel(
                  
                  DT::dataTableOutput('sta')
-                 )
                )
-             ))))
+             )
+    ),
+
+######################################################################
+    tabPanel("Tournament",
+             h2("Tournament Statistics"),
+             sidebarLayout(
+               sidebarPanel(
+                 uiOutput("turnir"),
+                 uiOutput("leto_t")
+                 #uiOutput("povrsina")
+               ),
+               mainPanel()
+             )
+    )
+)
+))
+
 
