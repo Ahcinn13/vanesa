@@ -46,10 +46,18 @@ shinyServer(function(input, output) {
         t <- t %>% filter(Season == input$leto) %>% select(- Season) %>% data.frame()
       }
       
+      if (input$data != "All") {
+        m <- as.data.frame(t(t), stringAsFactors = FALSE)
+        stolpci <- row.names(m) == input$data
+        t <- t %>% select(stolpci) %>% data.frame()
+      }
+      
 
-    validate(need(nrow(t) > 0, "No attacks match the criteria."))
+    validate(need(nrow(t) > 0, "No data match the criteria."))
     t
   })
+
+  
   
   output$tenisaci <- renderUI({
     igralci <- data.frame(tbl.player)

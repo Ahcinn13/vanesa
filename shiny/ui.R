@@ -17,7 +17,13 @@ shinyUI(fluidPage(
              sidebarLayout(
                sidebarPanel(
                  uiOutput("tenisaci"),
-                 uiOutput("leto")
+                 uiOutput("leto"),
+                 selectInput("data", "Choose statistics:",
+                             choices=c(
+                               "All", "Won","Loss","% of service points won","Aces","Double faults","% of return points won","% of BPConv","Tiebreak Wonn",
+                                       "Tiebreak Loss"),selected = "All",
+                             multiple = TRUE
+                 )
                ),
                # Show a plot of the generated distribution
                mainPanel(
@@ -26,6 +32,8 @@ shinyUI(fluidPage(
                )
              )
     ),
+
+
 
 ######################################################################
     tabPanel("Tournament",
