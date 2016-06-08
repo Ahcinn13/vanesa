@@ -32,14 +32,11 @@ shinyServer(function(input, output) {
     inner_join(tbl.location %>% select(city = city, country, continent))
 
 
+  t <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebrak_Won = tiebreak_w, 
+                                 Tiebreak_Loss = tiebreak_l, Season = season) %>% data.frame()
   
- 
   output$sta <- DT::renderDataTable({
     # Naredimo poizvedbo
-    t <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebrak_Won = tiebreak_w, 
-                                   Tiebreak_Loss = tiebreak_l, Season = season) %>% 
-    data.frame()
- 
 
       if (input$tenisaci != "All") {
         t <- t %>% filter(Name == input$tenisaci) %>% select( -Name) %>% 
@@ -70,21 +67,23 @@ shinyServer(function(input, output) {
     
   })
   
+  tur <- tbl.tournament %>% select(Name=name, Year=year, Surface=surface, Category=category, Aces_Per_Match=apm,
+                                   Points_Per_Match=ppm, Games_Per_Match=gpm, City=city, Country=country,
+                                   Continent=continent) %>% data.frame()
   
   output$sta_tour <- DT::renderDataTable({
-    # Naredimo poizvedbo
-    tur <- tbl.tournament %>% data.frame()
+    # Naredimo poizvedbo    
           if (input$leto_t != "All") {
-            tur <- tur %>% filter(year == input$leto_t) %>% data.frame()
+            tur <- tur %>% filter(Year == input$leto_t) %>% select(-Year) %>% data.frame()
           }
           if (input$turn != "All") {
-            tur <- tur %>% filter(name == input$turn) %>% data.frame()
+            tur <- tur %>% filter(Name == input$turn) %>% select(-Name) %>% data.frame()
           }
           if (input$podlaga !='All') {
-            tur <- tur %>% filter(surface == input$podalga) %>% select(surface) %>%vdata.frame()
+            tur <- tur %>% filter(Surface == input$podlaga) %>% select(-Surface) %>% data.frame()
           }
       
-    validate(need(nrow(tur) > 0, "No attacks match the criteria."))
+    validate(need(nrow(tur) > 0, "No tournaments match the criteria."))
     tur
   })
   
@@ -92,7 +91,7 @@ shinyServer(function(input, output) {
   output$turn <- renderUI({
     tour <- data.frame(tbl.tournament)
     selectInput("turn", "Choose a tournament:",
-                choices = c("All"= 0, setNames(tour$name,
+                choices = c("All", setNames(tour$name,
                                                tour$name)))
     
   })
