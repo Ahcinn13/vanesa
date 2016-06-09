@@ -27,6 +27,9 @@ shinyUI(fluidPage(
                )
              )
     ),
+    
+
+
 
 ######################################################################
     tabPanel("Tournament",
@@ -42,8 +45,24 @@ shinyUI(fluidPage(
                  DT::dataTableOutput('sta_tour')
                  )
              )
-    )
-)
-))
+    ),
 
+
+######################################################################
+
+  tabPanel("Head To Head",
+           h2("Head To Head Statistics"),
+           sidebarLayout(
+           sidebarPanel(
+              uiOutput("turnir")
+#             uiOutput("leto_t"),
+#             uiOutput("podlaga")
+             ),
+             mainPanel(
+             
+               DT::dataTableOutput('head')
+               )
+            )
+  )
+)))
 
