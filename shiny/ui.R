@@ -17,7 +17,8 @@ shinyUI(fluidPage(
              sidebarLayout(
                sidebarPanel(
                  uiOutput("tenisaci"),
-                 uiOutput("leto")
+                 uiOutput("leto"),
+                 uiOutput("statistike")
                ),
                # Show a plot of the generated distribution
                mainPanel(

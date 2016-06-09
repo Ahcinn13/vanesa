@@ -33,22 +33,29 @@ shinyServer(function(input, output) {
 
 
   t <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebrak_Won = tiebreak_w, 
-                                 Tiebreak_Loss = tiebreak_l, Season = season) %>% data.frame()
+                                 Tiebreak_Loss = tiebreak_l, Season = season) #%>% data.frame()
+  
   
   output$sta <- DT::renderDataTable({
     # Naredimo poizvedbo
 
+    stolpci <- input$izberi_stat
+    validate(need(!is.null(input$tenisaci) && !is.null(input$leto), ""))
       if (input$tenisaci != "All") {
-        t <- t %>% filter(Name == input$tenisaci) %>% select( -Name) %>% 
-          data.frame()
+        t <- t %>% filter(name == input$tenisaci) %>% select( -Name) #%>% data.frame()
+      } else {
+        stolpci <- c("Name", stolpci)
       }
       if (input$leto != "All") {
-        t <- t %>% filter(Season == input$leto) %>% select(- Season) %>% data.frame()
+        t <- t %>% filter(season == input$leto) %>% select(-Season) #%>% data.frame()
+      } else {
+        stolpci <- c(stolpci, "Season")
       }
       
 
+    t <- t %>% data.frame()
     validate(need(nrow(t) > 0, "No attacks match the criteria."))
-    t
+    t[,stolpci]
   })
   
   output$tenisaci <- renderUI({
@@ -58,14 +65,23 @@ shinyServer(function(input, output) {
                                             igralci$name)))
   })
   
+  stat <- data.frame(tbl.statistics)
   output$leto <- renderUI({
-    igralci <- data.frame(tbl.statistics)
     selectInput("leto", "Choose a year:",
-                choices = c('All', setNames(igralci$season,
-                                            igralci$season)))
+                choices = c('All', setNames(stat$season,
+                                            stat$season)))
 
     
   })
+  
+  stat1 <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebrak_Won = tiebreak_w, 
+                                 Tiebreak_Loss = tiebreak_l, Season = season) %>% data.frame()
+  output$statistike <- renderUI({
+    checkboxGroupInput(inputId='izberi_stat', label='Choose statistics:',
+                       choices=colnames(stat1)[!colnames(stat1) %in% c('Season', 'Name', 'Player')],
+                       selected=colnames(stat1)[!colnames(stat1) %in% c('Season', 'Name', 'Player')])
+  })
+  
   
   tur <- tbl.tournament %>% select(Name=name, Year=year, Surface=surface, Category=category, Aces_Per_Match=apm,
                                    Points_Per_Match=ppm, Games_Per_Match=gpm, City=city, Country=country,
