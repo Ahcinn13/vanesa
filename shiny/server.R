@@ -30,6 +30,7 @@ shinyServer(function(input, output) {
   tbl.location <- tbl(conn, "location")
   tbl.tournament <- tbl(conn, "tournament") %>% 
     inner_join(tbl.location %>% select(city = city, country, continent))
+  tbl.head2head <- tbl(conn, "head2head")
 
 
   t <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebrak_Won = tiebreak_w, 
@@ -120,6 +121,26 @@ shinyServer(function(input, output) {
   })
   
   
+  
+  h <- tbl.head2head %>% select(Tournament = tournament, Player=player, Opponent=opponent) %>% data.frame()
+    #inner_join(tbl.player, tbl.head2head, by = c("player"="name"))#tbl.head2head %>% select(Tournament = tournament) %>% data.frame()
+  
+    
+    output$head <- DT::renderDataTable({
+    #Naredimo poizvedbo
+    if (input$turnir != "All"){
+      h <- h %>% filter(Tournament == input$turnir) %>% select(-Tournament) %>% data.frame()
+    }
+    validate(need(nrow(h)>0, "No attacks match the criteria."))
+    h
+  })
+  
+  output$turnir <- renderUI({
+    tourn <- data.frame (tbl.head2head)
+    selectInput ("turnir", "Choose a tournament:",
+                 choices = c("All", setNames(tourn$Tournament,
+                                             tourn$Tournament)))
+  })
 
   
 })
