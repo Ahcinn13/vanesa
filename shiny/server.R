@@ -138,8 +138,8 @@ shinyServer(function(input, output) {
   output$turnir <- renderUI({
     tourn <- data.frame (tbl.head2head)
     selectInput ("turnir", "Choose a tournament:",
-                 choices = c("All", setNames(tourn$Tournament,
-                                             tourn$Tournament)))
+                 choices = c("All", setNames(tourn$tournament,
+                                             tourn$tournament)))
   })
 
   
