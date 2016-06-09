@@ -131,7 +131,7 @@ shinyServer(function(input, output) {
     if (input$turnir != "All"){
       h <- h %>% filter(Tournament == input$turnir) %>% select(-Tournament) %>% data.frame()
     }
-    validate(need(nrow(h)>0, "No attacks match the criteria."))
+    validate(need(nrow(h)>0, "No data match the criteria."))
     h
   })
   
