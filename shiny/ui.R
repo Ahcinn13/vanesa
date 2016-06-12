@@ -54,7 +54,7 @@ shinyUI(fluidPage(
            h2("Head To Head Statistics"),
            sidebarLayout(
            sidebarPanel(
-              uiOutput("turnir")
+              uiOutput("tenisac")
 #             uiOutput("leto_t"),
 #             uiOutput("podlaga")
              ),

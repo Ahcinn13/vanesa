@@ -30,7 +30,11 @@ shinyServer(function(input, output) {
   tbl.location <- tbl(conn, "location")
   tbl.tournament <- tbl(conn, "tournament") %>% 
     inner_join(tbl.location %>% select(city = city, country, continent))
-  tbl.head2head <- tbl(conn, "head2head")
+  
+  tbl.head2head <- tbl(conn, "head2head") %>% inner_join(tbl.player %>% select(player = id, name))
+  #tbl.head2head <- tbl.head2head %>% left_join(tbl.player %>% select(opponent = id, name))
+  #tbl.head2head <- tbl.head2head %>% left_join(tbl.tournament %>% select(tournament = tourn_id, name, year))
+  
 
 
   t <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebrak_Won = tiebreak_w, 
@@ -132,24 +136,24 @@ shinyServer(function(input, output) {
   
   
   
-  h <- tbl.head2head %>% select(Tournament = tournament, Player=player, Opponent=opponent) %>% data.frame()
+  h <- tbl.head2head %>% select(Tournament = tournament, Player=name, Opponent=opponent) %>% data.frame()
     #inner_join(tbl.player, tbl.head2head, by = c("player"="name"))#tbl.head2head %>% select(Tournament = tournament) %>% data.frame()
   
     
     output$head <- DT::renderDataTable({
     #Naredimo poizvedbo
-    if (input$turnir != "All"){
-      h <- h %>% filter(Tournament == input$turnir) %>% select(-Tournament) %>% data.frame()
+    if (input$tenisac != "All"){
+      h <- h %>% filter(Player == input$tenisac) %>% select(-Player) %>% data.frame()
     }
     validate(need(nrow(h)>0, "No data match the criteria."))
     h
   })
   
-  output$turnir <- renderUI({
-    tourn <- data.frame (tbl.head2head)
-    selectInput ("turnir", "Choose a tournament:",
-                 choices = c("All", setNames(tourn$tournament,
-                                             tourn$tournament)))
+  output$tenisac <- renderUI({
+    igralec <- data.frame (tbl.player)
+    selectInput ("tenisac", "Choose a player:",
+                 choices = c("All", setNames(igralec$name,
+                                             igralec$name)))
   })
 
   
