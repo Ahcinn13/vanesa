@@ -55,8 +55,9 @@ shinyUI(fluidPage(
            sidebarLayout(
            sidebarPanel(
               uiOutput("tenisac"),
-              uiOutput("turnir")
-#             uiOutput("podlaga")
+              uiOutput("nasprotnik"),
+              uiOutput("turnir"),
+              uiOutput("toleto")
              ),
              mainPanel(
              

@@ -31,8 +31,10 @@ shinyServer(function(input, output) {
   tbl.tournament <- tbl(conn, "tournament") %>% 
     inner_join(tbl.location %>% select(city = city, country, continent))
   
-  tbl.head2head <- tbl(conn, "head2head") %>% left_join(tbl.player %>% select(player = id, name)) %>%
-     left_join(tbl.tournament %>% select(tournament = tourn_id, year))
+  tbl.head2head <- tbl(conn, "head2head") %>% left_join(tbl.player %>% select(player = id, PLAYER=name)) %>%
+     left_join(tbl.tournament %>% select(tournament = tourn_id, YEAR=year)) %>%
+     left_join(tbl.tournament %>% select(tournament = tourn_id, TOURNAMENT=name)) %>%
+     left_join(tbl.player %>% select(opponent = id, OPPONENT=name))
   #tbl.head2head <- tbl.head2head %>% left_join(tbl.tournament %>% select(tournament = tourn_id, name, year))
   
 
@@ -135,19 +137,27 @@ shinyServer(function(input, output) {
   })
   
   
-  
-  h <- tbl.head2head %>% select(Tournament = year, Player=name, Opponent=opponent) %>% data.frame()
+  h <- tbl.head2head %>% select(Tournament = TOURNAMENT, Year=YEAR, Player=PLAYER, Opponent=OPPONENT) %>% data.frame()
     #inner_join(tbl.player, tbl.head2head, by = c("player"="name"))#tbl.head2head %>% select(Tournament = tournament) %>% data.frame()
   
     
     output$head <- DT::renderDataTable({
     #Naredimo poizvedbo
       if (input$tenisac != "All"){
-        h <- h %>% filter(Player == input$tenisac) %>% select(-Player) %>% data.frame()
+        h <- h %>% filter(Player == input$tenisac) %>% 
+          select(-Player) %>% data.frame()
       }
       if (input$turnir != "All"){
         h <- h %>% filter(Tournament == input$turnir) %>% 
           select(-Tournament) %>% data.frame()
+      }
+      if (input$toleto != "All"){
+        h <- h %>% filter(Year == input$toleto) %>% 
+          select(-Year) %>% data.frame
+      }
+      if (input$nasprotnik != "All"){
+        h <- h %>% filter(Opponent == input$nasprotnik) %>%
+          select(-Opponent) %>% data.frame()
       }
     validate(need(nrow(h)>0, "No data match the criteria."))
     h
@@ -162,9 +172,23 @@ shinyServer(function(input, output) {
   
   output$turnir <- renderUI({
     tourn <- data.frame (tbl.tournament)
-    selectInput("turnir", "Choose a year:",
+    selectInput("turnir", "Choose a tournament:",
+                choices = c("All", setNames(tourn$name,
+                                            tourn$name)))
+  })
+  
+  output$toleto <- renderUI({
+    tourn <- data.frame (tbl.tournament)
+    selectInput("toleto", "Choose a year:",
                 choices = c("All", setNames(tourn$year,
                                             tourn$year)))
+  })
+  
+  output$nasprotnik <- renderUI({
+    naproti <- data.frame (tbl.player)
+    selectInput("nasprotnik", "Choose an opponent:",
+                choices = c("All", setNames(naproti$name,
+                                            naproti$name)))
   })
 
   
