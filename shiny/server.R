@@ -147,7 +147,7 @@ shinyServer(function(input, output) {
         h <- h %>% filter(Player == input$tenisac) %>% data.frame()
       }
       if (input$turnir != "All"){
-        h <- h %>% filter(Tournament == input$turnir) %>% 
+        h <- h %>% filter(Tournament == input$turnir) %>%
           select(-Tournament) %>% data.frame()
       }
       if (input$toleto != "All"){
@@ -155,8 +155,7 @@ shinyServer(function(input, output) {
           select(-Year) %>% data.frame
       }
       if (input$nasprotnik != "All"){
-        h <- h %>% filter(Opponent == input$nasprotnik) %>%
-          select(-Opponent) %>% data.frame()
+        h <- h %>% filter(Opponent == input$nasprotnik) %>% data.frame()
       }
     validate(need(nrow(h)>0, "No data match the criteria."))
     h
@@ -188,6 +187,26 @@ shinyServer(function(input, output) {
     selectInput("nasprotnik", "Choose an opponent:",
                 choices = c("All", setNames(naproti$name,
                                             naproti$name)))
+  })
+  
+  
+  #ZEMLJEVID
+  output$map <- renderLeaflet({
+    HH<- tbl.player %>% select(country, id)
+    HH <- HH %>% group_by (id, region=country) %>%
+      summarise() %>% group_by(region) %>%
+      summarise (stevilo = count(id)) %>% data.frame
+    nap <- setNames (HH$stevilo, HH$region) #spravimo st ljudi v poimenovan vektor
+    zem <- map("world", regions = HH$region, fill=TRUE, plot=FALSE)
+    imena <- zem$names
+    igralci <- nap[imena]
+    popup <- paste0("<b>", imena, "</b><br /><i> Number of players </i>:", igralci)
+    df <- ecdf(nap)
+    barve <- brewer.pal(n=9, name="YlOrRd")[8*df(igralci)+1]
+    leaflet (data = zem) %>% addTiles() %>%
+      addPolygons (fillColor = barve, stroke = FALSE, popup=popup)
+    
+    
   })
 
   

@@ -64,6 +64,19 @@ shinyUI(fluidPage(
                DT::dataTableOutput('head')
                )
             )
-  )
+  ),
+
+######################################################################
+
+tabPanel("Players by country map",
+         h2("Number of players by country map"),
+         sidebarLayout (
+           sidebarPanel(),
+           mainPanel(
+             leafletOutput("map")
+           )
+         ))
+
+
 )))
 
