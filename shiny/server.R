@@ -144,8 +144,7 @@ shinyServer(function(input, output) {
     output$head <- DT::renderDataTable({
     #Naredimo poizvedbo
       if (input$tenisac != "All"){
-        h <- h %>% filter(Player == input$tenisac) %>% 
-          select(-Player) %>% data.frame()
+        h <- h %>% filter(Player == input$tenisac) %>% data.frame()
       }
       if (input$turnir != "All"){
         h <- h %>% filter(Tournament == input$turnir) %>% 
