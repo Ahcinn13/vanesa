@@ -53,6 +53,17 @@ shinyUI(fluidPage(
   tabPanel("Head To Head",
            uiOutput("h2hTitle"),
            uiOutput("head2head")
-  )
+  ),
+
+######################################################################
+
+tabPanel("Players by country map",
+         h2("Number of players by country map"),
+         sidebarLayout (
+           sidebarPanel(),
+           mainPanel(
+             leafletOutput("map")
+           )
+         ))
 )))
 
