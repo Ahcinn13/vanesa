@@ -43,8 +43,16 @@ shinyServer(function(input, output) {
                                  Tiebreak_Loss = tiebreak_l, Season = season) #%>% data.frame()
 
   igralec <- tbl.player %>% select(id, name) %>% data.frame()
+  turnirji <- tbl.tournament %>% group_by(name) %>%
+    summarise() %>% arrange(name) %>% data.frame()
+  sezone <- tbl.tournament %>% group_by(year) %>%
+    summarise() %>% arrange(year) %>% data.frame()
   
-  values <- reactiveValues(selectedPlayer = NULL)
+  values <- reactiveValues(selectedPlayer = NULL,
+                           dropdownPlayer = NULL,
+                           dropdownOpponent = NULL,
+                           dropdownSeason = NULL,
+                           dropdownTournament = NULL)
   
   output$sta <- DT::renderDataTable({
     # Naredimo poizvedbo
@@ -176,26 +184,27 @@ shinyServer(function(input, output) {
   
   output$tenisac <- renderUI({
     selectInput ("tenisac", "Choose a player:",
-                 choices = c("All" = "All", setNames(igralec$id, igralec$name)))
+                 choices = c("All" = "All", setNames(igralec$id, igralec$name)),
+                 selected = values$dropdownPlayer)
   })
   
   output$turnir <- renderUI({
     
     selectInput("turnir", "Choose a tournament:",
-                choices = c("All" = "All",
-                            tbl.tournament %>% group_by(name) %>%
-                              summarise() %>% arrange(name) %>% data.frame()))
+                choices = c("All", turnirji),
+                selected = values$dropdownTournament)
   })
   
   output$toleto <- renderUI({
     selectInput("toleto", "Choose a year:",
-                choices = c("All" = "All", tbl.tournament %>% group_by(year) %>%
-                              summarise() %>% arrange(year) %>% data.frame()))
+                choices = c("All", sezone),
+                selected = values$dropdownSeason)
   })
   
   output$nasprotnik <- renderUI({
     selectInput("nasprotnik", "Choose an opponent:",
-                choices = c("All" = "All", setNames(igralec$id, igralec$name)))
+                choices = c("All" = "All", setNames(igralec$id, igralec$name)),
+                selected = values$dropdownOpponent)
   })
   
   
@@ -228,6 +237,11 @@ shinyServer(function(input, output) {
     h2(name)
   })
   
+  output$playerstats <- DT::renderDataTable({
+    validate(need(!is.null(values$selectedPlayer), ""))
+    tbl.statistics %>% filter(player == values$selectedPlayer) %>% data.frame()
+  })
+  
   h2hPanel <- sidebarLayout(
     sidebarPanel(
       uiOutput("tenisac"),
@@ -241,7 +255,8 @@ shinyServer(function(input, output) {
   )
   
   playerPanel <- mainPanel(
-    actionButton("back", "Back")
+    actionButton("back", "Back"),
+    DT::dataTableOutput("playerstats")
     # tukaj dodajte še ostale elemente, ki jih želite prikazati
     )
   
@@ -263,4 +278,20 @@ shinyServer(function(input, output) {
                handlerExpr = {
                  values$selectedPlayer <- NULL
                })
+  
+  observe({
+    values$dropdownPlayer <- input$tenisac
+  })
+  
+  observe({
+    values$dropdownOpponent <- input$nasprotnik
+  })
+  
+  observe({
+    values$dropdownSeason <- input$toleto
+  })
+  
+  observe({
+    values$dropdownTournament <- input$turnir
+  })
 })
