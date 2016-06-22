@@ -51,19 +51,8 @@ shinyUI(fluidPage(
 ######################################################################
 
   tabPanel("Head To Head",
-           h2("Head To Head Statistics"),
-           sidebarLayout(
-           sidebarPanel(
-              uiOutput("tenisac"),
-              uiOutput("nasprotnik"),
-              uiOutput("turnir"),
-              uiOutput("toleto")
-             ),
-             mainPanel(
-             
-               DT::dataTableOutput('head')
-               )
-            )
+           uiOutput("h2hTitle"),
+           uiOutput("head2head")
   ),
 
 ######################################################################
@@ -76,7 +65,5 @@ tabPanel("Players by country map",
              leafletOutput("map")
            )
          ))
-
-
 )))
 

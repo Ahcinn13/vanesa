@@ -41,7 +41,18 @@ shinyServer(function(input, output) {
 
   t <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebrak_Won = tiebreak_w, 
                                  Tiebreak_Loss = tiebreak_l, Season = season) #%>% data.frame()
+
+  igralec <- tbl.player %>% select(id, name) %>% data.frame()
+  turnirji <- tbl.tournament %>% group_by(name) %>%
+    summarise() %>% arrange(name) %>% data.frame()
+  sezone <- tbl.tournament %>% group_by(year) %>%
+    summarise() %>% arrange(year) %>% data.frame()
   
+  values <- reactiveValues(selectedPlayer = NULL,
+                           dropdownPlayer = NULL,
+                           dropdownOpponent = NULL,
+                           dropdownSeason = NULL,
+                           dropdownTournament = NULL)
   
   output$sta <- DT::renderDataTable({
     # Naredimo poizvedbo
@@ -137,56 +148,63 @@ shinyServer(function(input, output) {
   })
   
   
-  h <- tbl.head2head %>% select(Tournament = TOURNAMENT, Year=YEAR, Player=PLAYER, Opponent=OPPONENT) %>% data.frame()
     #inner_join(tbl.player, tbl.head2head, by = c("player"="name"))#tbl.head2head %>% select(Tournament = tournament) %>% data.frame()
   
     
     output$head <- DT::renderDataTable({
-    #Naredimo poizvedbo
-      if (input$tenisac != "All"){
-        h <- h %>% filter(Player == input$tenisac) %>% data.frame()
+      #Naredimo poizvedbo
+      h <- tbl.head2head
+      if (!is.null(input$tenisac) && input$tenisac != "All"){
+        h <- h %>% filter(player == input$tenisac)
       }
-      if (input$turnir != "All"){
-        h <- h %>% filter(Tournament == input$turnir) %>%
-          select(-Tournament) %>% data.frame()
+      if (!is.null(input$turnir) && input$turnir != "All"){
+        h <- h %>% filter(TOURNAMENT == input$turnir)
       }
-      if (input$toleto != "All"){
-        h <- h %>% filter(Year == input$toleto) %>% 
-          select(-Year) %>% data.frame
+      if (!is.null(input$toleto) && input$toleto != "All"){
+        h <- h %>% filter(YEAR == input$toleto)
       }
-      if (input$nasprotnik != "All"){
-        h <- h %>% filter(Opponent == input$nasprotnik) %>% data.frame()
+      if (!is.null(input$nasprotnik) && input$nasprotnik != "All"){
+        h <- h %>% filter(opponent == input$nasprotnik)
       }
-    validate(need(nrow(h)>0, "No data match the criteria."))
-    h
-  })
+      h <- h %>% data.frame()
+      validate(need(nrow(h)>0, "No data match the criteria."))
+      data.frame(Tournament = h$TOURNAMENT,
+                 Year = h$YEAR,
+                 Player = apply(h, 1, . %>%
+                                  {actionLink(paste0("player", .["player"]),
+                                              .["PLAYER"],
+                                              onclick = 'Shiny.onInputChange(\"player_link\",  this.id)')} %>%
+                                  as.character()),
+                 Opponent = apply(h, 1, . %>%
+                                    {actionLink(paste0("player", .["opponent"]),
+                                                .["OPPONENT"],
+                                                onclick = 'Shiny.onInputChange(\"player_link\",  this.id)')} %>%
+                                    as.character()))
+  }, escape = FALSE, selection = 'none')
   
   output$tenisac <- renderUI({
-    igralec <- data.frame (tbl.player)
     selectInput ("tenisac", "Choose a player:",
-                 choices = c("All", setNames(igralec$name,
-                                             igralec$name)))
+                 choices = c("All" = "All", setNames(igralec$id, igralec$name)),
+                 selected = values$dropdownPlayer)
   })
   
   output$turnir <- renderUI({
-    tourn <- data.frame (tbl.tournament)
+    
     selectInput("turnir", "Choose a tournament:",
-                choices = c("All", setNames(tourn$name,
-                                            tourn$name)))
+                choices = c("All", turnirji),
+                selected = values$dropdownTournament)
   })
   
   output$toleto <- renderUI({
-    tourn <- data.frame (tbl.tournament)
     selectInput("toleto", "Choose a year:",
-                choices = c("All", setNames(tourn$year,
-                                            tourn$year)))
+                choices = c("All", sezone),
+                selected = values$dropdownSeason)
   })
   
   output$nasprotnik <- renderUI({
-    naproti <- data.frame (tbl.player)
     selectInput("nasprotnik", "Choose an opponent:",
-                choices = c("All", setNames(naproti$name,
-                                            naproti$name)))
+                choices = c("All" = "All", setNames(igralec$id, igralec$name)),
+                selected = values$dropdownOpponent)
   })
   
   
@@ -209,5 +227,71 @@ shinyServer(function(input, output) {
     
   })
 
+  output$h2hTitle <- renderUI({
+    if (is.null(values$selectedPlayer)) {
+      name <- "Head To Head Statistics"
+    } else {
+      name <- tbl.player %>% filter(id == values$selectedPlayer) %>%
+        select(name) %>% data.frame() %>% .[1,1]
+    }
+    h2(name)
+  })
   
+  output$playerstats <- DT::renderDataTable({
+    validate(need(!is.null(values$selectedPlayer), ""))
+    tbl.statistics %>% filter(player == values$selectedPlayer) %>% data.frame()
+  })
+  
+  h2hPanel <- sidebarLayout(
+    sidebarPanel(
+      uiOutput("tenisac"),
+      uiOutput("nasprotnik"),
+      uiOutput("turnir"),
+      uiOutput("toleto")
+    ),
+    mainPanel(
+      DT::dataTableOutput('head')
+    )
+  )
+  
+  playerPanel <- mainPanel(
+    actionButton("back", "Back"),
+    DT::dataTableOutput("playerstats")
+    # tukaj dodajte še ostale elemente, ki jih želite prikazati
+    )
+  
+  output$head2head <- renderUI({
+    if (is.null(values$selectedPlayer)) {
+      out <- h2hPanel
+    } else {
+      out <- playerPanel
+    }
+    out
+  })
+  
+  observeEvent(eventExpr = input$player_link,
+               handlerExpr = {
+                 values$selectedPlayer <- input$player_link %>%
+                   strapplyc("([0-9]+)") %>% unlist() %>% as.numeric()
+               })
+  observeEvent(eventExpr = input$back,
+               handlerExpr = {
+                 values$selectedPlayer <- NULL
+               })
+  
+  observe({
+    values$dropdownPlayer <- input$tenisac
+  })
+  
+  observe({
+    values$dropdownOpponent <- input$nasprotnik
+  })
+  
+  observe({
+    values$dropdownSeason <- input$toleto
+  })
+  
+  observe({
+    values$dropdownTournament <- input$turnir
+  })
 })
