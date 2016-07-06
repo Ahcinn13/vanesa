@@ -21,6 +21,7 @@ shinyUI(fluidPage(
              h2("Players Statistics"),
              sidebarLayout(
                sidebarPanel(
+                 tags$head(tags$style(type="text/css", "body {background-color: #B5CAB2;}")),
                  uiOutput("tenisaci"),
                  uiOutput("leto"),
                  uiOutput("statistike")
