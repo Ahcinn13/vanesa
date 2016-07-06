@@ -6,9 +6,14 @@
 #
 
 library(shiny)
+library(shinythemes)
+library(leaflet)
 
 shinyUI(fluidPage(
-  titlePanel("Tennis"),
+  theme = shinytheme("spacelab"),
+  titlePanel("Tennis",
+             tags$head(
+               tags$img(src='header_photo.jpg', height='200px'))),
   tabsetPanel(
     
 ####################################################################################    
