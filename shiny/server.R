@@ -36,6 +36,14 @@ shinyServer(function(input, output) {
      left_join(tbl.tournament %>% select(tournament = tourn_id, TOURNAMENT=name)) %>%
      left_join(tbl.player %>% select(opponent = id, OPPONENT=name))
   #tbl.head2head <- tbl.head2head %>% left_join(tbl.tournament %>% select(tournament = tourn_id, name, year))
+  tbl.sets <- tbl(conn, "sets") %>%
+    left_join(tbl.head2head %>% select (match = h2h_id,
+                                        ROUND=round, 
+                                        TOURNAMENT,
+                                        YEAR,
+                                        PLAYER,
+                                        OPPONENT))
+  
   
 
 
@@ -153,7 +161,11 @@ shinyServer(function(input, output) {
     
     output$head <- DT::renderDataTable({
       #Naredimo poizvedbo
-      h <- tbl.head2head
+#      h<-tbl.head2head
+      h <- tbl.sets #%>% select(Player=pLAYER, Opponent=oPPONENT, Match=match, Round=ROUND,
+                    #           tOURNAMENT, yEAR,
+                    #           Set=set, P1_score=p1_score, P2_score=p2_score) %>%
+        #data.frame()
       if (!is.null(input$tenisac) && input$tenisac != "All"){
         h <- h %>% filter(player == input$tenisac)
       }
@@ -170,6 +182,12 @@ shinyServer(function(input, output) {
       validate(need(nrow(h)>0, "No data match the criteria."))
       data.frame(Tournament = h$TOURNAMENT,
                  Year = h$YEAR,
+                 Set = h$set,
+                 Match = h$match,
+                 Round = h$ROUND,
+                 P1_score = h$p1_score,
+                 P2_score = h$p2_score,
+                 
                  Player = apply(h, 1, . %>%
                                   {actionLink(paste0("player", .["player"]),
                                               .["PLAYER"],
@@ -206,6 +224,41 @@ shinyServer(function(input, output) {
                 choices = c("All" = "All", setNames(igralec$id, igralec$name)),
                 selected = values$dropdownOpponent)
   })
+  
+  #Probavam sete
+#  s <- tbl.sets %>% select(Player=pLAYER, Opponent=oPPONENT, Match=match, Round=ROUND,
+#                           Tournament=tOURNAMENT, Year=yEAR,
+#                           Set=set, P1_score=p1_score, P2_score=p2_score) %>%
+#    data.frame()
+  
+#  output$set <- DT::renderDataTable({
+    #naredimo poizvedbo
+#    if (input$kje != "All"){
+#      s <- s %>% filter(Tournament == input$kje) %>%
+#        select(-Tournament) %>% data.frame()
+#    }
+#    if (input$eden != "All"){
+#      s <- s %>% filter(Player == input$eden) %>%
+#        data.frame()
+#    }
+#    validate(need(nrow(s)>0, "No data matches the criteria."))
+#    s
+    
+#  })
+  
+#  output$kje <- renderUI({
+#    turnik <- data.frame(tbl.tournament)
+#    selectInput("turnik", "Choose a tournament:",
+#    choices = c("All", setNames(turnik$name, turnik$name)))
+    
+#  })
+#  output$eden <- renderUI({
+#    clovek1 <- data.frame(tbl.player)
+#    selectInput("clovek1", "Choose a player:",
+#                choices = c("All", setNames(clovek1$name, clovek1$name)))
+#  })
+  
+
   
   
   #ZEMLJEVID
