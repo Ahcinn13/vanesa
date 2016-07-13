@@ -339,32 +339,21 @@ shinyServer(function(input, output) {
     }
     out
   })
-  
+
   observeEvent(eventExpr = input$player_link,
                handlerExpr = {
                  values$selectedPlayer <- input$player_link %>%
-                   strapplyc("([0-9]+)") %>% unlist() %>% as.numeric()
+                   strapplyc('([0-9]+)') %>% unlist() %>% as.numeric()
+                 values$dropdownPlayer <- input$tenisac
+                 values$dropdownOpponent <- input$nasprotnik
+                 values$dropdownSeason <- input$toleto
+                 values$dropdownTournament <- input$turnir
                })
+
   observeEvent(eventExpr = input$back,
                handlerExpr = {
                  values$selectedPlayer <- NULL
                })
-  
-  observe({
-    values$dropdownPlayer <- input$tenisac
-  })
-  
-  observe({
-    values$dropdownOpponent <- input$nasprotnik
-  })
-  
-  observe({
-    values$dropdownSeason <- input$toleto
-  })
-  
-  observe({
-    values$dropdownTournament <- input$turnir
-  })
 
 
 
