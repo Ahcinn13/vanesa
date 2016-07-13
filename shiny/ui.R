@@ -16,12 +16,13 @@ shinyUI(fluidPage(
                tags$img(src='header_photo.jpg', height='200px'))),
   tabsetPanel(
     
-    tabPanel("Ranking",
+    tabPanel("Rankings",
+             h2("ATP Rankings"),
              mainPanel(
                DT::dataTableOutput("s"))),
     
 ####################################################################################    
-    tabPanel("Player",
+    tabPanel("Player Statistics",
              h2("Player Statistics"),
              sidebarLayout(
                sidebarPanel(
@@ -38,8 +39,8 @@ shinyUI(fluidPage(
              )
     ),
     
-    tabPanel("Player analysis",
-             h2(" "),
+    tabPanel("Player Analysis",
+             h2("Player Analysis"),
              sidebarLayout(
                
                
@@ -54,7 +55,7 @@ shinyUI(fluidPage(
 
 
 ######################################################################
-    tabPanel("Tournament",
+    tabPanel("Tournament Statistics",
              h2("Tournament Statistics"),
              sidebarLayout(
                sidebarPanel(
@@ -69,8 +70,8 @@ shinyUI(fluidPage(
              )
     ),
 
-    tabPanel("Tournament analysis",
-             h2(" "),
+    tabPanel("Tournament Analysis",
+             h2("Tournament Analysis"),
              sidebarLayout(
                sidebarPanel(
                  uiOutput("trleto"),
