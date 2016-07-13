@@ -9,6 +9,7 @@ library(sp)
 library(leaflet)
 library(gsubfn)
 library(RColorBrewer)
+library(plotrix)
 
 
 if ("server.R" %in% dir()) {
@@ -154,7 +155,8 @@ shinyServer(function(input, output) {
                                             tour$surface)))
   })
   
-  
+#########################################################
+
     #inner_join(tbl.player, tbl.head2head, by = c("player"="name"))#tbl.head2head %>% select(Tournament = tournament) %>% data.frame()
     
     # Tole potrebujemo pri prikazu igralcev, da nam ne prikaže samo dvobojev za par (tenisac, nasprotnik), kjer je tenisac po abecedi pred nasprotnikom,
@@ -193,31 +195,69 @@ shinyServer(function(input, output) {
           #h <- h %>% filter((player==input$tenisac & opponent==input$nasprotnik) | (player==input$nasprotnik & opponent==input$tenisac))
         }
       }
-      h <- h %>% group_by(match, player, opponent, ROUND, TOURNAMENT, YEAR, PLAYER, OPPONENT) %>%
+      g <- h %>% group_by(match, player, opponent, ROUND, TOURNAMENT, YEAR, PLAYER, OPPONENT) %>%
         summarise(RESULT = string_agg(p1_score %||% '-' %||% p2_score, ', ')) %>% data.frame()
-      validate(need(nrow(h)>0, "No data match the criteria."))
-      h <- h[order(h$match),]
-      data.frame(Tournament = h$TOURNAMENT,
-                 Year = h$YEAR,
+      validate(need(nrow(g)>0, "No data match the criteria."))
+      g <- g[order(g$match),]
+      data.frame(Tournament = g$TOURNAMENT,
+                 Year = g$YEAR,
                  #Set = h$set,
                  #Match = h$match,
-                 Round = h$ROUND,
-                 Result = h$RESULT,
+                 Round = g$ROUND,
+                 Result = g$RESULT,
                  #P1_score = h$p1_score,
                  #P2_score = h$p2_score,
                  
-                 Player = apply(h, 1, . %>%
+                 Player = apply(g, 1, . %>%
                                   {actionLink(paste0("player", .["player"]),
                                               .["PLAYER"],
                                               onclick = 'Shiny.onInputChange(\"player_link\",  this.id)')} %>%
                                   as.character()),
-                 Opponent = apply(h, 1, . %>%
+                 Opponent = apply(g, 1, . %>%
                                     {actionLink(paste0("player", .["opponent"]),
                                                 .["OPPONENT"],
                                                 onclick = 'Shiny.onInputChange(\"player_link\",  this.id)')} %>%
                                     as.character()))
   }, escape = FALSE, selection = 'none')
   
+  output$zmage <- renderPlot({
+    s <- tbl.sets
+    
+    if (!is.null(input$turnir) && input$turnir != "All"){
+      s <- s %>% filter(TOURNAMENT == input$turnir)
+    }
+    
+    if (!is.null(input$toleto) && input$toleto != "All"){
+      s <- s %>% filter(YEAR == input$toleto)
+    }
+    
+    if(input$tenisac == input$nasprotnik){
+      st <- as.integer(row.names(h1[h1$id==input$tenisac,]))
+      s <- s %>% filter(player %in% h1[1:st,2]) %>% filter(opponent %in% h1[st:50,2]) %>%
+        filter(!(opponent != input$tenisac & player != input$tenisac))
+      
+      s <- s %>% group_by(match, player, opponent) %>%
+        summarise(st_setov=COUNT(match), st_prvi=SUM( if(player==input$tenisac){if(p1_score>p2_score){1} else{0}} else{if(p1_score<p2_score){1} else{0}} ))
+      wins <- s %>% mutate(zmaga=if(st_prvi>st_setov/2){1} else{0}, grupiranje=10) %>% group_by(grupiranje) %>%
+        summarise(vict=SUM(zmaga), iger=COUNT(zmaga)) %>% select(vict, iger) %>% data.frame()
+      vr <- c(wins$vict, wins$iger-wins$vict)
+      imena <- c(h1$name[h1$id==input$tenisac], 'Ostali')
+      imena <- paste(imena, vr, sep=', ')
+    }
+    else{
+      h3 <- h1[h1$id %in% c(input$tenisac, input$nasprotnik),]
+      s <- s %>% filter(player==h3$id[1]) %>% filter(opponent==h3$id[2])
+      s <- s %>% group_by(match, player, opponent) %>% summarise(st_setov=COUNT(match), st_prvi=SUM( if(p1_score>p2_score){1} else{0} ))
+      wins <- s %>% group_by(player) %>%
+        summarise(vict=SUM( if(st_prvi>st_setov/2){1} else{0} ), iger=COUNT(player)) %>% select(vict, iger) %>% data.frame()
+      vr <- c(wins$vict, wins$iger-wins$vict)
+      imena <- c(h3$name[1], h3$name[2])
+      imena <- paste(imena, vr, sep=', ')
+    }
+    #pie(vr, imena, col=rainbow(length(imena))
+    pie3D(vr, labels=imena, explode=0.1)
+  })
+
   output$tenisac <- renderUI({
     selectInput ("tenisac", "Choose a player:",
                  choices = c(setNames(igralec$id, igralec$name)), # Odstranil '"All" = "All"'
@@ -321,6 +361,7 @@ shinyServer(function(input, output) {
       uiOutput("toleto")
     ),
     mainPanel(
+      plotOutput('zmage'),
       DT::dataTableOutput('head')
     )
   )
