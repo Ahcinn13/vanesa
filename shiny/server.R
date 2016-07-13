@@ -32,17 +32,10 @@ shinyServer(function(input, output) {
     inner_join(tbl.location %>% select(city = city, country, continent))
   
   tbl.head2head <- tbl(conn, "head2head") %>% left_join(tbl.player %>% select(player = id, PLAYER=name)) %>%
-     left_join(tbl.tournament %>% select(tournament = tourn_id, YEAR=year)) %>%
-     left_join(tbl.tournament %>% select(tournament = tourn_id, TOURNAMENT=name)) %>%
+     left_join(tbl.tournament %>% select(tournament = tourn_id, YEAR=year, TOURNAMENT=name)) %>%
      left_join(tbl.player %>% select(opponent = id, OPPONENT=name))
   #tbl.head2head <- tbl.head2head %>% left_join(tbl.tournament %>% select(tournament = tourn_id, name, year))
-  tbl.sets <- tbl(conn, "sets") %>%
-    left_join(tbl.head2head %>% select (match = h2h_id,
-                                        ROUND=round, 
-                                        TOURNAMENT,
-                                        YEAR,
-                                        PLAYER,
-                                        OPPONENT))
+  tbl.sets <- tbl(conn, "sets") %>% left_join(tbl.head2head %>% rename (match = h2h_id, ROUND=round))
   
   
 
@@ -163,36 +156,55 @@ shinyServer(function(input, output) {
   
   
     #inner_join(tbl.player, tbl.head2head, by = c("player"="name"))#tbl.head2head %>% select(Tournament = tournament) %>% data.frame()
-  
     
+    # Tole potrebujemo pri prikazu igralcev, da nam ne prikaže samo dvobojev za par (tenisac, nasprotnik), kjer je tenisac po abecedi pred nasprotnikom,
+    # ker iz nekega razloga uporaba 'ali .. |' v `filter` povzroča same težave in nič več ne deluje pravilno
+    h1 <- tbl.player %>% select(name, id) %>% data.frame()
+    h1 <- h1[order(h1$name),]
+    row.names(h1) <- 1:50   
+ 
     output$head <- DT::renderDataTable({
       #Naredimo poizvedbo
-#      h<-tbl.head2head
-      h <- tbl.sets #%>% select(Player=pLAYER, Opponent=oPPONENT, Match=match, Round=ROUND,
-                    #           tOURNAMENT, yEAR,
-                    #           Set=set, P1_score=p1_score, P2_score=p2_score) %>%
-        #data.frame()
-      if (!is.null(input$tenisac) && input$tenisac != "All"){
-        h <- h %>% filter(player == input$tenisac)
-      }
+      h <- tbl.sets
       if (!is.null(input$turnir) && input$turnir != "All"){
         h <- h %>% filter(TOURNAMENT == input$turnir)
       }
-      if (!is.null(input$toleto) && input$toleto != "All"){
-        h <- h %>% filter(YEAR == input$toleto)
+#       if (!is.null(input$tenisac) && input$tenisac != "All"){
+#         h <- h %>% filter(player == input$tenisac)
+#       }
+       if (!is.null(input$toleto) && input$toleto != "All"){
+         h <- h %>% filter(YEAR == input$toleto)
+       }
+#       if (!is.null(input$nasprotnik) && input$nasprotnik != "All"){
+#         h <- h %>% filter(opponent == input$nasprotnik)
+#       }
+      if(!is.null(input$tenisac) && !is.null(input$nasprotnik)){
+        if(input$tenisac == input$nasprotnik){
+          #h <- h %>% filter(player==input$tenisac | opponent==input$tenisac)
+          st <- as.integer(row.names(h1[h1$id==input$tenisac,]))
+          h <- h %>% filter(player %in% h1[1:st,2]) %>% filter(opponent %in% h1[st:50,2]) %>%
+            filter(!(opponent != input$tenisac & player != input$tenisac))
+          #h <- h %>% filter(opponent %in% h1[st:50,2])
+          #h <- h %>% filter(!(opponent != input$tenisac & player != input$tenisac))
+        }
+        else{
+          h2 <- h1[h1$id %in% c(input$tenisac, input$nasprotnik),]
+          h <- h %>% filter(player==h2$id[1]) %>% filter(opponent==h2$id[2])
+          #h <- h %>% filter((player==input$tenisac & opponent==input$nasprotnik) | (player==input$nasprotnik & opponent==input$tenisac))
+        }
       }
-      if (!is.null(input$nasprotnik) && input$nasprotnik != "All"){
-        h <- h %>% filter(opponent == input$nasprotnik)
-      }
-      h <- h %>% data.frame()
+      h <- h %>% group_by(match, player, opponent, ROUND, TOURNAMENT, YEAR, PLAYER, OPPONENT) %>%
+        summarise(RESULT = string_agg(p1_score %||% '-' %||% p2_score, ', ')) %>% data.frame()
       validate(need(nrow(h)>0, "No data match the criteria."))
+      h <- h[order(h$match),]
       data.frame(Tournament = h$TOURNAMENT,
                  Year = h$YEAR,
-                 Set = h$set,
-                 Match = h$match,
+                 #Set = h$set,
+                 #Match = h$match,
                  Round = h$ROUND,
-                 P1_score = h$p1_score,
-                 P2_score = h$p2_score,
+                 Result = h$RESULT,
+                 #P1_score = h$p1_score,
+                 #P2_score = h$p2_score,
                  
                  Player = apply(h, 1, . %>%
                                   {actionLink(paste0("player", .["player"]),
@@ -208,7 +220,7 @@ shinyServer(function(input, output) {
   
   output$tenisac <- renderUI({
     selectInput ("tenisac", "Choose a player:",
-                 choices = c("All" = "All", setNames(igralec$id, igralec$name)),
+                 choices = c(setNames(igralec$id, igralec$name)), # Odstranil '"All" = "All"'
                  selected = values$dropdownPlayer)
   })
   
@@ -227,7 +239,7 @@ shinyServer(function(input, output) {
   
   output$nasprotnik <- renderUI({
     selectInput("nasprotnik", "Choose an opponent:",
-                choices = c("All" = "All", setNames(igralec$id, igralec$name)),
+                choices = c(setNames(igralec$id, igralec$name)), # Odstranil '"All" = "All"'
                 selected = values$dropdownOpponent)
   })
   
