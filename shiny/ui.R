@@ -90,6 +90,18 @@ shinyUI(fluidPage(
            uiOutput("h2hTitle"),
            uiOutput("head2head")
   ),
+######################################################################
+#tabPanel("Sets",
+#         h2("Sets statistics"),
+#         sidebarLayout(
+#           sidebarPanel(
+#             uiOutput("kje"),
+#             uiOutput("eden")
+#           ),
+#           mainPanel(
+#             DT::dataTableOutput("set")
+#           )
+#         )),
 
 ######################################################################
 
