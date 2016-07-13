@@ -47,7 +47,7 @@ shinyServer(function(input, output) {
   
 
 
-  t <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebrak_Won = tiebreak_w, 
+  t <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebreak_Won = tiebreak_w, 
                                  Tiebreak_Loss = tiebreak_l, Season = season) #%>% data.frame()
 
   igralec <- tbl.player %>% select(id, name) %>% data.frame()
@@ -102,7 +102,7 @@ shinyServer(function(input, output) {
     
   })
   
-  stat1 <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebrak_Won = tiebreak_w, 
+  stat1 <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebreak_Won = tiebreak_w, 
                                  Tiebreak_Loss = tiebreak_l, Season = season) %>% data.frame()
   output$statistike <- renderUI({
     checkboxGroupInput(inputId='izberi_stat', label='Choose statistics:',
@@ -347,4 +347,97 @@ shinyServer(function(input, output) {
   observe({
     values$dropdownTournament <- input$turnir
   })
+
+
+
+
+output$trleto <- renderUI({
+  selectInput("trleto", "Choose a year:",
+              choices=tur$Year,
+              selected=tur$Year %in% c("2016"))
+  
 })
+
+#   tourstat <- tbl.tournament %>% select(c(6,7,8)) %>% data.frame()
+#   output$stati <- renderUI({
+#     selectInput('stati', label='Choose statistics:',
+#                        choices= c(setNames(row.names(t(tourstat)), row.names(t(tourstat)))))
+#   })
+#   stat1 <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebrak_Won = tiebreak_w, 
+
+stat11 <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, Percentage_of_service_points_Won = perc_spw, Aces = aces, Double_faults = dfs, 
+                                   Percentage_of_return_points_won = perc_rpw, Percentage_of_break_point_opportunities_converted = perc_bpoc,  Tiebreak_Won = tiebreak_w, 
+                                   Tiebreak_Loss = tiebreak_l, Season = season) %>% data.frame()
+output$stati <- renderUI({
+  selectInput(inputId='stati', label='Choose statistics:',
+              choices=colnames(stat11)[colnames(stat11) %in% c('Aces', "Won", "Loss", "Percentage_of_service_points_Won", "Double_faults", "Percentage_of_return_points_won", 
+                                                               "Percentage_of_break_point_opportunities_converted", "Tiebreak_Won", "Tiebreak_Loss" )],
+              selected=colnames(stat11)[colnames(stat11) %in% c('Aces')]
+  )
+})
+
+
+output$st <- renderUI({
+  selectInput(inputId='st', label='Choose statistics:',
+              choices=colnames(tur)[colnames(tur) %in% c('Aces_Per_Match',
+                                                         'Points_Per_Match','Games_Per_Match')],
+              selected=colnames(tur)[colnames(tur) %in% c('Aces_Per_Match')]
+  )
+})
+output$statr <- renderPlot({
+  # Naredimo poizvedbo
+  
+
+  validate(need(!is.null(input$trleto), ""))
+  if (input$trleto != "All") {
+    tur <- tur %>% filter(Year == input$trleto)
+    # } else {
+    #stolpci <- c("Name", "Year", stolpci)
+  }
+  
+  
+  ggplot(data.frame(tur), aes_string(x = "Name", y=input$st, color ="Name", fill= "Name"))+ geom_bar(stat = "identity", colour = "black")+theme(
+    axis.text.x = element_blank()) + ylab("") + ggtitle(gsub("_", " ", input$st)) +xlab("Tournaments")
+})
+
+igralci <- data.frame(tbl.player)
+output$ten <- renderUI({
+  selectInput("ten", "Choose a player:",
+              choices = c(igralci$name),
+              selected = igralci$Name %in% c("Novak Djokovic"))
+})
+output$company <- renderPlot({
+  #tab <- tbl.company
+  validate(need(!is.null(input$ten), ""))
+  if (input$ten != "All") {
+    stat11 <- stat11 %>% filter(Name == input$ten)
+  }
+
+  ggplot(data.frame(stat11), aes_string(x = "Season", y =input$stati)) +geom_bar(stat = "identity", 
+                                                                                 fill=c("midnightblue", "royalblue", "lightskyblue1"), colour="black") + theme_minimal()+ ggtitle(gsub("_", " ", input$stati)) +ylab("")
+  })
+
+
+
+})
+# output$sta <- DT::renderDataTable({
+#   # Naredimo poizvedbo
+#   
+#   stolpci <- input$izberi_stat
+#   validate(need(!is.null(input$tenisaci) && !is.null(input$leto), ""))
+#   if (input$tenisaci != "All") {
+#     t <- t %>% filter(name == input$tenisaci) %>% select( -Name) #%>% data.frame()
+#   } else {
+#     stolpci <- c("Name", stolpci)
+#   }
+#   if (input$leto != "All") {
+#     t <- t %>% filter(season == input$leto) %>% select(-Season) #%>% data.frame()
+#   } else {
+#     stolpci <- c(stolpci, "Season")
+#   }
+#   
+#   
+#   t <- t %>% data.frame()
+#   validate(need(nrow(t) > 0, "No attacks match the criteria."))
+#   t[,stolpci]
+# })

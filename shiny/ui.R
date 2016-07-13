@@ -17,8 +17,8 @@ shinyUI(fluidPage(
   tabsetPanel(
     
 ####################################################################################    
-    tabPanel("Players",
-             h2("Players Statistics"),
+    tabPanel("Player",
+             h2("Player Statistics"),
              sidebarLayout(
                sidebarPanel(
                  tags$head(tags$style(type="text/css", "body {background-color: #B5CAB2;}")),
@@ -34,7 +34,19 @@ shinyUI(fluidPage(
              )
     ),
     
-
+    tabPanel("Player analysis",
+             h2(" "),
+             sidebarLayout(
+               
+               
+               
+               sidebarPanel(
+                 uiOutput("ten"),
+                 uiOutput("stati")),
+               mainPanel(
+                 plotOutput("company"))
+             )
+    ),
 
 
 ######################################################################
@@ -52,6 +64,20 @@ shinyUI(fluidPage(
                  )
              )
     ),
+
+    tabPanel("Tournament analysis",
+             h2(" "),
+             sidebarLayout(
+               sidebarPanel(
+                 uiOutput("trleto"),
+                 #uiOutput("ten")
+                 uiOutput("st")
+               ),
+               mainPanel(
+                 
+                 plotOutput("statr")
+                 #plotOutput("company")
+               ))),
 
 
 ######################################################################
@@ -83,5 +109,10 @@ tabPanel("Players by country map",
              leafletOutput("map")
            )
          ))
+###################################################################
+
+
+
+
 )))
 
