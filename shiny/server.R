@@ -62,6 +62,12 @@ shinyServer(function(input, output) {
                            dropdownSeason = NULL,
                            dropdownTournament = NULL)
   
+  
+ output$s <- DT::renderDataTable({
+   tbl.player %>% data.frame() %>% select(-id)
+ }) 
+ 
+ 
   output$sta <- DT::renderDataTable({
     # Naredimo poizvedbo
 

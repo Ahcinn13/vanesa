@@ -16,6 +16,10 @@ shinyUI(fluidPage(
                tags$img(src='header_photo.jpg', height='200px'))),
   tabsetPanel(
     
+    tabPanel("Ranking",
+             mainPanel(
+               DT::dataTableOutput("s"))),
+    
 ####################################################################################    
     tabPanel("Player",
              h2("Player Statistics"),
