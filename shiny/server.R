@@ -254,7 +254,7 @@ shinyServer(function(input, output) {
       imena <- c(h3$name[1], h3$name[2])
       imena <- paste(imena, vr, sep=', ')
     }
-    
+    validate(need(vr[1]>0 & vr[2]>0, "No data match the criteria."))
     #pie(vr, imena, col=rainbow(length(imena))
     pie3D(vr, labels=imena, explode=0)
   })
