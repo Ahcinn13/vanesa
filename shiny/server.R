@@ -80,7 +80,7 @@ shinyServer(function(input, output) {
           
 
     t <- t %>% data.frame()
-    validate(need(nrow(t) > 0, "No attacks match the criteria."))
+    validate(need(nrow(t) > 0, "No data match the criteria."))
     t[,stolpci]
   })
 
@@ -222,7 +222,7 @@ shinyServer(function(input, output) {
   
   output$zmage <- renderPlot({
     s <- tbl.sets
-    
+    validate(need(!is.null(input$tenisac) && !is.null(input$turnir) && !is.null(input$toleto) &&!is.null(input$nasprotnik), ""))
     if (!is.null(input$turnir) && input$turnir != "All"){
       s <- s %>% filter(TOURNAMENT == input$turnir)
     }
@@ -254,8 +254,9 @@ shinyServer(function(input, output) {
       imena <- c(h3$name[1], h3$name[2])
       imena <- paste(imena, vr, sep=', ')
     }
+    
     #pie(vr, imena, col=rainbow(length(imena))
-    pie3D(vr, labels=imena, explode=0.1)
+    pie3D(vr, labels=imena, explode=0)
   })
 
   output$tenisac <- renderUI({
