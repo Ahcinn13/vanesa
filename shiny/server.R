@@ -256,6 +256,7 @@ shinyServer(function(input, output) {
     }
     validate(need(vr[1]>0 & vr[2]>0, "No data match the criteria."))
     #pie(vr, imena, col=rainbow(length(imena))
+    par(bg="transparent")
     pie3D(vr, labels=imena, explode=0)
   })
 
