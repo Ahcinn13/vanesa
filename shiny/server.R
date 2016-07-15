@@ -80,7 +80,15 @@ shinyServer(function(input, output) {
       } else {
         stolpci <- c(stolpci, "Season")
       }
-          
+    
+  output$tekstime <- renderText({
+    if(input$tenisaci == 'All'){
+      'Vsi igralci'
+    }
+    else{
+      input$tenisaci
+    }
+  })
 
     t <- t %>% data.frame()
     validate(need(nrow(t) > 0, "No data match the criteria."))
