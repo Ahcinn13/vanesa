@@ -14,7 +14,7 @@ shinyUI(fluidPage(
   theme = shinytheme("spacelab"),
   titlePanel("Tennis",
              tags$head(
-               tags$img(src='header_photo.jpg', height='200px'))),
+               tags$img(src='header_photo.png', height='200px'))),
   tabsetPanel(
     
     tabPanel("Rankings",
