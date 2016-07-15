@@ -241,7 +241,7 @@ shinyServer(function(input, output) {
       wins <- s %>% mutate(zmaga=if(st_prvi>st_setov/2){1} else{0}, grupiranje=10) %>% group_by(grupiranje) %>%
         summarise(vict=SUM(zmaga), iger=COUNT(zmaga)) %>% select(vict, iger) %>% data.frame()
       vr <- c(wins$vict, wins$iger-wins$vict)
-      imena <- c(h1$name[h1$id==input$tenisac], 'Ostali')
+      imena <- c(h1$name[st], 'Ostali')
       imena <- paste(imena, vr, sep=', ')
     }
     else{
@@ -254,7 +254,7 @@ shinyServer(function(input, output) {
       imena <- c(h3$name[1], h3$name[2])
       imena <- paste(imena, vr, sep=', ')
     }
-    validate(need(vr[1]>0 & vr[2]>0, "No data match the criteria."))
+    validate(need(vr[1]>=0 & vr[2]>=0, "No data match the criteria."))
     #pie(vr, imena, col=rainbow(length(imena))
     par(bg="transparent")
     pie3D(vr, labels=imena, explode=0)
