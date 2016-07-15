@@ -58,7 +58,10 @@ shinyServer(function(input, output) {
   
   
  output$s <- DT::renderDataTable({
-   tbl.player %>% data.frame() %>% select(-id)
+   tbl.player %>% select(-id) %>% data.frame() %>% rename('Name'=name, 'Country'=country,
+                                                          'Ranking Points'=ranking_points, 'Age'=age, 'Height'=height,
+                                                          'Weight'=weight, 'Plays'=plays, 'Backhand'=backhand, 'Turned Pro'=turned_pro,
+                                                          'Career Titles'=career_titles, 'Prize Money Earned'=prize_money_earned, 'Coach'=coach)
  }) 
  
  
@@ -106,7 +109,9 @@ shinyServer(function(input, output) {
                                  Tiebreak_Loss = tiebreak_l, Season = season) %>% data.frame()
   output$statistike <- renderUI({
     checkboxGroupInput(inputId='izberi_stat', label='Choose statistics:',
-                       choices=colnames(stat1)[!colnames(stat1) %in% c('Season', 'Name', 'Player')],
+                       choices=setNames(colnames(stat1)[!colnames(stat1) %in% c('Season', 'Name', 'Player')],
+                                        c('Won', 'Loss', '% Service Points Won', 'Aces', 'Double Faults', '% Return Points Won',
+                                          '% Break Point Opportunities Converted', 'Tiebreaks Won', 'Tiebreaks Lost')),
                        selected=colnames(stat1)[!colnames(stat1) %in% c('Season', 'Name', 'Player')])
   })
   
@@ -323,10 +328,7 @@ shinyServer(function(input, output) {
   
   #ZEMLJEVID
   output$map <- renderLeaflet({
-    HH<- tbl.player %>% select(country, id)
-    HH <- HH %>% group_by (id, region=country) %>%
-      summarise() %>% group_by(region) %>%
-      summarise (stevilo = count(id)) %>% data.frame
+    HH <- tbl.player %>% group_by(region=country) %>% summarise(stevilo = count(id)) %>% data.frame()
     HH$region[5] <- "UK"
     nap <- setNames (HH$stevilo, HH$region) #spravimo st ljudi v poimenovan vektor
     zem <- map("world", regions = HH$region, fill=TRUE, plot=FALSE)
@@ -417,13 +419,15 @@ output$trleto <- renderUI({
 #   })
 #   stat1 <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebrak_Won = tiebreak_w, 
 
-stat11 <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, Percentage_of_service_points_Won = perc_spw, Aces = aces, Double_faults = dfs, 
-                                   Percentage_of_return_points_won = perc_rpw, Percentage_of_break_point_opportunities_converted = perc_bpoc,  Tiebreak_Won = tiebreak_w, 
-                                   Tiebreak_Loss = tiebreak_l, Season = season) %>% data.frame()
+stat11 <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, Percentage_of_service_points_won = perc_spw, Aces = aces, Double_faults = dfs, 
+                                   Percentage_of_return_points_won = perc_rpw, Percentage_of_break_point_opportunities_converted = perc_bpoc,  Tiebreaks_Won = tiebreak_w, 
+                                   Tiebreaks_Lost = tiebreak_l, Season = season) %>% data.frame()
 output$stati <- renderUI({
   selectInput(inputId='stati', label='Choose statistics:',
-              choices=colnames(stat11)[colnames(stat11) %in% c('Aces', "Won", "Loss", "Percentage_of_service_points_Won", "Double_faults", "Percentage_of_return_points_won", 
-                                                               "Percentage_of_break_point_opportunities_converted", "Tiebreak_Won", "Tiebreak_Loss" )],
+              choices=setNames(colnames(stat11)[colnames(stat11) %in% c('Aces', "Won", "Loss", "Percentage_of_service_points_won", "Double_faults", "Percentage_of_return_points_won", 
+                                                               "Percentage_of_break_point_opportunities_converted", "Tiebreaks_Won", "Tiebreaks_Lost" )],
+                               c('Won', 'Loss', '% Service Points Won', 'Aces', 'Double Faults', '% Return Points Won',
+                                 '% Break Point Opportunities Converted', 'Tiebreaks Won', 'Tiebreaks Lost')),
               selected=colnames(stat11)[colnames(stat11) %in% c('Aces')]
   )
 })
