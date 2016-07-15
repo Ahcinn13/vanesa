@@ -190,6 +190,9 @@ shinyServer(function(input, output) {
        if (!is.null(input$toleto) && input$toleto != "All"){
          h <- h %>% filter(YEAR == input$toleto)
        }
+      if(!is.null(input$runda) && input$runda != 'All'){
+        h <- h %>% filter(ROUND == input$runda)
+      }
 #       if (!is.null(input$nasprotnik) && input$nasprotnik != "All"){
 #         h <- h %>% filter(opponent == input$nasprotnik)
 #       }
@@ -244,6 +247,10 @@ shinyServer(function(input, output) {
       s <- s %>% filter(YEAR == input$toleto)
     }
     
+    if(!is.null(input$runda) && input$runda != 'All'){
+      s <- s %>% filter(ROUND == input$runda)
+    }
+    
     if(input$tenisac == input$nasprotnik){
       st <- as.integer(row.names(h1[h1$id==input$tenisac,]))
       s <- s %>% filter(player %in% h1[1:st,2]) %>% filter(opponent %in% h1[st:50,2]) %>%
@@ -296,6 +303,14 @@ shinyServer(function(input, output) {
     selectInput("nasprotnik", "Choose an opponent:",
                 choices = c(setNames(igralec$id, igralec$name)), # Odstranil '"All" = "All"'
                 selected = values$dropdownOpponent)
+  })
+
+  output$runda <- renderUI({
+    selectInput('runda', 'Choose a round:',
+                choices = setNames(c('All', 'F', 'S', 'Q', 'R16', 'R32', 'R64', 'R128', 'RR'),
+                                   c('All','Final', 'Semi-Finals', 'Quarter-Finals', 'Round of 16', 'Round of 32',
+                                     'Round of 64', 'Round of 128', 'Round-Robin')),
+                selected = values$dropdownRound)
   })
   
   #Probavam sete
@@ -372,7 +387,8 @@ shinyServer(function(input, output) {
       uiOutput("tenisac"),
       uiOutput("nasprotnik"),
       uiOutput("turnir"),
-      uiOutput("toleto")
+      uiOutput("toleto"),
+      uiOutput("runda")
     ),
     mainPanel(
       plotOutput('zmage'),
@@ -403,6 +419,7 @@ shinyServer(function(input, output) {
                  values$dropdownOpponent <- input$nasprotnik
                  values$dropdownSeason <- input$toleto
                  values$dropdownTournament <- input$turnir
+                 values$dropdownRound <- input$runda
                })
 
   observeEvent(eventExpr = input$back,
