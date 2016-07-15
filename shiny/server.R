@@ -124,12 +124,13 @@ shinyServer(function(input, output) {
   })
   
   
-  tur <- tbl.tournament %>% select(Name=name, Year=year, Surface=surface, Category=category, Aces_Per_Match=apm,
-                                   Points_Per_Match=ppm, Games_Per_Match=gpm, City=city, Country=country,
+  tur <- tbl.tournament %>% select(Name=name, Year=year, Surface=surface, Category=category, Aces_per_Match=apm,
+                                   Points_per_Match=ppm, Games_per_Match=gpm, City=city, Country=country,
                                    Continent=continent) %>% data.frame()
   
   output$sta_tour <- DT::renderDataTable({
-    # Naredimo poizvedbo    
+    # Naredimo poizvedbo 
+    validate(need(!is.null(input$leto_t) && !is.null(input$turn) && !is.null(input$podlaga), ""))
           if (input$leto_t != "All") {
             tur <- tur %>% filter(Year == input$leto_t) %>% select(-Year) %>% data.frame()
           }
@@ -460,8 +461,11 @@ output$stati <- renderUI({
 
 output$st <- renderUI({
   selectInput(inputId='st', label='Choose statistics:',
-              choices=colnames(tur)[colnames(tur) %in% c('Aces_Per_Match',
-                                                         'Points_Per_Match','Games_Per_Match')],
+              choices=setNames(colnames(tur)[colnames(tur) %in% c('Aces_per_Match',
+                                                         'Points_per_Match','Games_per_Match')],
+                               c('Aces per Match',
+                                 'Points per Match','Games per Match')),
+                               
               selected=colnames(tur)[colnames(tur) %in% c('Aces_Per_Match')]
   )
 })
