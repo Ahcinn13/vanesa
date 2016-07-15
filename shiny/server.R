@@ -68,34 +68,34 @@ shinyServer(function(input, output) {
   output$sta <- DT::renderDataTable({
     # Naredimo poizvedbo
 
-    stolpci <- input$izberi_stat
+    stolpci <- c('Name', 'Season', input$izberi_stat)
     validate(need(!is.null(input$tenisaci) && !is.null(input$leto), ""))
       if (input$tenisaci != "All") {
-        t <- t %>% filter(name == input$tenisaci) %>% select( -Name) #%>% data.frame()
-      } else {
-        stolpci <- c("Name", stolpci)
-      }
+        t <- t %>% filter(name == input$tenisaci) #%>% select( -Name) #%>% data.frame()
+      } #else {
+        #stolpci <- c("Name", stolpci)
+      #}
       if (input$leto != "All") {
-        t <- t %>% filter(season == input$leto) %>% select(-Season) #%>% data.frame()
-      } else {
-        stolpci <- c(stolpci, "Season")
-      }
-    
-  output$tekstime <- renderText({
-    if(input$tenisaci == 'All'){
-      'Vsi igralci'
-    }
-    else{
-      input$tenisaci
-    }
-  })
+        t <- t %>% filter(season == input$leto) #%>% select(-Season) #%>% data.frame()
+      }# else {
+        #stolpci <- c(stolpci, "Season")
+      #}
 
     t <- t %>% data.frame()
     validate(need(nrow(t) > 0, "No data match the criteria."))
     t[,stolpci]
   })
 
-  
+#  output$tekstime <- renderText({
+#    if(!is.null(input$tenisaci) && input$tenisaci == 'All'){
+#      'Vsi igralci'
+#    }
+#    else{
+#      if(!is.null(input$tenisaci)){
+#       input$tenisaci
+#      }
+#    }
+#  })
   
   output$tenisaci <- renderUI({
     igralci <- data.frame(tbl.player)
