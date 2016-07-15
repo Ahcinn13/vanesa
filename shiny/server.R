@@ -327,9 +327,11 @@ shinyServer(function(input, output) {
     HH <- HH %>% group_by (id, region=country) %>%
       summarise() %>% group_by(region) %>%
       summarise (stevilo = count(id)) %>% data.frame
+    HH$region[5] <- "UK"
     nap <- setNames (HH$stevilo, HH$region) #spravimo st ljudi v poimenovan vektor
     zem <- map("world", regions = HH$region, fill=TRUE, plot=FALSE)
     imena <- zem$names
+    imena <- zem$names %>% strapplyc("^([^:]+)") %>% unlist()
     igralci <- nap[imena]
     popup <- paste0("<b>", imena, "</b><br /><i> Number of players </i>:", igralci)
     df <- ecdf(nap)
