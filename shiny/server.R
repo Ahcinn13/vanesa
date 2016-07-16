@@ -70,12 +70,12 @@ shinyServer(function(input, output) {
     stolpci <- c('Name', 'Season', input$izberi_stat)
     validate(need(!is.null(input$tenisaci) && !is.null(input$leto), ""))
       if (input$tenisaci != "All") {
-        t <- t %>% filter(name == input$tenisaci) #%>% select( -Name) #%>% data.frame()
+        t <- t %>% filter(Name == input$tenisaci) #%>% select( -Name) #%>% data.frame()
       } #else {
         #stolpci <- c("Name", stolpci)
       #}
       if (input$leto != "All") {
-        t <- t %>% filter(season == input$leto) #%>% select(-Season) #%>% data.frame()
+        t <- t %>% filter(Season == input$leto) #%>% select(-Season) #%>% data.frame()
       }# else {
         #stolpci <- c(stolpci, "Season")
       #}
