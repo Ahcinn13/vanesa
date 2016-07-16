@@ -211,9 +211,11 @@ shinyServer(function(input, output) {
           #h <- h %>% filter((player==input$tenisac & opponent==input$nasprotnik) | (player==input$nasprotnik & opponent==input$tenisac))
         }
       }
+      vrstice <- h %>% summarise(n()) %>% data.frame() %>% .[1,1]
+      validate(need(vrstice > 0, 'No data match the criteria.'))
       h <- h %>% group_by(match, player, opponent, ROUND, TOURNAMENT, YEAR, PLAYER, OPPONENT) %>%
         summarise(RESULT = string_agg(p1_score %||% '-' %||% p2_score, ', ')) %>% data.frame()
-      validate(need(nrow(h)>0, "No data match the criteria."))
+      validate(need(nrow(h)>0, "No data match the criteria.")) # To zdaj ne vem, če še sploh rabimo?
       h <- h[order(h$match),]
       data.frame(Tournament = h$TOURNAMENT,
                  Year = h$YEAR,
