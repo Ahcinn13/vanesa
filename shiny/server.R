@@ -401,10 +401,19 @@ shinyServer(function(input, output) {
       uiOutput("runda")
     ),
     mainPanel(
-      plotOutput('zmage'),
-      DT::dataTableOutput('head')
+      fluidRow(
+        column(6, plotOutput('zmage')),
+        column(6, DT::dataTableOutput('mini'))
+      ),
+      fluidRow(
+        DT::dataTableOutput('head')
+      )
     )
   )
+
+  output$mini <- DT::renderDataTable({
+    data.frame(Ime=c('A', 'B'), Igre=c(1, 2))
+  })
   
   playerPanel <- mainPanel(
     actionButton("back", "Back"),
