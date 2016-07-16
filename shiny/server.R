@@ -284,31 +284,33 @@ shinyServer(function(input, output) {
     if(!is.null(input$runda) && input$runda != 'All'){
       s <- s %>% filter(ROUND == input$runda)
     }
-    
-    if(input$tenisac == input$nasprotnik){
-      st <- as.integer(row.names(h1[h1$id==input$tenisac,]))
-      s <- s %>% filter(player %in% h1[1:st,2]) %>% filter(opponent %in% h1[st:50,2]) %>%
-        filter(!(opponent != input$tenisac & player != input$tenisac))
-      
-      s <- s %>% group_by(match, player, opponent) %>%
-        summarise(st_setov=COUNT(match), st_prvi=SUM( if(player==input$tenisac){if(p1_score>p2_score){1} else{0}} else{if(p1_score<p2_score){1} else{0}} ))
-      wins <- s %>% mutate(zmaga=if(st_prvi>st_setov/2){1} else{0}, grupiranje=10) %>% group_by(grupiranje) %>%
-        summarise(vict=SUM(zmaga), iger=COUNT(zmaga)) %>% select(vict, iger) %>% data.frame()
-      vr <- c(wins$vict, wins$iger-wins$vict)
-      imena <- c(h1$name[st], 'Ostali')
-      imena <- paste(imena, vr, sep=', ')
+    if(!is.null(input$tenisac) && !is.null(input$nasprotnik)){
+      if(input$tenisac == input$nasprotnik){
+        st <- as.integer(row.names(h1[h1$id==input$tenisac,]))
+        s <- s %>% filter(player %in% h1[1:st,2]) %>% filter(opponent %in% h1[st:50,2]) %>%
+          filter(!(opponent != input$tenisac & player != input$tenisac))
+        
+        s <- s %>% group_by(match, player, opponent) %>%
+          summarise(st_setov=COUNT(match), st_prvi=SUM( if(player==input$tenisac){if(p1_score>p2_score){1} else{0}} else{if(p1_score<p2_score){1} else{0}} ))
+        wins <- s %>% mutate(zmaga=if(st_prvi>st_setov/2){1} else{0}, grupiranje=10) %>% group_by(grupiranje) %>%
+          summarise(vict=SUM(zmaga), iger=COUNT(zmaga)) %>% select(vict, iger) %>% data.frame()
+        vr <- c(wins$vict, wins$iger-wins$vict)
+        imena <- c(h1$name[st], 'Ostali')
+        imena <- paste(imena, vr, sep=', ')
+      }
+      else{
+        h3 <- h1[h1$id %in% c(input$tenisac, input$nasprotnik),]
+        s <- s %>% filter(player==h3$id[1]) %>% filter(opponent==h3$id[2])
+        s <- s %>% group_by(match, player, opponent) %>% summarise(st_setov=COUNT(match), st_prvi=SUM( if(p1_score>p2_score){1} else{0} ))
+        wins <- s %>% group_by(player) %>%
+          summarise(vict=SUM( if(st_prvi>st_setov/2){1} else{0} ), iger=COUNT(player)) %>% select(vict, iger) %>% data.frame()
+        vr <- c(wins$vict, wins$iger-wins$vict)
+        imena <- c(h3$name[1], h3$name[2])
+        imena <- paste(imena, vr, sep=', ')
+      }
     }
-    else{
-      h3 <- h1[h1$id %in% c(input$tenisac, input$nasprotnik),]
-      s <- s %>% filter(player==h3$id[1]) %>% filter(opponent==h3$id[2])
-      s <- s %>% group_by(match, player, opponent) %>% summarise(st_setov=COUNT(match), st_prvi=SUM( if(p1_score>p2_score){1} else{0} ))
-      wins <- s %>% group_by(player) %>%
-        summarise(vict=SUM( if(st_prvi>st_setov/2){1} else{0} ), iger=COUNT(player)) %>% select(vict, iger) %>% data.frame()
-      vr <- c(wins$vict, wins$iger-wins$vict)
-      imena <- c(h3$name[1], h3$name[2])
-      imena <- paste(imena, vr, sep=', ')
-    }
-    validate(need(vr[1]>=0 & vr[2]>=0, "No data match the criteria."))
+    validate(need(length(vr)==2, 'To se ne bi smelo zgoditi!'))
+    validate(need(vr[1]>=0 && vr[2]>=0, "No data match the criteria."))
     #pie(vr, imena, col=rainbow(length(imena))
     par(bg="transparent")
     pie3D(vr, labels=imena, explode=0)
