@@ -212,10 +212,10 @@ shinyServer(function(input, output) {
         }
       }
       vrstice <- h %>% summarise(n()) %>% data.frame() %>% .[1,1]
-      validate(need(vrstice > 0, 'No data match the criteria.'))
+      validate(need(vrstice > 0, ''))
       h <- h %>% group_by(match, player, opponent, ROUND, TOURNAMENT, YEAR, PLAYER, OPPONENT) %>%
         summarise(RESULT = string_agg(p1_score %||% '-' %||% p2_score, ', ')) %>% data.frame()
-      validate(need(nrow(h)>0, "No data match the criteria.")) # To zdaj ne vem, če še sploh rabimo?
+      validate(need(nrow(h)>0, "")) # To zdaj ne vem, če še sploh rabimo?
       h <- h[order(h$match),]
       data.frame(Tournament = h$TOURNAMENT,
                  Year = h$YEAR,
@@ -240,6 +240,7 @@ shinyServer(function(input, output) {
   
   output$mini <- DT::renderDataTable({
     mn <- tbl.sets
+    imena_v <- c()
     if (!is.null(input$turnir) && input$turnir != "All"){
       mn <- mn %>% filter(TOURNAMENT == input$turnir)
     }
@@ -251,24 +252,51 @@ shinyServer(function(input, output) {
     }
     if (!is.null(input$tenisac) && !is.null(input$nasprotnik)){
       if (input$tenisac == input$nasprotnik){
-        mn <- mn
+        st <- as.integer(row.names(h1[h1$id==input$tenisac,]))
+        mn <- mn %>% filter(player %in% h1[1:st,2]) %>% filter(opponent %in% h1[st:50,2]) %>%
+          filter(!(opponent != input$tenisac & player != input$tenisac)) %>% mutate(grupiraj=1)
+        
+        igre_set <- mn %>% group_by(grupiraj) %>%
+          summarise(st1=SUM(if(player==input$tenisac){p1_score} else{p2_score}),
+                    st2=SUM(if(player==input$tenisac){p2_score} else{p1_score}), sts=COUNT(set)) %>%
+          summarise(p1g=sum(st1)/sum(sts), p2g=sum(st2)/sum(sts), skupaj=(sum(st1)+sum(st2))/sum(sts)) %>%
+          data.frame() %>% t()
+        
+        set_match <- mn %>% group_by(grupiraj) %>%
+          summarise(st1=SUM(if(player==input$tenisac){if(p1_score>p2_score){1} else{0}} else{if(p1_score<p2_score){1} else{0}}),
+                    st2=SUM(if(player==input$tenisac){if(p1_score<p2_score){1} else{0}} else{if(p1_score>p2_score){1} else{0}}),
+                    sts=n_distinct(match)) %>%
+          summarise(p1g=sum(st1)/sum(sts), p2g=sum(st2)/sum(sts), skupaj=(sum(st1)+sum(st2))/sum(sts)) %>%
+          data.frame() %>% t()
+        
+        krog <- mn %>% group_by(ROUND) %>% summarise(st=count(ROUND)) %>% arrange(desc(st)) %>% data.frame() %>% .[1,1]
+        imena_v <- c(h1$name[h1$id==input$tenisac], 'Ostali', 'Skupaj')
       }
       else{
         h4 <- h1[h1$id %in% c(input$tenisac, input$nasprotnik),]
         mn <- mn %>% filter(player==h4$id[1]) %>% filter(opponent==h4$id[2])
+        
+        vrstice <- mn %>% summarise(n()) %>% data.frame() %>% .[1,1]
+        validate(need(vrstice > 0, ''))
+        
         igre_set <- mn %>% group_by(player) %>% summarise(st1=sum(p1_score), st2=sum(p2_score), sts=count(set)) %>%
           summarise(p1g=sum(st1)/sum(sts), p2g=sum(st2)/sum(sts), skupaj=(sum(st1)+sum(st2))/sum(sts)) %>%
           data.frame() %>% t()
+        
         set_match <- mn %>% group_by(player) %>%
           summarise(st1=SUM(if(p1_score>p2_score){1} else{0}), st2=SUM(if(p1_score<p2_score){1} else{0}), sts=n_distinct(match)) %>%
           summarise(p1g=sum(st1)/sum(sts), p2g=sum(st2)/sum(sts), skupaj=(sum(st1)+sum(st2))/sum(sts)) %>%
           data.frame() %>% t()
+        
         krog <- mn %>% group_by(ROUND) %>% summarise(st=count(ROUND)) %>% arrange(desc(st)) %>% data.frame() %>% .[1,1]
-        tabela <- data.frame(igre=igre_set[,1], seti=set_match[,1], krog)
-        row.names(tabela) <- NULL
-        colnames(tabela) <- c('Games Won per Set', 'Sets Won per Match', 'Most Common Round')
+        imena_v <- c(h4$name[1], h4$name[2], 'Skupaj')
       }
     }
+    validate(need(length(imena_v)==3, ''))
+    tabela <- data.frame(imena_v, igre=igre_set[,1], seti=set_match[,1], krog)
+    row.names(tabela) <- NULL
+    colnames(tabela) <- c('', 'Games Won per Set', 'Sets Won per Match', 'Most Common Round')
+    validate(need(nrow(tabela)>0, ""))
     tabela
   })
 
@@ -389,7 +417,7 @@ shinyServer(function(input, output) {
   
   #ZEMLJEVID
   output$map <- renderLeaflet({
-    HH <- tbl.player %>% group_by(region=country) %>% summarise(stevilo = count(id)) %>% data.frame()
+    HH <- tbl.player %>% group_by(country) %>% summarise(stevilo = count(id)) %>% rename(region=country) %>% data.frame()
     HH$region[5] <- "UK"
     nap <- setNames (HH$stevilo, HH$region) #spravimo st ljudi v poimenovan vektor
     zem <- map("world", regions = HH$region, fill=TRUE, plot=FALSE)
