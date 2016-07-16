@@ -212,25 +212,25 @@ shinyServer(function(input, output) {
           #h <- h %>% filter((player==input$tenisac & opponent==input$nasprotnik) | (player==input$nasprotnik & opponent==input$tenisac))
         }
       }
-      g <- h %>% group_by(match, player, opponent, ROUND, TOURNAMENT, YEAR, PLAYER, OPPONENT) %>%
+      h <- h %>% group_by(match, player, opponent, ROUND, TOURNAMENT, YEAR, PLAYER, OPPONENT) %>%
         summarise(RESULT = string_agg(p1_score %||% '-' %||% p2_score, ', ')) %>% data.frame()
-      validate(need(nrow(g)>0, "No data match the criteria."))
-      g <- g[order(g$match),]
-      data.frame(Tournament = g$TOURNAMENT,
-                 Year = g$YEAR,
+      validate(need(nrow(h)>0, "No data match the criteria."))
+      h <- h[order(h$match),]
+      data.frame(Tournament = h$TOURNAMENT,
+                 Year = h$YEAR,
                  #Set = h$set,
                  #Match = h$match,
-                 Round = g$ROUND,
-                 Result = g$RESULT,
+                 Round = h$ROUND,
+                 Result = h$RESULT,
                  #P1_score = h$p1_score,
                  #P2_score = h$p2_score,
                  
-                 Player = apply(g, 1, . %>%
+                 Player = apply(h, 1, . %>%
                                   {actionLink(paste0("player", .["player"]),
                                               .["PLAYER"],
                                               onclick = 'Shiny.onInputChange(\"player_link\",  this.id)')} %>%
                                   as.character()),
-                 Opponent = apply(g, 1, . %>%
+                 Opponent = apply(h, 1, . %>%
                                     {actionLink(paste0("player", .["opponent"]),
                                                 .["OPPONENT"],
                                                 onclick = 'Shiny.onInputChange(\"player_link\",  this.id)')} %>%
@@ -377,10 +377,19 @@ shinyServer(function(input, output) {
     }
     h2(name)
   })
+
+  output$playerinfo <- DT::renderDataTable({
+    validate(need(!is.null(values$selectedPlayer), ""))
+    tbl.player %>% filter(id == values$selectedPlayer) %>% select(-name) %>% data.frame() %>%
+      select('Rank'=id, 'Ranking Points'=ranking_points, 'Country'=country, 'Age'=age, 'Height'=height, 'Plays'=plays,
+             'Backhand'=backhand, 'Turned Pro'=turned_pro, 'Career Titles'=career_titles, 'Prize Money Earned'=prize_money_earned, 'Coach'=coach)
+  })
   
   output$playerstats <- DT::renderDataTable({
     validate(need(!is.null(values$selectedPlayer), ""))
-    tbl.statistics %>% filter(player == values$selectedPlayer) %>% data.frame()
+    tbl.statistics %>% filter(player == values$selectedPlayer) %>% select(-c(player, name)) %>% data.frame() %>%
+      select('Won'=won, 'Lost'=loss, '% SPW'=perc_spw, 'Aces'=aces, 'Double Faults'=dfs, '% RPW'=perc_rpw, '% BPOC'=perc_bpoc,
+             'Tiebreaks Won'=tiebreak_w, 'Tiebreaks Lost'=tiebreak_l, 'Season'=season)
   })
   
   h2hPanel <- sidebarLayout(
@@ -399,6 +408,7 @@ shinyServer(function(input, output) {
   
   playerPanel <- mainPanel(
     actionButton("back", "Back"),
+    DT::dataTableOutput("playerinfo"),
     DT::dataTableOutput("playerstats")
     # tukaj dodajte še ostale elemente, ki jih želite prikazati
     )
