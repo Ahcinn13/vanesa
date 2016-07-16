@@ -38,7 +38,6 @@ shinyServer(function(input, output) {
   #tbl.head2head <- tbl.head2head %>% left_join(tbl.tournament %>% select(tournament = tourn_id, name, year))
   tbl.sets <- tbl(conn, "sets") %>% left_join(tbl.head2head %>% rename (match = h2h_id, ROUND=round))
   
-  
 
 
   t <- tbl.statistics %>% select(Name=name, Won = won, Loss = loss, SPW = perc_spw, Aces = aces, DFS = dfs, RPW = perc_rpw, BPOC = perc_bpoc,  Tiebreak_Won = tiebreak_w, 
@@ -237,6 +236,40 @@ shinyServer(function(input, output) {
                                     as.character()))
   }, escape = FALSE, selection = 'none')
   
+  output$mini <- DT::renderDataTable({
+    mn <- tbl.sets
+    if (!is.null(input$turnir) && input$turnir != "All"){
+      mn <- mn %>% filter(TOURNAMENT == input$turnir)
+    }
+    if (!is.null(input$toleto) && input$toleto != "All"){
+      mn <- mn %>% filter(YEAR == input$toleto)
+    }
+    if(!is.null(input$runda) && input$runda != 'All'){
+      mn <- mn %>% filter(ROUND == input$runda)
+    }
+    if (!is.null(input$tenisac) && !is.null(input$nasprotnik)){
+      if (input$tenisac == input$nasprotnik){
+        mn <- mn
+      }
+      else{
+        h4 <- h1[h1$id %in% c(input$tenisac, input$nasprotnik),]
+        mn <- mn %>% filter(player==h4$id[1]) %>% filter(opponent==h4$id[2])
+        igre_set <- mn %>% group_by(player) %>% summarise(st1=sum(p1_score), st2=sum(p2_score), sts=count(set)) %>%
+          summarise(p1g=sum(st1)/sum(sts), p2g=sum(st2)/sum(sts), skupaj=(sum(st1)+sum(st2))/sum(sts)) %>%
+          data.frame() %>% t()
+        set_match <- mn %>% group_by(player) %>%
+          summarise(st1=SUM(if(p1_score>p2_score){1} else{0}), st2=SUM(if(p1_score<p2_score){1} else{0}), sts=n_distinct(match)) %>%
+          summarise(p1g=sum(st1)/sum(sts), p2g=sum(st2)/sum(sts), skupaj=(sum(st1)+sum(st2))/sum(sts)) %>%
+          data.frame() %>% t()
+        krog <- mn %>% group_by(ROUND) %>% summarise(st=count(ROUND)) %>% arrange(desc(st)) %>% data.frame() %>% .[1,1]
+        tabela <- data.frame(igre=igre_set[,1], seti=set_match[,1], krog)
+        row.names(tabela) <- NULL
+        colnames(tabela) <- c('Games Won per Set', 'Sets Won per Match', 'Most Common Round')
+      }
+    }
+    tabela
+  })
+
   output$zmage <- renderPlot({
     s <- tbl.sets
     validate(need(!is.null(input$tenisac) && !is.null(input$turnir) && !is.null(input$toleto) &&!is.null(input$nasprotnik), ""))
@@ -411,9 +444,6 @@ shinyServer(function(input, output) {
     )
   )
 
-  output$mini <- DT::renderDataTable({
-    data.frame(Ime=c('A', 'B'), Igre=c(1, 2))
-  })
   
   playerPanel <- mainPanel(
     actionButton("back", "Back"),
