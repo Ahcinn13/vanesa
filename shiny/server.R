@@ -309,9 +309,9 @@ shinyServer(function(input, output) {
         imena <- paste(imena, vr, sep=', ')
       }
     }
-    validate(need(length(vr)==2, 'To se ne bi smelo zgoditi!'))
     validate(need(vr[1]>=0 && vr[2]>=0, "No data match the criteria."))
-    #pie(vr, imena, col=rainbow(length(imena))
+    vr[vr==0] <- 1/10000
+    #pie(vr, imena, col=rainbow(length(imena)))
     par(bg="transparent")
     pie3D(vr, labels=imena, explode=0)
   })
